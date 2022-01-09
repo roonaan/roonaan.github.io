@@ -28,4 +28,4 @@ const http = {
   }
 }
 
-document.body.addEventListener('onload', start);
+window.addEventListener('load', start);
