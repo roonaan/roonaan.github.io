@@ -8,6 +8,19 @@ function start(rootNode) {
 
 function enhance(rootNode) {
   rootNode.style.border = "solid 1px green";
+  onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange)
+}
+
+function onEvent(nodes, event, handler) {
+  for(int i = 0, c = nodes.length; i < c; i++) {
+    nodes[i].addEventListener(event, handler);
+  }
+}
+
+function onPageChange(event) {
+  const node = event.target;
+  const page = node.getAttribute('data-page');
+  loadPage(document.getElementById('main'), page);
 }
 
 function loadPage(node, pagina) { 
