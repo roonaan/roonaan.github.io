@@ -18,6 +18,10 @@ body {
   height: 1200px;
   background: white;
 }
+.full-screen {
+  height: 100%;
+  width: 100%;
+}
 .poppetje {
   background: url('plaatje.png') no-repeat 50% 50%;
   width: 200px;
