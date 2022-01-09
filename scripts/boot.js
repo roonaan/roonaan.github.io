@@ -31,6 +31,7 @@ function widget(node, module) {
       setTimeout(function() {
         widget(node, module);
       }, 100);
+      return;
   }
   const script = document.createElement('script');
   script.type = "text/javascript";
