@@ -104,7 +104,7 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
           while (acties.length > 0) {
             const actie = acties.shift();
             if (actie.startsWith('krijg:')) {
-                notificatie("Je ontvang een " + actie.substring(6));
+                notificatie("Je ontvangt een " + actie.substring(6) + " super mega extra gratis");
             } else if (actie.startsWith('naar:')) {
                 loadPage(document.getElementById('main'), actie.substring(5));
             } else {
