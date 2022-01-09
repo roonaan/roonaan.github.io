@@ -25,7 +25,8 @@ Dialoog.prototype.parse = function(text) {
 }
 Dialoog.prototype.volgendeStap = function() {
    if (this.stappen.length === 0) {
-      this.innerHTML = "Oeps er is iets mis gegaan";
+      this.innerHTML = '<div class="fout">Oeps er is iets mis gegaan</div>';
+      return;
    }
    const regel = this.stappen.shift();
    if (/^\w+\.(kant|class)=.*$/) {
