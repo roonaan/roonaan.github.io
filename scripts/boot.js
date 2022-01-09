@@ -12,7 +12,7 @@ function enhance(rootNode) {
 }
 
 function onEvent(nodes, event, handler) {
-  for(int i = 0, c = nodes.length; i < c; i++) {
+  for(var i = 0, c = nodes.length; i < c; i++) {
     nodes[i].addEventListener(event, handler);
   }
 }
