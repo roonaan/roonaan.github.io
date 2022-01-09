@@ -32,7 +32,7 @@ Dialoog.prototype.volgendeStap = function() {
       return;
    }
    const regel = this.stappen.shift();
-   if (/^\w+\.(kant|class)=.*$/) {
+   if (/^\w+\.(kant|class)=.*$/.test(regel)) {
      console.log('Property definition', regel);
      const parts = regel.split("=");
      const items = parts[0].split(".");
@@ -44,13 +44,13 @@ Dialoog.prototype.volgendeStap = function() {
      }
      this.personen[persoon][prop] = value;
      this.volgendeStap();
-   } else if (/^\w+\.praat=/) {
+   } else if (/^\w+\.praat=/.test(regel)) {
      const parts = regel.split(".praat=");
      const persoon = parts.shift();
      const bericht=parts.join(" ");
      console.log('Iemand praat', { persoon, bericht });
      this.toonBericht(persoon, bericht);
-   } else if (/^\w+\.vraag=/) { 
+   } else if (/^\w+\.vraag=/.test(regel)) { 
      const parts = regel.split(".vraag=");
      const persoon = parts.shift();
      const bericht=parts.join(" ");
