@@ -24,7 +24,7 @@ function widgets(nodes, module) {
 }
 function getModule(module, callback) {
   if (module in window) {
-      callback(module);
+      callback(window[module]);
   }
   const scriptId = "extra-module-" + module;
   if (document.getElementById(scriptId)) {
