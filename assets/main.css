@@ -27,6 +27,16 @@ body {
   width: 200px;
   height: 200px;
 }
+.poppetje2 {
+  background: url('plaatje2.png') no-repeat 50% 50%;
+  width: 200px;
+  height: 200px;
+}
+.beestje {
+  background: url('beest.png') no-repeat 50% 50%;
+  width: 200px;
+  height: 200px;
+}
 
 #notificaties {
   position: fixed;
