@@ -21,7 +21,7 @@ function loadPage(node, pagina) {
 const http = {
   get: function(url, onload) {
     var client = new XMLHttpRequest();
-    client.open('GET', onload);
+    client.open('GET', url);
     client.onreadystatechange = function() {
       onload(client.responseText);
     }
