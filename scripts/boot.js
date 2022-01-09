@@ -75,4 +75,24 @@ const http = {
   }
 }
 
+function notificatie(tekst) {
+    const div = document.createElement('div');
+    div.className = 'bericht';
+    div.innerText = tekst;
+    const close = document.createElement('button');
+    close.type = 'button';  
+    close.innerText = '[sluit]';
+    close.className = 'sluit';
+    close.addEventListener('click', function() {
+      div.parent.removeChild(div);
+    });
+    setTimeout(function() {
+      if (div.parent) {
+        div.parent.removeChild(div);
+      }
+    }, 10000); // Sluiten na 10 s
+    document.getElementById('notificaties').appendChild(div);
+    
+}
+
 window.addEventListener('load', function() { start() } );
