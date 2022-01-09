@@ -1,4 +1,4 @@
-const H_LAAD_ICON = "<div class="lds-roller"> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> </div>";
+const H_LAAD_ICON = '<div class="lds-roller"> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> </div>';
 function start(rootNode) {
   const node = rootNode || document.getElementById('main');
   node.innerHTML = H_LAAD_ICON + 'Bezig met laden';
