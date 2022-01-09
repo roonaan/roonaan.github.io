@@ -33,6 +33,7 @@ Dialoog.prototype.volgendeStap = function() {
    }
    const regel = this.stappen.shift();
    if (/^\w+\.(kant|class)=.*$/) {
+     console.log('Property definition', regel);
      const parts = regel.split("=");
      const items = parts[0].split(".");
      const value = parts[1];
@@ -47,12 +48,16 @@ Dialoog.prototype.volgendeStap = function() {
      const parts = regel.split(".praat=");
      const persoon = parts.shift();
      const bericht=parts.join(" ");
+     console.log('Iemand praat', { persoon, bericht });
      this.toonBericht(persoon, bericht);
    } else if (/^\w+\.vraag=/) { 
      const parts = regel.split(".vraag=");
      const persoon = parts.shift();
      const bericht=parts.join(" ");
+     console.log('Iemand vraagt', { persoon, bericht });
      this.toonBericht(persoon, bericht);
+   } else {
+     console.warn('Geen idee wat er moet gebeuren');
    }
 }
 
