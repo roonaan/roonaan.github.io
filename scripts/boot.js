@@ -11,7 +11,7 @@ function enhance(rootNode) {
 
 function loadPage(node, pagina) { 
   node.style.border = "dotted 1px aqua";
-  get('pages/' + pagina + '.html', function(content) {
+  http.get('pages/' + pagina + '.html', function(content) {
     node.innerHTML = content;
     enhance(node);
   });
