@@ -1,13 +1,15 @@
 Grunt.class=poppetje
 Grunt.kant=links
-Grizzly.kant=poppetje
+Grizzly.class=poppetje2
 Grizzly.kant=rechts
+Koe.class=beestje
 
 Verteller.praat=Het was een standaard saaie dag in de oertijd..
 Grunt.praat=Hey, wat heb je nu weer rond laten slingeren?
 Grizzly.praat=Wut?
 Grunt.praat=Ja daaro!
 Verteller.praat=En zo ging dit nog even door....
+Koe.praat=Moooooooo!
 Verteller.vraag=Wat denk je dat er zoal rondslingert?
 Verteller.antwoord=Een bijl;krijg:bijl;naar:profiel
 Verteller.antwoord=Een speer;krijg:speer;naar:profiel
