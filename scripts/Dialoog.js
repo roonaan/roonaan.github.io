@@ -55,6 +55,15 @@ Dialoog.prototype.volgendeStap = function() {
      const persoon = parts.shift();
      const bericht=parts.join(" ");
      console.log('Iemand vraagt', { persoon, bericht });
+     const antwoorden = [];
+     const prefix = persoon + ".antwoord=";
+     while (this.stappen.length > 0 && this.stappen[0].startsWith(prefix)) {
+        const input = this.stappen.shift().substring(prefix.length).split(";");
+        const antwoord = {};
+        antwoord.text = input.shift();
+        antwoord.acties = input;
+        antwoorden.push(antwoord);
+     }
      this.toonBericht(persoon, bericht);
    } else {
      console.warn('Geen idee wat er moet gebeuren');
