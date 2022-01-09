@@ -27,3 +27,26 @@ body {
   width: 200px;
   height: 200px;
 }
+
+#notificaties {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0
+}
+
+#notificaties .bericht {
+  margin: 40px;
+  padding: 10px;
+  padding-right: 100px;
+  background-color:maroon;
+  color: yellow;
+  position: relative;
+  border: solid 1px black;
+  border-radius: 4px;
+}
+#notificaties .bericht .sluit {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
