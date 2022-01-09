@@ -84,11 +84,14 @@ function notificatie(tekst) {
     close.innerText = '[sluit]';
     close.className = 'sluit';
     close.addEventListener('click', function() {
-      div.parent.removeChild(div);
+      div.parentNode.removeChild(div);
     });
+    div.appendChild(close);
     setTimeout(function() {
-      if (div.parent) {
-        div.parent.removeChild(div);
+      if (div.parentNode) {
+        div.parentNode.removeChild(div);
+      } else {
+        console.warn('Apparently the item is already removed');
       }
     }, 10000); // Sluiten na 10 s
     document.getElementById('notificaties').appendChild(div);
