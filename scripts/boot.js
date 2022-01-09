@@ -60,7 +60,12 @@ function loadPage(node, pagina) {
 }
 
 const http = {
+  requestLimit: 50,
   get: function(url, onload) {
+    if (http.requestLimit-- < 0) {
+      console.log('We reached the request limit');
+      return;
+    }
     var client = new XMLHttpRequest();
     client.open('GET', url);
     client.onreadystatechange = function() {
