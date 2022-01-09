@@ -64,7 +64,7 @@ Dialoog.prototype.volgendeStap = function() {
         antwoorden.push(antwoord);
      }
      console.log('Iemand vraagt', { persoon, bericht, antwoorden });
-     this.toonBericht(persoon, bericht);
+     this.toonBericht(persoon, bericht, antwoorden);
    } else {
      console.warn('Geen idee wat er moet gebeuren');
    }
