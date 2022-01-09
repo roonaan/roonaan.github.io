@@ -22,19 +22,14 @@ function widgets(nodes, module) {
     widget(nodes[i], module);
   }
 }
-function widget(node, module) {
-  const widgetId = module + 'Widget';
-  if (widgetId in node) {
-      return;
-  }
+function getModule(module, callback) {
   if (module in window) {
-      node[widgetId] = new window[module](node);
-      return;
+      callback(module);
   }
   const scriptId = "extra-module-" + module;
   if (document.getElementById(scriptId)) {
       setTimeout(function() {
-        widget(node, module);
+        getModule(module, callback);
       }, 100);
       return;
   }
@@ -43,6 +38,16 @@ function widget(node, module) {
   script.src = "scripts/" + module + ".js?" + new Date().getTime();
   script.id = scriptId;
   document.body.appendChild(script);
+}
+
+function widget(node, moduleName) {
+  const widgetId = moduleName + 'Widget';
+  if (widgetId in node) {
+      return;
+  }
+  getModule(moduleName, function(module) {
+      node[widgetId] = new module(node);
+  });
 }
 
 function onPageChange(event) {
