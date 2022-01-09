@@ -9,7 +9,7 @@ function start(rootNode) {
 function enhance(rootNode) {
   rootNode.style.border = "solid 1px green";
   onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange);
-  widgets(rootNode.querySelectorAll('[data-dialoog]', 'Dialoog');
+  widgets(rootNode.querySelectorAll('[data-dialoog]'), 'Dialoog');
 }
 
 function onEvent(nodes, event, handler) {
