@@ -8,12 +8,18 @@ function start(rootNode) {
 
 function enhance(rootNode) {
   rootNode.style.border = "solid 1px green";
-  onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange)
+  onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange);
+  widgets(rootNode.querySelectorAll('[data-dialoog]', Dialoog);
 }
 
 function onEvent(nodes, event, handler) {
   for(var i = 0, c = nodes.length; i < c; i++) {
     nodes[i].addEventListener(event, handler);
+  }
+}
+function widgets(nodes, construct) {
+  for(var i = 0, c = nodes.length; i < c; i++) {
+    new construct(nodes[i]);
   }
 }
 
