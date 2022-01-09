@@ -23,8 +23,13 @@ function widgets(nodes, module) {
   }
 }
 function widget(node, module) {
+  const widgetId = module + 'Widget';
+  if (widgetId in node) {
+      return;
+  }
   if (module in window) {
-      new window[module](node);
+      node[widgetId] = new window[module](node);
+      return;
   }
   const scriptId = "extra-module-" + module;
   if (document.getElementById(scriptId)) {
