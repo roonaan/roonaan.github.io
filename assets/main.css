@@ -15,3 +15,8 @@ body {
   height: 1200px;
   background: white;
 }
+.poppetje {
+  background: url('plaatje.png') no-repeat 50% 50%;
+  width: 200px;
+  height: 200px;
+}
