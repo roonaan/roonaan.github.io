@@ -6,7 +6,7 @@ function Dialoog(node) {
     Verteller: { kant: 'links' }
   };
   const dialoog = this;
-  http.get('dialogs/' + verhaal + '.txt?' + new Date().getTime(), function(text) {
+  http.get('dialogs/' + this.verhaal + '.txt?' + new Date().getTime(), function(text) {
     dialoog.parse(text);
     dialoog.volgendeStap();
   });
