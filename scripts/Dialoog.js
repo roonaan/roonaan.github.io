@@ -75,7 +75,7 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
     temp.appendChild(avatar);
   }
   if (antwoorden && antwoorden.length > 0) {
-      for (var i = 0, c = antwoorden.length; i < c) {
+      for (var i = 0, c = antwoorden.length; i < c; i++) {
         const button = document.createElement('button');
         button.type = 'button';
         button.innerText = antwoorden[i].text;
