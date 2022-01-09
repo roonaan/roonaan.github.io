@@ -25,7 +25,7 @@ function onPageChange(event) {
 
 function loadPage(node, pagina) { 
   node.style.border = "dotted 1px aqua";
-  http.get('pages/' + pagina + '.html', function(content) {
+  http.get('pages/' + pagina + '.html?' + new Date().getTime(), function(content) {
     node.innerHTML = content;
     enhance(node);
   });
