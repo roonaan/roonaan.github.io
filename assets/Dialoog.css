@@ -1,0 +1,53 @@
+.dialoog {
+  position: relative;
+}
+.dialoog .tekst {
+  display: block;
+  background: white;
+  border: solid 2px red;
+  border-radius: 5px;
+  padding: 10px;
+  color: #090;
+  min-height: 100px;
+}
+.dialoog .avatar {
+  position: absolute;
+  top: 0;
+  height: 100px;
+  width: 100px;
+  border: solid 2px #009;
+}
+.dialoog .avatar.links {
+  left: 0;
+}
+.dialoog .avatar.rechts {
+  right: 0;
+}
+.dialoog .tekst.links {
+    margin-left: 120px;
+}
+.dialoog .tekst.rechts {
+    margin-right: 120px;
+}
+
+.dialoog .volgende:before {
+  content: ' ';
+  display: block;
+}
+.dialoog .volgende {
+  background: green;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+}
+.dialoog .antwoord:before {
+  content: ' ';
+  display: block;
+  height: 2px;
+}
+.dialoog .antwoord {
+  background: grey;
+  border: solid 2px black;
+  border-radius: 4px;
+  padding: 4px;
+}
