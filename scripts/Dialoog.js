@@ -5,6 +5,7 @@ function Dialoog(node) {
   this.personen = { 
     Verteller: { kant: 'links' }
   };
+  this.stappen = [];
   const dialoog = this;
   http.get('dialogs/' + this.verhaal + '.txt?' + new Date().getTime(), function(text) {
     dialoog.parse(text);
@@ -12,6 +13,7 @@ function Dialoog(node) {
   });
 }
 Dialoog.prototype.parse = function(text) {
+  console.log('Parsing text', text);
   const stappen = [];
   const regels = text.split("\n");
   while (regels.length > 0) {
@@ -24,6 +26,7 @@ Dialoog.prototype.parse = function(text) {
   this.stappen = stappen;
 }
 Dialoog.prototype.volgendeStap = function() {
+   console.log('volgendeStap met nog ' + this.stappen.length + ' stappen te gaan');
    if (this.stappen.length === 0) {
       this.innerHTML = '<div class="fout">Oeps er is iets mis gegaan</div>';
       return;
