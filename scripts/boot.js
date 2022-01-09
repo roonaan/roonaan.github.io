@@ -34,7 +34,7 @@ function widget(node, module) {
   }
   const script = document.createElement('script');
   script.type = "text/javascript";
-  script.src = "scripts/" + script + ".js?" + new Date().getTime();
+  script.src = "scripts/" + module + ".js?" + new Date().getTime();
   script.id = scriptId;
   document.body.appendChild(script);
 }
