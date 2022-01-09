@@ -96,6 +96,7 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
     button.className = 'volgende';
     button.innerText = 'Volgende';
     button.addEventListener('click', function() {
+      console.log('We zouden verder moeten gaan....');
       dialoog.volgendeStap();
     });
     temp.appendChild(button);
