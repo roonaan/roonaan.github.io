@@ -64,6 +64,7 @@ Dialoog.prototype.volgendeStap = function() {
 Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) { 
   const dialoog = this;
   const temp = document.createElement('div');
+  temp.className = 'dialoog';
   const p = this.personen[persoon] || {};
   const links = 'links' === p.kant;
   const avatar = document.createElement('div');
@@ -102,6 +103,7 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
     temp.appendChild(button);
   }
   
-  this.node.innerHTML = '<div class="dialoog">' + temp.innerHTML + '</div>';
+  this.node.innerHTML = '';
+  this.node.appendChild(temp);
   
 }
