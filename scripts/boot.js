@@ -7,7 +7,7 @@ function start(rootNode) {
 }
 
 function enhance(rootNode) {
-  rootNode.style.border = "dashed 10px green";
+  rootNode.style.border = "solid 1px green";
 }
 
 function loadPage(node, pagina) { 
