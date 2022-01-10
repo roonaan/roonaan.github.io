@@ -33,34 +33,22 @@ button {
 }
 
 .poppetje {
-  background: url('plaatje.png') no-repeat 50% 50%;
-  width: 200px;
-  height: 200px;
+  background-image: url('plaatje.png');
 }
-.poppetje1 {
-  background: url('poppetje1.png') no-repeat 50% 50%;
-  width: 200px;
-  height: 200px;
+.grumble {
+  background-image: url('poppetje1.png');
 }
-.poppetje2 {
-  background: url('plaatje2.png') no-repeat 50% 50%;
-  width: 200px;
-  height: 200px;
+.grizzly {
+  background-image: url('plaatje2.png');
 }
 .beestje {
-  background: url('beest.png') no-repeat 50% 50%;
-  width: 200px;
-  height: 200px;
+  background-image: url('beest.png');
 }
 .greta {
-  background: url('greta.png') no-repeat 50% 50%;
-  width: 200px;
-  height: 200px;
+  background-image: url('greta.png');
 }
 .koe {
-  background: url('gekkekoe.png') no-repeat 50% 50%;
-  width: 200px;
-  height: 200px;
+  background-image: url('gekkekoe.png');
 }
 
 #notificaties {
