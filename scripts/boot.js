@@ -27,21 +27,22 @@ function getModule(module, callback, isTimeout) {
   if (!isTimeout) {
     console.debug('getModule(' + module + ')');
   }
-  if (module in window) {
-      console.debug('Module is present', module);
-      callback(window[module]);
+  let moduleObj = module;
+  if (module.includes('/')) {
+    moduleObj = moduleObj.replace(/\w+\//g, function(o) {
+      return o.substring(0,1).toUpperCase() + o.substring(1, o.length - 1) + "_";
+    });
+  }
+  
+  if (moduleObj in window) {
+      console.debug('Module is present', module, ' as ', moduleObj);
+      callback(window[moduleObj]);
       return;
   }
  
   const scriptId = "extra-module-" + module;
   if (!document.getElementById(scriptId)) {
-    let scriptPath = module;
-    if (scriptPath.includes('_')) {
-      scriptPath = scriptPath.replace(/\w+_/g, function(f) {
-        return f.substring(0, 1).toLowerCase() + f.substring(1, f.length - 1) + "/";
-      });
-    }
-    console.debug('Loading new module', module, 'from', scriptPath);
+    console.debug('Loading new module', module);
     const script = document.createElement('script');
     script.type = "text/javascript";
     script.src = "scripts/" + module + ".js?" + new Date().getTime();
