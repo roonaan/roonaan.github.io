@@ -1,8 +1,8 @@
-function _Storage(scope) {
+function _GameStorage(scope) {
   this.scope = scope;
 }
 
-_Storage.prototype.getItem = function(key, defaultValue) {
+_GameStorage.prototype.getItem = function(key, defaultValue) {
   const value = window.localStorage.getItem(this.scope + '/' + key);
   if (typeof value === "String") {
     try {
@@ -14,17 +14,17 @@ _Storage.prototype.getItem = function(key, defaultValue) {
   return defaultValue;
 }
 
-_Storage.prototype.setItem = function(key, value) {
+_GameStorage.prototype.setItem = function(key, value) {
   return window.localStorage.setItem(this.scope + '/' + key, JSON.stringify(value));
 }
 
-_Storage.prototype.removeItem = function(key) {
+_GameStorage.prototype.removeItem = function(key) {
   return window.localStorage.removeItem(this.scope + '/' + key);
 }
 
-_Storage.prototype.getItems = function() {
+_GameStorage.prototype.getItems = function() {
   const items = {};
-  while (var i = 0; i < window.localStorage.length; i++) {
+  for (var i = 0; i < window.localStorage.length; i++) {
     const key = window.localStorage.key(i);
     if (i && i.startsWith(this.scope + '/')) {
       const key = i.substring(this.scope.length + 1);
@@ -34,8 +34,8 @@ _Storage.prototype.getItems = function() {
   return items;
 }
 
-_Storage.getStorage = function(prefix) {
+_GameStorage.getStorage = function(prefix) {
   return new Storage(prefix);
 }
 
-window.GameStorage = _Storage;
+window.GameStorage = _GameStorage;
