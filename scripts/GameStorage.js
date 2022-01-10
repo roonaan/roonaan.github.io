@@ -6,7 +6,7 @@ _GameStorage.prototype.getItem = function(key, defaultValue) {
   const value = window.localStorage.getItem(this.scope + '/' + key);
   if (typeof value === "String") {
     try {
-      return JSON.parse(value);
+      return JSON.parse(value).value;
     } catch (e) {
        // Ignore for now
     }
@@ -15,7 +15,7 @@ _GameStorage.prototype.getItem = function(key, defaultValue) {
 }
 
 _GameStorage.prototype.setItem = function(key, value) {
-  return window.localStorage.setItem(this.scope + '/' + key, JSON.stringify(value));
+  return window.localStorage.setItem(this.scope + '/' + key, JSON.stringify({ value: value }));
 }
 
 _GameStorage.prototype.removeItem = function(key) {
