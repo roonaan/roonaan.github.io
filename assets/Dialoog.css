@@ -1,5 +1,6 @@
 .dialoog {
   position: relative;
+  padding:2%;
 }
 .dialoog .tekst {
   display: block;
