@@ -37,7 +37,11 @@ button {
   width: 200px;
   height: 200px;
 }
-
+.poppetje1 {
+  background: url('poppetje1.png') no-repeat 50% 50%;
+  width: 200px;
+  height: 200px;
+}
 .poppetje2 {
   background: url('plaatje2.png') no-repeat 50% 50%;
   width: 200px;
