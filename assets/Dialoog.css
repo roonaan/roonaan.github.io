@@ -19,7 +19,7 @@
   border: solid 1px #009;
   border-radius: 4px;
   font-size:2vw;
-  background-size: 200px 200px;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 .dialoog .avatar.links {
