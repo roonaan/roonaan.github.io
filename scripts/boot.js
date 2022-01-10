@@ -23,7 +23,10 @@ function widgets(nodes, module) {
     widget(nodes[i], module);
   }
 }
-function getModule(module, callback) {
+function getModule(module, callback, isTimeout) {
+  if (!isTimeout) {
+    console.debug('getModule(' + module + ')');
+  }
   if (module in window) {
       console.debug('Module is present', module);
       callback(window[module]);
@@ -31,24 +34,23 @@ function getModule(module, callback) {
   }
  
   const scriptId = "extra-module-" + module;
-  if (document.getElementById(scriptId)) {
-      setTimeout(function() {
-        getModule(module, callback);
-      }, 100);
-      return;
+  if (!document.getElementById(scriptId)) {
+    let scriptPath = module;
+    if (scriptPath.includes('_')) {
+      scriptPath = scriptPath.replace(/\w+_/g, function(f) {
+        return f.substring(0, 1).toLowerCase() + f.substring(1, f.length - 1) + "/";
+      });
+    }
+    console.debug('Loading new module', module, 'from', scriptPath);
+    const script = document.createElement('script');
+    script.type = "text/javascript";
+    script.src = "scripts/" + module + ".js?" + new Date().getTime();
+    script.id = scriptId;
+    document.body.appendChild(script);
   }
-  let scriptPath = module;
-  if (scriptPath.includes('_')) {
-    scriptPath = scriptPath.replace(/\w+_/g, function(f) {
-      return f.substring(0, 1).toLowerCase() + f.substring(1, f.length - 1) + "/";
-    });
-  }
-  console.debug('Loading new module', module);
-  const script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = "scripts/" + module + ".js?" + new Date().getTime();
-  script.id = scriptId;
-  document.body.appendChild(script);
+  setTimeout(function() {
+    getModule(module, callback, true);
+  }, 100);
 }
 
 function widget(node, moduleName) {
