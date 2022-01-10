@@ -61,4 +61,7 @@ button {
   background: limegreen;
   color: white;
   border-radius: 4vw;
+  display: block;
+  width: 50%;
+  margin: 2% 25%;
 }
