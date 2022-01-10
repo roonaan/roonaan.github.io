@@ -1,5 +1,8 @@
 getModule('Inventory', function(Inventory) {
-  const Pages_Profile = window.Pages_Profile = function Pages_Profile(node) {
+  
+  function Pages_Profiel(node) {
     (node.querySelector('[data-inventory]') || document.createElement('div')).innerHTML = JSON.stringify(Inventory.getItems());
   }
+  
+  window.Pages_Profiel = Pages_Profiel;
 });
