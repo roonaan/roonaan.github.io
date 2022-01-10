@@ -1,8 +1,8 @@
-function Storage(scope) {
+function _Storage(scope) {
   this.scope = scope;
 }
 
-Storage.prototype.getItem = function(key, defaultValue) {
+_Storage.prototype.getItem = function(key, defaultValue) {
   const value = window.localStorage.getItem(this.scope + '/' + key);
   if (typeof value === "String") {
     try {
@@ -14,15 +14,15 @@ Storage.prototype.getItem = function(key, defaultValue) {
   return defaultValue;
 }
 
-Storage.prototype.setItem = function(key, value) {
+_Storage.prototype.setItem = function(key, value) {
   return window.localStorage.setItem(this.scope + '/' + key, JSON.stringify(value));
 }
 
-Storage.prototype.removeItem = function(key) {
+_Storage.prototype.removeItem = function(key) {
   return window.localStorage.removeItem(this.scope + '/' + key);
 }
 
-Storage.prototype.getItems = function() {
+_Storage.prototype.getItems = function() {
   const items = {};
   while (var i = 0; i < window.localStorage.length; i++) {
     const key = window.localStorage.key(i);
@@ -34,6 +34,8 @@ Storage.prototype.getItems = function() {
   return items;
 }
 
-Storage.getStorage = function(prefix) {
+_Storage.getStorage = function(prefix) {
   return new Storage(prefix);
 }
+
+window.GameStorage = _Storage;
