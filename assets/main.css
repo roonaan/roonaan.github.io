@@ -47,9 +47,18 @@ button {
   width: 200px;
   height: 200px;
 }
-
 .beestje {
   background: url('beest.png') no-repeat 50% 50%;
+  width: 200px;
+  height: 200px;
+}
+.greta {
+  background: url('greta.png') no-repeat 50% 50%;
+  width: 200px;
+  height: 200px;
+}
+.koe {
+  background: url('gekkekoe.png') no-repeat 50% 50%;
   width: 200px;
   height: 200px;
 }
