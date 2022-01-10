@@ -5,7 +5,7 @@ function _GameStorage(scope) {
 _GameStorage.prototype.getItem = function(key, defaultValue) {
   const fullKey = this.scope + '/' + key;
   const value = window.localStorage.getItem(fullKey);
-  if (typeof value === "String") {
+  if ((typeof value) === "string") {
     try {
       const parsed = JSON.parse(value);
       console.debug('Value for ', fullKey, ' amounts to ', parsed);
