@@ -9,6 +9,7 @@ function start(rootNode) {
 function enhance(rootNode) {
   rootNode.style.border = "solid 1px green";
   onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange);
+  rootNode.querySelectorAll('[data-widget]').forEach(n => widget(n, n.getAttribute('data-widget').split('?')[0]));
   widgets(rootNode.querySelectorAll('[data-dialoog]'), 'Dialoog');
 }
 
@@ -33,6 +34,12 @@ function getModule(module, callback) {
         getModule(module, callback);
       }, 100);
       return;
+  }
+  let scriptPath = module;
+  if (scriptPath.includes('_')) {
+    scriptPath = scriptPath.replace(/\w+_/g, function(f) {
+      return f.substring(0, 1).toLowerCase() + f.substring(1, f.length - 1) + "/";
+    });
   }
   const script = document.createElement('script');
   script.type = "text/javascript";
