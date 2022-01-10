@@ -22,6 +22,6 @@ Storage.prototype.removeItem = function(key) {
   return window.localStorage.removeItem(this.scope + '/' + key);
 }
 
-Storage.get = function(prefix) {
+Storage.getStorage = function(prefix) {
   return new Storage(prefix);
 }
