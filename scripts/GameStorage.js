@@ -3,11 +3,15 @@ function _GameStorage(scope) {
 }
 
 _GameStorage.prototype.getItem = function(key, defaultValue) {
-  const value = window.localStorage.getItem(this.scope + '/' + key);
+  const fullKey = this.scope + '/' + key;
+  const value = window.localStorage.getItem(fullKey);
   if (typeof value === "String") {
     try {
-      return JSON.parse(value).value;
+      const parsed = JSON.parse(value);
+      console.debug('Value for ', fullKey, ' amounts to ', parsed);
+      return parsed.value;
     } catch (e) {
+      console.debug('Could not parse value for ', key, ' as ', fullKey, ' with value ', value, e);
        // Ignore for now
     }
   }
