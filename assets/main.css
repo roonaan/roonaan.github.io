@@ -1,5 +1,6 @@
 @import "laadicoontje.css";
 @import "Dialoog.css";
+@import "Personages.css";
 
 html {
   width: 100%;
@@ -30,25 +31,6 @@ button {
   margin: 2%;
   font-size: 5vw;
   padding: 2%;
-}
-
-.poppetje {
-  background-image: url('plaatje.png');
-}
-.grumble {
-  background-image: url('poppetje1.png');
-}
-.grizzly {
-  background-image: url('plaatje2.png');
-}
-.beestje {
-  background-image: url('beest.png');
-}
-.greta {
-  background-image: url('greta.png');
-}
-.koe {
-  background-image: url('gekkekoe.png');
 }
 
 #notificaties {
