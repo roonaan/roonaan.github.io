@@ -104,8 +104,14 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
           while (acties.length > 0) {
             const actie = acties.shift();
             if (actie.startsWith('krijg:')) {
-                notificatie("Je ontvangt een " + actie.substring(6) + " super mega extra gratis");
-                getModule('Inventory', function(Inventory) { Inventory.addItem(actie.substring(6)); });
+                const item = actie.substring(6);
+                notificatie("Je ontvangt een " + item + " super mega extra gratis");
+                console.log('Op zoek naar de inventory', item);
+                getModule('Inventory', function(Inventory) {
+                  console.log('Toevoegen aan de inventory');
+                  Inventory.addItem(actie.substring(6));
+                  console.log('Opgeslagen');
+                });
             } else if (actie.startsWith('naar:')) {
                 loadPage(document.getElementById('main'), actie.substring(5));
             } else {
