@@ -25,9 +25,9 @@ _GameStorage.prototype.removeItem = function(key) {
 _GameStorage.prototype.getItems = function() {
   const items = {};
   for (var i = 0; i < window.localStorage.length; i++) {
-    const key = window.localStorage.key(i);
-    if (i && i.startsWith(this.scope + '/')) {
-      const key = i.substring(this.scope.length + 1);
+    const storageKey = window.localStorage.key(i);
+    if (storageKey && storageKey.startsWith(this.scope + '/')) {
+      const key = storageKey.substring(this.scope.length + 1);
       items[key] = this.getItem(key);
     }
   }
