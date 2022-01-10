@@ -25,9 +25,11 @@ function widgets(nodes, module) {
 }
 function getModule(module, callback) {
   if (module in window) {
+      console.debug('Module is present', module);
       callback(window[module]);
       return;
   }
+ 
   const scriptId = "extra-module-" + module;
   if (document.getElementById(scriptId)) {
       setTimeout(function() {
@@ -41,6 +43,7 @@ function getModule(module, callback) {
       return f.substring(0, 1).toLowerCase() + f.substring(1, f.length - 1) + "/";
     });
   }
+  console.debug('Loading new module', module);
   const script = document.createElement('script');
   script.type = "text/javascript";
   script.src = "scripts/" + module + ".js?" + new Date().getTime();
