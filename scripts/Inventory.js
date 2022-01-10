@@ -1,6 +1,6 @@
 getModule('Storage', function(Storage) {
     
-    const Inventory = window.Inventory = function Inventory() {
+    const Inventory = function Inventory() {
       this.storage = new Storage('Inventory');  
     }
     
@@ -14,4 +14,5 @@ getModule('Storage', function(Storage) {
        return this.storage.getItems();
     }
     
+    window.Inventory = new Inventory();    
 });
