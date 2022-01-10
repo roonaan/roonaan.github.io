@@ -47,14 +47,15 @@ body {
 #notificaties {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0
+  left: 50%;
+  width: 780px;
+  margin-left:-390px;
 }
 
 #notificaties .bericht {
-  margin: 40px;
-  padding: 10px;
-  padding-right: 100px;
+  margin: 2%;
+  padding: 1%;
+  padding-right: 200px;
   background-color:maroon;
   color: yellow;
   position: relative;
