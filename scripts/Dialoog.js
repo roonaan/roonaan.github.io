@@ -13,7 +13,6 @@ function Dialoog(node) {
   });
 }
 Dialoog.prototype.parse = function(text) {
-  console.log('Parsing text', text);
   const stappen = [];
   const regels = text.split("\n");
   while (regels.length > 0) {
