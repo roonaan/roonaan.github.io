@@ -105,6 +105,7 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
             const actie = acties.shift();
             if (actie.startsWith('krijg:')) {
                 notificatie("Je ontvangt een " + actie.substring(6) + " super mega extra gratis");
+                getModule('Inventory', function(Inventory) { Inventory.addItem(actie.substring(6)); });
             } else if (actie.startsWith('naar:')) {
                 loadPage(document.getElementById('main'), actie.substring(5));
             } else {
