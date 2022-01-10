@@ -16,10 +16,9 @@ body {
 }
 
 #main {
-  margin: 10px auto;
-  width: 800px;
-  height: 1200px;
-  background: white;
+  height:100%;
+  width: 100%;
+  position: fixed;
 }
 
 .full-screen {
@@ -31,6 +30,7 @@ button {
   margin: 2%;
   font-size: 5vw;
   padding: 2%;
+  border-radius: 1%;
 }
 
 #notificaties {
@@ -41,17 +41,24 @@ button {
 }
 
 #notificaties .bericht {
-  margin: 40px;
-  padding: 10px;
+  margin: 4vw;
+  padding: 2vw;
   padding-right: 100px;
   background-color:maroon;
   color: yellow;
   position: relative;
-  border-radius: 4px;
+  border-radius: 2vw;
 }
 
 #notificaties .bericht .sluit {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 2vw;
+  right: 2vw;
+  font-size: 12px;
+}
+
+.start-knop {
+  background: limegreen;
+  color: white;
+  border-radius: 4vw;
 }
