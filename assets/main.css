@@ -26,6 +26,12 @@ body {
   width: 100%;
 }
 
+button {
+  margin: 2%;
+  font-size: 5vw;
+  padding: 2%;
+}
+
 .poppetje {
   background: url('plaatje.png') no-repeat 50% 50%;
   width: 200px;
