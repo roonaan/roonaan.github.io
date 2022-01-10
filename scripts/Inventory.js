@@ -1,7 +1,7 @@
-getModule('Storage', function(Storage) {
+getModule('GameStorage', function(GameStorage) {
     
     const Inventory = function Inventory() {
-      this.storage = new Storage('Inventory');  
+      this.storage = new GameStorage('Inventory');  
     }
     
     Inventory.prototype.addItem = function(key, countParam) {
