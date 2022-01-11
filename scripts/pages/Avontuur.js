@@ -155,7 +155,7 @@ getModule('MissieVoortgang', function(Storage) {
             if (beloningen.altijd) {
                 beloningen.altijd.forEach(item => {
                     if (!total[item]) {
-                        total[item] = 0;
+                        total[item[0]] = 0;
                     }
                     if (Math.random() * 100 < item[2]) {
                         total[item[0]] += item[1]; 
