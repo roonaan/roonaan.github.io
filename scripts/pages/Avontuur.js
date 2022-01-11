@@ -59,12 +59,14 @@ getModule('MissieVoortgang', function(Storage) {
         }
     }
     Avontuur.prototype.renderOverzicht = function() {
+        console.debug('renderOverzicht');
         this.avontuurNode.innerHTML = '';
         Object.keys(this.avonturen).forEach(item => {
             this.avontuurNode.appendChild(button(this, item, item));
         });
     }
     Avontuur.prototype.renderAvonturen = function(pagina, items) {
+        console.log('renderAvonturen', pagina);
         this.avontuurNode.innerHTML = '';
         this.avontuurNode.appendChild(button(this, 'overzicht', 'Terug'));
         items.forEach(item => {
@@ -76,6 +78,7 @@ getModule('MissieVoortgang', function(Storage) {
         });
     }
     Avontuur.prototype.renderAvontuur = function(pagina, list) {
+        console.debug('renderAvontuur', pagina);
         const avontuur = this;
         this.avontuurNode.innerHTML = '';
         if (list.bestand) {
@@ -105,6 +108,7 @@ getModule('MissieVoortgang', function(Storage) {
     }
     
     Avontuur.prototype.renderItem = function(pagina, item) {
+        console.debug('renderItem', pagina);
         const avontuur = this;
         if (item.dialoog) {
             this.avontuurNode.innerHTML = '';
@@ -120,7 +124,7 @@ getModule('MissieVoortgang', function(Storage) {
                 MissieVoortgang.complete(pagina);
                 avontuur.render(item.parent);
             });
-            enhance(wrapper);
+            enhance(this.avontuurNode);
             return;
         }
         this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
