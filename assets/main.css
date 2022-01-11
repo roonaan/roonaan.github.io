@@ -68,9 +68,12 @@ button {
   background: #00A300;
 }
 .menu-button {
+  width: 20%;
   display: block;
-  font-size: 4vw;
+  font-size: 12px;
   margin: 2% 0;
   background: #666;
   color: limegreen;
+  padding: 2%;
+  border-right-radius: 2%;
 } 
