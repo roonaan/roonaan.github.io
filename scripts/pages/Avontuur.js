@@ -165,7 +165,7 @@ getModule('MissieVoortgang', function(Storage) {
             getModule('Inventory', function(inv) {
                 Object.entries(total).forEach( kv => {
                     inv.addItem(kv[0], kv[1]);
-                    notifatie('Je krijgt ' + kv[0] + ' x ' + kv[1]);
+                    notificatie('Je krijgt ' + kv[0] + ' x ' + kv[1]);
                 });
             });
         }
