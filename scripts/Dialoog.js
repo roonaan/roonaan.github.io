@@ -27,7 +27,8 @@ Dialoog.prototype.parse = function(text) {
 Dialoog.prototype.volgendeStap = function() {
    console.log('volgendeStap met nog ' + this.stappen.length + ' stappen te gaan');
    if (this.stappen.length === 0) {
-      this.innerHTML = '<div class="fout">Oeps er is iets mis gegaan</div>';
+      this.node.innerHTML = '<div class="fout">Oeps er is iets mis gegaan</div>';
+      this.node.dispatchEvent(new CustomEvent('dialoog-complete', { bubbles: true}));
       return;
    }
    const regel = this.stappen.shift();
