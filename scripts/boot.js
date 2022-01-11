@@ -88,8 +88,8 @@ const http = {
     var client = new XMLHttpRequest();
     client.open('GET', url);
     client.onreadystatechange = function() {
-      if(xhr.readyState === XMLHttpRequest.DONE) {
-        var status = xhr.status;
+      if(client.readyState === XMLHttpRequest.DONE) {
+        var status = client.status;
         if (status === 0 || (status >= 200 && status < 400)) {
           onload(client.responseText);
         } else {
