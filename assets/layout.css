@@ -19,3 +19,9 @@
 .rows > .no-stretch {
   flex: 0;
 }
+
+.bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
