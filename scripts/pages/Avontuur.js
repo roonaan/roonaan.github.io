@@ -25,6 +25,7 @@ getModule('MissieVoortgang', function(Storage) {
             });
         } else {
             button.disabled = true;
+            button.className += ' disabled';
         }
         return button;
     }
