@@ -1,4 +1,4 @@
-getModule('Storage', function(Storage) {
+getModule('MissieVoortgang', function(Storage) {
     
     // To store hierarchy
     const avontuurCache = {};
@@ -10,6 +10,9 @@ getModule('Storage', function(Storage) {
         button.type = 'button';
         button.className = 'start-knop';
         button.innerText = titel || id;
+        if (MissieVoortgang.isComplete(id)) {
+            button.innerText += ' [ Voltooid ]';
+        }
         button.style.margin = '2%';
         button.addEventListener('click', function() {
             avontuur.render(id);
@@ -97,6 +100,18 @@ getModule('Storage', function(Storage) {
             const item = itemCache[pagina];
             this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
             this.avontuurNode.appendChild(button(avontuur, item.parent, 'Terug'));
+            if (!MissieVoortgang.isCompleted(pagina)) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.innerText = 'voltooien';
+                btn.className = 'start-knop';
+                btn.addEventListener('click', function() {
+                    MissieVoortgang.complete(pagina);
+                    avontuur.render(pagina);
+                });
+            } else {
+                this.avontuurNode.appendChild(document.createTextNode('Al voltooid'));
+            }
         }
     }
   
