@@ -68,7 +68,7 @@ getModule('Storage', function(Storage) {
             const list = avontuurCache[pagina];
             if (list.bestand) {
                 this.avontuurNode.innerHTML = H_LAAD_ICON;
-                http.get(list.bestand, function(text) {
+                http.get('/avonturen/' + list.bestand, function(text) {
                     delete list.bestand;
                     const json = JSON.parse(text);
                     list.items = json.items || json.missies;
