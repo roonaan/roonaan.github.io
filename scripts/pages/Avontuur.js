@@ -47,6 +47,7 @@ getModule('Storage', function(Storage) {
             });
         }
         if (pagina in this.avonturen) {
+            this.avontuurNode.innerHTML = '';
             const items = this.avonturen[pagina];
             avontuur.avontuurNode.appendChild(button(avontuur, 'overzicht', 'Terug'));
             items.forEach(item => {
@@ -59,6 +60,7 @@ getModule('Storage', function(Storage) {
             });
         }
         if (pagina in avontuurCache) {
+            this.avontuurNode.innerHTML = '';
             const list = avontuurCache[pagina];
             if (list.parent) {
                 avontuur.avontuurNode.appendChild(button(avontuur, list.parent, 'Terug'));
