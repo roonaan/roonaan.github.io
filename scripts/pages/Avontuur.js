@@ -65,7 +65,7 @@ getModule('MissieVoortgang', function(Storage) {
     }
     Avontuur.prototype.renderAvonturen = function(pagina, items) {
         this.avontuurNode.innerHTML = '';
-        this.avontuurNode.appendChild(button(avontuur, 'overzicht', 'Terug'));
+        this.avontuurNode.appendChild(button(this, 'overzicht', 'Terug'));
         items.forEach(item => {
             if (item.id) {
                 item.parent = pagina;
@@ -75,6 +75,7 @@ getModule('MissieVoortgang', function(Storage) {
         });
     }
     Avontuur.prototype.renderAvontuur = function(pagina, list) {
+        const avontuur = this;
         this.avontuurNode.innerHTML = '';
         if (list.bestand) {
             this.avontuurNode.innerHTML = H_LAAD_ICON;
