@@ -48,81 +48,91 @@ getModule('MissieVoortgang', function(Storage) {
     Avontuur.prototype.render = function(pagina) {
         const avontuur = this;
         if (pagina === 'overzicht') {
-            this.avontuurNode.innerHTML = '';
-            Object.keys(this.avonturen).forEach(item => {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'start-knop';
-                button.innerText = item;
-                button.style.margin = '2%';
-                button.addEventListener('click', function() {
-                    notificatie('We gaan op ' + item + ' avontuur!');
-                    avontuur.render(item);
-                });
-                avontuur.avontuurNode.appendChild(button);
+            this.renderOverzicht();
+        } else if (pagina in this.avonturen) {
+            this.renderAvonturen(pagina, this.avonturen[pagina]);
+        } else if (pagina in avontuurCache) {
+            this.renderAvontuur(pagina, avontuurCache[pagina]);
+        } else if (pagina in itemCache) {
+            this.renderItem(pagina, itemCache[pagina]);
+        }
+    }
+    Avontuur.prototype.renderOverzicht = function() {
+        this.avontuurNode.innerHTML = '';
+        Object.keys(this.avonturen).forEach(item => {
+            this.avontuurNode.appendChild(button(this, item, item));
+        });
+    }
+    Avontuur.prototype.renderAvonturen = function(pagina, items) {
+        this.avontuurNode.innerHTML = '';
+        this.avontuurNode.appendChild(button(avontuur, 'overzicht', 'Terug'));
+        items.forEach(item => {
+            if (item.id) {
+                item.parent = pagina;
+                avontuurCache[item.id] = item;
+                this.avontuurNode.appendChild(button(this, item.id, item.title, item['alleen-na']));
+            }
+        });
+    }
+    Avontuur.prototype.renderAvontuur = function(pagina, list) {
+        this.avontuurNode.innerHTML = '';
+        if (list.bestand) {
+            this.avontuurNode.innerHTML = H_LAAD_ICON;
+            http.get('/avonturen/' + list.bestand, function(text) {
+                delete list.bestand;
+                const json = JSON.parse(text);
+                list.items = json.items || json.missies;
+                avontuur.render(pagina);
             });
             return;
         }
-        if (pagina in this.avonturen) {
-            this.avontuurNode.innerHTML = '';
-            const items = this.avonturen[pagina];
-            avontuur.avontuurNode.appendChild(button(avontuur, 'overzicht', 'Terug'));
-            items.forEach(item => {
+        if (list.parent) {
+            avontuur.avontuurNode.appendChild(button(avontuur, list.parent, 'Terug'));
+        }
+        if (list.items) {
+            list.items.forEach(item => {
                 if (item.id) {
                     item.parent = pagina;
-                    avontuurCache[item.id] = item;
+                    itemCache[item.id] = item;
                     avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
                 }
             });
-            return;
+        } else {
+            this.avontuurNode.innerHTML += 'Er is iets mis';
         }
-        if (pagina in avontuurCache) {
+    }
+    
+    Avontuur.prototype.renderItem = function(pagina, item) {
+        const avontuur = this;
+        if (item.dialoog) {
             this.avontuurNode.innerHTML = '';
-            const list = avontuurCache[pagina];
-            if (list.bestand) {
-                this.avontuurNode.innerHTML = H_LAAD_ICON;
-                http.get('/avonturen/' + list.bestand, function(text) {
-                    delete list.bestand;
-                    const json = JSON.parse(text);
-                    list.items = json.items || json.missies;
-                    avontuur.render(pagina);
-                });
-                return;
-            }
-            if (list.parent) {
-                avontuur.avontuurNode.appendChild(button(avontuur, list.parent, 'Terug'));
-            }
-            
-            if (list.items) {
-                list.items.forEach(item => {
-                    if (item.id) {
-                        item.parent = pagina;
-                        itemCache[item.id] = item;
-                        avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
-                    }
-                });
-            } else {
-                this.avontuurNode.innerHTML += 'Er is iets mis';
-            }
+            const wrapper = document.createElement('div');
+            wrapper.className = 'full-screen';
+            const dialoog = document.createElement('div');
+            dialoog.className = 'full-screen';
+            dialoog.setAttribute('data-dialoog', item.dialoog);
+            wrapper.appendChild(dialoog);
+            this.avontuurNode.appendChild(wrapper);
+            dialoog.addEventListener('dialoog-complete', function() {
+                MissieVoortgang.complete(pagina);
+                avontuur.render(item.parent);
+            });
             return;
         }
-        if (pagina in itemCache) {
-            const item = itemCache[pagina];
-            this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
-            this.avontuurNode.appendChild(button(avontuur, item.parent, 'Terug'));
-            if (!MissieVoortgang.isComplete(pagina)) {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.innerText = 'Missie voltooien';
-                btn.className = 'start-knop';
-                btn.addEventListener('click', function() {
-                    MissieVoortgang.complete(pagina);
-                    avontuur.render(pagina);
-                });
-                this.avontuurNode.appendChild(btn);
-            } else {
-                this.avontuurNode.appendChild(document.createTextNode('Al voltooid'));
-            }
+        this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
+        this.avontuurNode.appendChild(button(this, item.parent, 'Terug'));
+        if (!MissieVoortgang.isComplete(pagina)) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.innerText = 'Missie voltooien';
+            btn.className = 'start-knop';
+            btn.addEventListener('click', function() {
+                MissieVoortgang.complete(pagina);
+                avontuur.render(pagina);
+            });
+            this.avontuurNode.appendChild(btn);
+        } else {
+            this.avontuurNode.appendChild(document.createTextNode('Al voltooid'));
         }
     }
   
