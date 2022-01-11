@@ -1,0 +1,34 @@
+{
+  "verhaal": [
+    {
+      "id": "verhaal-1-1"
+      "bestand": "hoofdstuk-1.1.json",
+      "titel": "Hoofdstuk 1 - Deel 1"
+    },
+    {
+      "id": "verhaal-1-2"
+      "bestand": "hoofdstuk-1.2.json",
+      "titel": "Hoofdstuk 1 - Deel 2",
+      "alleen-na": ["verhaal-1-1"]
+    }
+  ],
+  "dagelijks": [
+    {
+      "id": "dagelijks-steentijd",
+      "bestand": "dummy.json",
+      "titel": "Steentijd challenges"
+    },
+    {
+      "id": "dagelijks-gratalog",
+      "bestand": "dummy.json",
+      "titel": "De gouden rivieren van Gratalog"
+    }
+  ],
+  "tijdelijk": [
+    {
+      "id": "cupido-2022",
+       "bestand": "cupido.json",
+       "titel": "Cupido steelt je hart!"
+    }
+  ]
+}
