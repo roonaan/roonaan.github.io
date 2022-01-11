@@ -121,7 +121,7 @@ getModule('MissieVoortgang', function(Storage) {
             this.avontuurNode.appendChild(wrapper);
             dialoog.addEventListener('dialoog-complete', function() {
                 console.log('We catched a dialoog-complete event. Back to rendering');
-                MissieVoortgang.complete(pagina);
+                avontuur.completeStep(pagina, item.beloning);
                 avontuur.render(item.parent);
             });
             enhance(this.avontuurNode);
@@ -135,13 +135,41 @@ getModule('MissieVoortgang', function(Storage) {
             btn.innerText = 'Missie voltooien';
             btn.className = 'start-knop';
             btn.addEventListener('click', function() {
-                MissieVoortgang.complete(pagina);
+                avontuur.completeStep(pagina, item.beloning);
                 avontuur.render(pagina);
             });
             this.avontuurNode.appendChild(btn);
         } else {
             this.avontuurNode.appendChild(document.createTextNode('Al voltooid'));
         }
+    }
+    Avontuur.prototype.completeStep = function(pagina, beloningen) {
+        const isComplete = MissieVoortgang.isComplete(pagina);
+        if (beloningen) {
+            const total = {};
+            if (!isComplete && beloningen['eerste-keer']) {
+                beloningen['eerste-keer'].forEach(item => {
+                    total[item[0]] = item[1];
+                });
+            }
+            if (beloningen.altijd) {
+                beloningen.altijd.forEach(item => {
+                    if (!total[item]) {
+                        total[item] = 0;
+                    }
+                    if (Math.random() * 100 < item[2]) {
+                        total[item[0]] += item[1]; 
+                    }
+                });
+            }
+            getModule('Inventory', function(inv) {
+                Object.entries(total).forEach( kv => {
+                    inv.addItem(kv[0], kv[1]);
+                    notifatie('Je krijgt ' + kv[0] + ' x ' + kv[1]);
+                });
+            });
+        }
+        MissieVoortgang.complete(pagina);
     }
   
     window.Pages_Avontuur = Avontuur;
