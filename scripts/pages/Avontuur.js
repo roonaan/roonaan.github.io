@@ -10,7 +10,6 @@ getModule('Storage', function(Storage) {
         this.avontuurNode = H_LAAD_ICON;
         const avontuur = this;
         http.get('avonturen/overzicht.json?' + new Date().getTime(), function(text) {
-            console.log('Ik heb een boel tekst joh', text);
             avontuur.avonturen = JSON.parse(text);
             avontuur.render('overzicht');
         });
@@ -29,7 +28,7 @@ getModule('Storage', function(Storage) {
                     notificatie('We gaan op ' + item + ' avontuur!');
                     avontuur.render(item);
                 });
-                this.avontuurNode.appendChild(button);
+                avontuur.avontuurNode.appendChild(button);
             });
         }
         if (item in this.avonturen) {
@@ -44,7 +43,7 @@ getModule('Storage', function(Storage) {
                     window.alert('We gaan op avontuur');
                     avontuur.render(item);
                 });
-                this.avontuurNode.appendChild(button);
+                avontuur.avontuurNode.appendChild(button);
             });
         }
     }
