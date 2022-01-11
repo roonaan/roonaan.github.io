@@ -1,0 +1,5 @@
+Grunt.praat=Heb jij weleens een kat gezien?
+Grizzly.praat=Erm, om te eten bedoel je?
+Grunt.praat=Neeeeeeeeeee. Katten zijn lief!
+Grizzly.praat=Vandaar die striemen op je rug.....
+Grunt.praat=Nou laat maar, ik ga er één zoeken!
