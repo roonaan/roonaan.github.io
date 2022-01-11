@@ -5,7 +5,13 @@ getModule('MissieVoortgang', function(Storage) {
     // To store actual items
     const itemCache = {};
     
-    function button(avontuur, id, titel) {
+    function button(avontuur, id, titel, alleenNa) {
+        let allowed = true;
+        if (alleenNa) {
+            alleenNa.forEach(item => {
+                allowed = allowed && MissieVoortgang.isComplete(item);
+            });
+        }
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'start-knop';
@@ -13,9 +19,13 @@ getModule('MissieVoortgang', function(Storage) {
         if (MissieVoortgang.isComplete(id)) {
             button.innerText += ' [ Voltooid ]';
         }
-        button.addEventListener('click', function() {
-            avontuur.render(id);
-        });
+        if (allowed) {
+            button.addEventListener('click', function() {
+                avontuur.render(id);
+            });
+        } else {
+            button.disabled = true;
+        }
         return button;
     }
     
@@ -60,7 +70,7 @@ getModule('MissieVoortgang', function(Storage) {
                 if (item.id) {
                     item.parent = pagina;
                     avontuurCache[item.id] = item;
-                    avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
+                    avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
                 }
             });
             return;
@@ -87,7 +97,7 @@ getModule('MissieVoortgang', function(Storage) {
                     if (item.id) {
                         item.parent = pagina;
                         itemCache[item.id] = item;
-                        avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
+                        avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
                     }
                 });
             } else {
