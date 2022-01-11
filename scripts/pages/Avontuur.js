@@ -118,6 +118,7 @@ getModule('MissieVoortgang', function(Storage) {
                 MissieVoortgang.complete(pagina);
                 avontuur.render(item.parent);
             });
+            enhance(wrapper);
             return;
         }
         this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
