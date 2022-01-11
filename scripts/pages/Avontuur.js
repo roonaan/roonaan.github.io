@@ -109,6 +109,7 @@ getModule('MissieVoortgang', function(Storage) {
                     MissieVoortgang.complete(pagina);
                     avontuur.render(pagina);
                 });
+                this.avontuurNode.appendChild(btn);
             } else {
                 this.avontuurNode.appendChild(document.createTextNode('Al voltooid'));
             }
