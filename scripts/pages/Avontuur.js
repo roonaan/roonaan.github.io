@@ -48,6 +48,7 @@ getModule('Storage', function(Storage) {
                 });
                 avontuur.avontuurNode.appendChild(button);
             });
+            return;
         }
         if (pagina in this.avonturen) {
             this.avontuurNode.innerHTML = '';
@@ -60,6 +61,7 @@ getModule('Storage', function(Storage) {
                     avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
                 }
             });
+            return;
         }
         if (pagina in avontuurCache) {
             this.avontuurNode.innerHTML = '';
@@ -89,6 +91,12 @@ getModule('Storage', function(Storage) {
             } else {
                 this.avontuurNode.innerHTML += 'Er is iets mis';
             }
+            return;
+        }
+        if (pagina in itemCache) {
+            const item = itemCache[pagina];
+            this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
+            this.avontuurNode.appendChild(button(avontuur, item.parent, 'Terug'));
         }
     }
   
