@@ -1,12 +1,12 @@
 {
   "verhaal": [
     {
-      "id": "verhaal-1-1"
+      "id": "verhaal-1-1",
       "bestand": "hoofdstuk-1.1.json",
       "titel": "Hoofdstuk 1 - Deel 1"
     },
     {
-      "id": "verhaal-1-2"
+      "id": "verhaal-1-2",
       "bestand": "hoofdstuk-1.2.json",
       "titel": "Hoofdstuk 1 - Deel 2",
       "alleen-na": ["verhaal-1-1"]
