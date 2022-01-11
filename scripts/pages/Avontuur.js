@@ -22,7 +22,8 @@ getModule('Storage', function(Storage) {
             Object.keys(this.avonturen).forEach(item => {
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'start-button';
+                button.className = 'start-knop';
+                button.innerText = item;
                 button.style.margin = '2%';
                 button.addEventListener('click', function() {
                     notificatie('We gaan op ' + item + ' avontuur!');
@@ -37,10 +38,11 @@ getModule('Storage', function(Storage) {
             items.forEach(item => {
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'start-button';
+                button.className = 'start-knop';
+                button.innerText = item.titel || item.id || item;
                 button.style.margin = '2%';
                 button.addEventListener('click', function() {
-                    window.alert('We gaan op avontuur');
+                    notificatie('We gaan op avontuur');
                     avontuur.render(item);
                 });
                 avontuur.avontuurNode.appendChild(button);
