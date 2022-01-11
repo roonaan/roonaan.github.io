@@ -1,0 +1,24 @@
+{
+  "missies": [
+    {
+      "id": "hoofdstuk-1-1-1",
+      "titel": "1. Een verloren kat 1",
+      "dialoog": "hoofdstuk-1-1-1.txt"
+    },
+    {
+      "id": "hoofdstuk-1-1-2",
+      "titel": "2. Een verloren kat 2",
+      "alleen-na": ["hoofdstuk-1-1-1"]
+    },
+    {
+      "id": "hoofdstuk-1-1-3",
+      "titel": "3. Een verloren kat 3",
+      "alleen-na": ["hoofdstuk-1-1-2"]
+    },
+    {
+      "id": "hoofdstuk-1-1-4",
+      "titel": "4. Een verloren kat 4",
+      "alleen-na": ["hoofdstuk-1-1-3"]
+    }
+  ]
+}
