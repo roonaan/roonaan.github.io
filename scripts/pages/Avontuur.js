@@ -10,6 +10,7 @@ getModule('Storage', function(Storage) {
         this.avontuurNode = H_LAAD_ICON;
         const avontuur = this;
         http.get('avonturen/overzicht.json?' + new Date().getTime(), function(text) {
+            console.log('Ik heb een boel tekst joh', text);
             avontuur.avonturen = JSON.parse(text);
             avontuur.render('overzicht');
         });
