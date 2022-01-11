@@ -100,7 +100,7 @@ getModule('MissieVoortgang', function(Storage) {
             const item = itemCache[pagina];
             this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
             this.avontuurNode.appendChild(button(avontuur, item.parent, 'Terug'));
-            if (!MissieVoortgang.isCompleted(pagina)) {
+            if (!MissieVoortgang.isComplete(pagina)) {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.innerText = 'voltooien';
