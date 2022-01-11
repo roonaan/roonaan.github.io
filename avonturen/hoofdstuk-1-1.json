@@ -3,7 +3,16 @@
     {
       "id": "hoofdstuk-1-1-1",
       "titel": "1. Een verloren kat 1",
-      "dialoog": "hoofdstuk-1-1-1"
+      "dialoog": "hoofdstuk-1-1-1",
+      "beloning": {
+        "eerste-keer": [
+           ["rugzak", 1, 100],
+           ["spirit", 50, 100]
+        ],
+        "altijd": [
+           ["visgraat", 1, 90]
+        ]
+      }
     },
     {
       "id": "hoofdstuk-1-1-2",
