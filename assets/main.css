@@ -64,3 +64,6 @@ button {
   width: 50%;
   margin: 2% 25%;
 }
+.start-knop.disabled {
+  background: #00A300;
+}
