@@ -80,7 +80,7 @@ function loadPage(node, pagina) {
 
 const http = {
   requestLimit: 50,
-  get: function(url, onload) {
+  get: function(url, onload, onerror) {
     if (http.requestLimit-- < 0) {
       console.log('We reached the request limit');
       return;
@@ -88,7 +88,17 @@ const http = {
     var client = new XMLHttpRequest();
     client.open('GET', url);
     client.onreadystatechange = function() {
-      onload(client.responseText);
+      if(xhr.readyState === XMLHttpRequest.DONE) {
+        var status = xhr.status;
+        if (status === 0 || (status >= 200 && status < 400)) {
+          onload(client.responseText);
+        } else {
+          console.log('Request failed', status);
+          if (onerror) {
+            onerror();
+          }
+        }
+      }
     }
     client.send();
   }
