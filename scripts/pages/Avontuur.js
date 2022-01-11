@@ -1,6 +1,9 @@
 getModule('Storage', function(Storage) {
     
+    // To store hierarchy
     const avontuurCache = {};
+    // To store actual items
+    const itemCache = {};
     
     function button(avontuur, id, titel) {
         const button = document.createElement('button');
@@ -54,16 +57,37 @@ getModule('Storage', function(Storage) {
                 if (item.id) {
                     item.parent = pagina;
                     avontuurCache[item.id] = item;
+                    avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
                 }
-                
-                avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
             });
         }
         if (pagina in avontuurCache) {
             this.avontuurNode.innerHTML = '';
             const list = avontuurCache[pagina];
+            if (list.bestand) {
+                this.avontuurNode.innerHTML = H_LAAD_ICON;
+                http.get(list.bestand, function(text) {
+                    delete list.bestand;
+                    const json = JSON.parse(text);
+                    list.items = json.items || json.missies;
+                    avontuur.render(pagina);
+                });
+                return;
+            }
             if (list.parent) {
                 avontuur.avontuurNode.appendChild(button(avontuur, list.parent, 'Terug'));
+            }
+            
+            if (list.items) {
+                list.items.forEach(item => {
+                    if (item.id) {
+                        item.parent = pagina;
+                        itemCache[item.id] = item;
+                        avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
+                    }
+                });
+            } else {
+                this.avontuurNode.innerHTML += 'Er is iets mis';
             }
         }
     }
