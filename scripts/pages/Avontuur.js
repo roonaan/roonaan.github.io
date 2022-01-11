@@ -157,7 +157,7 @@ getModule('MissieVoortgang', function(Storage) {
                     if (!total[item]) {
                         total[item[0]] = 0;
                     }
-                    if (Math.random() * 100 < item[2]) {
+                    if ((Math.random() * 100) < item[2]) {
                         total[item[0]] += item[1]; 
                     }
                 });
