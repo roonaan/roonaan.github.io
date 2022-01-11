@@ -1,0 +1,21 @@
+.rows {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+
+.columns {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+}
+
+.columns > *,
+.rows > * {
+  flex: 1 100%;
+}
+
+.columns > .no-stretch,
+.rows > .no-stretch {
+  flex: 0;
+}
