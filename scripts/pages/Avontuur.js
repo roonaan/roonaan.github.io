@@ -7,7 +7,7 @@ getModule('Storage', function(Storage) {
             node.innerHTML = 'Er is iets misgegaan';
             return;
         }
-        this.avontuurNode = H_LAAD_ICON;
+        this.avontuurNode.innerHTML = H_LAAD_ICON;
         const avontuur = this;
         http.get('avonturen/overzicht.json?' + new Date().getTime(), function(text) {
             avontuur.avonturen = JSON.parse(text);
