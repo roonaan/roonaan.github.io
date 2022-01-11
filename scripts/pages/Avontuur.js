@@ -13,7 +13,6 @@ getModule('MissieVoortgang', function(Storage) {
         if (MissieVoortgang.isComplete(id)) {
             button.innerText += ' [ Voltooid ]';
         }
-        button.style.margin = '2%';
         button.addEventListener('click', function() {
             avontuur.render(id);
         });
@@ -103,7 +102,7 @@ getModule('MissieVoortgang', function(Storage) {
             if (!MissieVoortgang.isComplete(pagina)) {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.innerText = 'voltooien';
+                btn.innerText = 'Missie voltooien';
                 btn.className = 'start-knop';
                 btn.addEventListener('click', function() {
                     MissieVoortgang.complete(pagina);
