@@ -1,5 +1,19 @@
 getModule('Storage', function(Storage) {
     
+    const avontuurCache = {};
+    
+    function button(avontuur, id, titel) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'start-knop';
+        button.innerText = titel || id;
+        button.style.margin = '2%';
+        button.addEventListener('click', function() {
+            avontuur.render(id);
+        });
+        return button;
+    }
+    
     function Avontuur (node) {
         this.node = node;
         this.avontuurNode = node.querySelector('.avonturen');
@@ -32,21 +46,23 @@ getModule('Storage', function(Storage) {
                 avontuur.avontuurNode.appendChild(button);
             });
         }
-        if (item in this.avonturen) {
-            const items = this.avonturen[item];
-            items.unshift('overzicht');
+        if (pagina in this.avonturen) {
+            const items = this.avonturen[pagina];
+            avontuur.avontuurNode.appendChild(button(avontuur, 'overzicht', 'Terug'));
             items.forEach(item => {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'start-knop';
-                button.innerText = item.titel || item.id || item;
-                button.style.margin = '2%';
-                button.addEventListener('click', function() {
-                    notificatie('We gaan op avontuur');
-                    avontuur.render(item);
-                });
-                avontuur.avontuurNode.appendChild(button);
+                if (item.id) {
+                    item.parent = pagina;
+                    avontuurCache[item.id] = item;
+                }
+                
+                avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title));
             });
+        }
+        if (pagina in avontuurCache) {
+            const list = avontuurCache[pagina];
+            if (list.parent) {
+                avontuur.avontuurNode.appendChild(button(avontuur, list.parent, 'Terug'));
+            }
         }
     }
   
