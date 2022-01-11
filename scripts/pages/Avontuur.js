@@ -46,6 +46,7 @@ getModule('MissieVoortgang', function(Storage) {
     }
     
     Avontuur.prototype.render = function(pagina) {
+        console.log('rendering', pagina);
         const avontuur = this;
         if (pagina === 'overzicht') {
             this.renderOverzicht();
@@ -115,6 +116,7 @@ getModule('MissieVoortgang', function(Storage) {
             wrapper.appendChild(dialoog);
             this.avontuurNode.appendChild(wrapper);
             dialoog.addEventListener('dialoog-complete', function() {
+                console.log('We catched a dialoog-complete event. Back to rendering');
                 MissieVoortgang.complete(pagina);
                 avontuur.render(item.parent);
             });
