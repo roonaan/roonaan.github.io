@@ -78,23 +78,22 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
   temp.className = 'dialoog';
   const p = this.personen[persoon] || {};
   const links = 'links' === p.kant;
+  const avatarContainer = document.createElement('div');
+  avatarContainer.className = 'avatar-container';
+  temp.appendChild(avatarContainer);
   const avatar = document.createElement('div');
   avatar.className = links ? 'avatar links' : 'avatar rechts';
   if (p.class) {
     avatar.className += ' ' + p.class;
   }
   avatar.innerText = persoon; 
+  avatarContainer.appendChild(avatar);  
  
   const content = document.createElement('p');
   content.className = links ? 'tekst links' : 'tekst rechts';
   content.innerText = bericht;
-  if (links) {
-    temp.appendChild(avatar);
-    temp.appendChild(content);
-  } else {
-    temp.appendChild(content);
-    temp.appendChild(avatar);
-  }
+  temp.appendChild(content);
+  
   if (antwoorden && antwoorden.length > 0) {
       for (var i = 0, c = antwoorden.length; i < c; i++) {
         const button = document.createElement('button');
