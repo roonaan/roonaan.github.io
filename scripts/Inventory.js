@@ -20,6 +20,10 @@ getModule('GameStorage', function(GameStorage) {
         return assetMapping[key] || 'assets/inventory/' + key + '.png';
     }
     
+    Inventory.prototype.reset = function() {
+        this.storage.reset();
+    }
+    
     http.get('assets/inventory/inventory.txt', function(mapping) {
         const lines = mapping.split(/[\r\n]+/);
         while (lines.length > 0) {
