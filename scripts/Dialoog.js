@@ -32,7 +32,12 @@ Dialoog.prototype.volgendeStap = function() {
       return;
    }
    const regel = this.stappen.shift();
-   if (/^\w+\.(kant|class)=.*$/.test(regel)) {
+   if (/^Missie\.klaar=.*$/.test(regel)) {
+     getModule('MissieVoortgang', (m) {
+         m.complete(regel.split('=')[1].trim());
+     });
+     this.volgendeStap();
+   } else if (/^\w+\.(kant|class)=.*$/.test(regel)) {
      console.log('Property definition', regel);
      const parts = regel.split("=");
      const items = parts[0].split(".");
