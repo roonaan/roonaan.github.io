@@ -81,15 +81,17 @@ button {
   display: block;
   font-size: 4vw;
   margin: 2% 0;
-  padding: 1vw;
-  background: url('images/IMG_20220112_074115.png') cover no-repeat center;
+  padding: 1vw 2vw;
+  background: url('images/IMG_20220112_074115.png') no-repeat center;
+  background-size: cover;
   color: limegreen;
   padding: 2%;
   border-bottom-right-radius: 2vw;
 } 
 .submit-button {
-  background: url('images/IMG_20220112_074115.png') cover no-repeat center;
-  color: white;
+  background: url('images/IMG_20220112_074115.png') no-repeat center;
+  background-size: cover;
+  color: black;
   border-radius: 4vw;
   padding: 4vw;
   display: block;
