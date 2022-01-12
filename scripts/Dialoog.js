@@ -38,7 +38,6 @@ Dialoog.prototype.volgendeStap = function() {
      });
      this.volgendeStap();
    } else if (/^\w+\.(kant|class)=.*$/.test(regel)) {
-     console.log('Property definition', regel);
      const parts = regel.split("=");
      const items = parts[0].split(".");
      const value = parts[1];
@@ -53,7 +52,6 @@ Dialoog.prototype.volgendeStap = function() {
      const parts = regel.split(".praat=");
      const persoon = parts.shift();
      const bericht=parts.join(" ");
-     console.log('Iemand praat', { persoon, bericht });
      this.toonBericht(persoon, bericht);
    } else if (/^\w+\.vraag=/.test(regel)) { 
      const parts = regel.split(".vraag=");
@@ -68,7 +66,6 @@ Dialoog.prototype.volgendeStap = function() {
         antwoord.acties = input;
         antwoorden.push(antwoord);
      }
-     console.log('Iemand vraagt', { persoon, bericht, antwoorden });
      this.toonBericht(persoon, bericht, antwoorden);
    } else {
      console.warn('Geen idee wat er moet gebeuren');
@@ -110,12 +107,8 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
             const actie = acties.shift();
             if (actie.startsWith('krijg:')) {
                 const item = actie.substring(6);
-                notificatie("Je ontvangt een " + item + " super mega extra gratis");
-                console.log('Op zoek naar de inventory', item);
                 getModule('Inventory', function(Inventory) {
-                  console.log('Toevoegen aan de inventory');
                   Inventory.addItem(actie.substring(6));
-                  console.log('Opgeslagen');
                 });
             } else if (actie.startsWith('naar:')) {
                 loadPage(document.getElementById('main'), actie.substring(5));
@@ -128,10 +121,9 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
       }
   } else {
     const button = document.createElement('button');
-    button.className = 'volgende';
+    button.className = 'volgende-knop';
     button.innerText = 'Volgende';
     button.addEventListener('click', function() {
-      console.log('We zouden verder moeten gaan....');
       dialoog.volgendeStap();
     });
     temp.appendChild(button);
