@@ -58,29 +58,30 @@ getModule('MissieVoortgang', function(Storage) {
             this.renderItem(pagina, itemCache[pagina]);
         }
     }
+    Avontuur.prototype.flexBoxBottom = function() {
+        this.avontuurNode.innerHTML = '<div class="rows full-screen"><div></div><div class="no-stretch"></div></div>';
+        return this.avontuurNode.querySelector('no-stretch');
+    }
     Avontuur.prototype.renderOverzicht = function() {
-        console.debug('renderOverzicht');
-        this.avontuurNode.innerHTML = '';
+        const flexBox = this.flexBoxBottom();
         Object.keys(this.avonturen).forEach(item => {
-            this.avontuurNode.appendChild(button(this, item, item));
+            flexBox.appendChild(button(this, item, item));
         });
     }
     Avontuur.prototype.renderAvonturen = function(pagina, items) {
-        console.log('renderAvonturen', pagina);
-        this.avontuurNode.innerHTML = '';
-        this.avontuurNode.appendChild(button(this, 'overzicht', 'Terug'));
+        const flexBox = this.flexBoxBottom();
+        flexBox.appendChild(button(this, 'overzicht', 'Terug'));
         items.forEach(item => {
             if (item.id) {
                 item.parent = pagina;
                 avontuurCache[item.id] = item;
-                this.avontuurNode.appendChild(button(this, item.id, item.title, item['alleen-na']));
+                flexBox.appendChild(button(this, item.id, item.title, item['alleen-na']));
             }
         });
     }
     Avontuur.prototype.renderAvontuur = function(pagina, list) {
         console.debug('renderAvontuur', pagina);
         const avontuur = this;
-        this.avontuurNode.innerHTML = '';
         if (list.bestand) {
             this.avontuurNode.innerHTML = H_LAAD_ICON;
             http.get('/avonturen/' + list.bestand, function(text) {
@@ -91,19 +92,20 @@ getModule('MissieVoortgang', function(Storage) {
             });
             return;
         }
+        const flexBox = this.flexBoxBottom();
         if (list.parent) {
-            avontuur.avontuurNode.appendChild(button(avontuur, list.parent, 'Terug'));
+            flexBox.appendChild(button(avontuur, list.parent, 'Terug'));
         }
         if (list.items) {
             list.items.forEach(item => {
                 if (item.id) {
                     item.parent = pagina;
                     itemCache[item.id] = item;
-                    avontuur.avontuurNode.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
+                    flexBox.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
                 }
             });
         } else {
-            this.avontuurNode.innerHTML += 'Er is iets mis';
+            flexBox.appendChild(document.createTextNode('Er is iets mis'));
         }
     }
     
@@ -127,8 +129,9 @@ getModule('MissieVoortgang', function(Storage) {
             enhance(this.avontuurNode);
             return;
         }
-        this.avontuurNode.innerHTML = 'Dit hebben we nog niet gebouwd';
-        this.avontuurNode.appendChild(button(this, item.parent, 'Terug'));
+        const flexBox = this.flexBoxBottom();
+        flexBox.appendChild(document.createTextNode('Dit hebben we nog niet gebouwd'));
+        flexBox.appendChild(button(this, item.parent, 'Terug'));
         if (!MissieVoortgang.isComplete(pagina)) {
             const btn = document.createElement('button');
             btn.type = 'button';
@@ -138,9 +141,9 @@ getModule('MissieVoortgang', function(Storage) {
                 avontuur.completeStep(pagina, item.beloning);
                 avontuur.render(pagina);
             });
-            this.avontuurNode.appendChild(btn);
+            flexBox.appendChild(btn);
         } else {
-            this.avontuurNode.appendChild(document.createTextNode('Al voltooid'));
+            flexBox.appendChild(document.createTextNode('Al voltooid'));
         }
     }
     Avontuur.prototype.completeStep = function(pagina, beloningen) {
