@@ -7,11 +7,13 @@
 }
 
 .inv-blok {
-  width: 30%;
-  height: 30%;
+  width: 200px;
+  height: 200px;
   position: relative;
-  margin: 1%;
+  margin: 10px;
   border: solid 2px white;
+  float: left;
+  position: relative;
 }
 
 .inv-blok > .inv-icoon {
@@ -20,10 +22,23 @@
   height: 90%;
 }
 
+.inv-blok > .inv-naam {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  background: teal;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
 .inv-blok > .inv-teller {
   position: absolute;
+  top: 2px;
+  right: 2px;
   border:radius: 100px;
   background: maroon;
   color: white;
   padding: 1vw;  
+  font-size: 2vw;
 }
