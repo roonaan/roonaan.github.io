@@ -12,5 +12,9 @@ getModule('GameStorage', function(GameStorage) {
        return this.storage.getItem(key, 'no') !== 'no';
     }
     
+    MissieVoortgang.prototype.reset = function() {
+        this.storage.reset();
+    }
+    
     window.MissieVoortgang = new MissieVoortgang();    
 });
