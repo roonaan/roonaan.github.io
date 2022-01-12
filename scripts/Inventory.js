@@ -10,6 +10,9 @@ getModule('GameStorage', function(GameStorage) {
        const count = countParam || 1;
        const current = this.storage.getItem(key, 0);
        this.storage.setItem(key, current + 1);
+       if (count > 0) {
+           notificatie("Je ontvangt " + key + " x " + count);
+       }
     }
   
     Inventory.prototype.getItems = function() {
