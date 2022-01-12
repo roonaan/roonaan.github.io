@@ -13,7 +13,10 @@ body {
   height:100%;
   margin: 0;
   padding: 0;
-}
+  background-image:url('images/leather_texture_7_by_wojtar_stock_d108zz9.jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+} 
 
 #main {
   height:100%;
