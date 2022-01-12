@@ -16,7 +16,7 @@ getModule('Inventory', function(Inventory) {
       
       const icoon = document.createElement('div');
       icoon.className = 'inv-icoon';
-      icoon.style.backgroundImage = 'url(' + Inventory.getImage(item) + ')';
+      icoon.style.backgroundImage = 'url(' + Inventory.getImage(key) + ')';
       blok.appendChild(icoon);
       
       const naam = document.createElement('div');
