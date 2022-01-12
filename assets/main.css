@@ -34,6 +34,13 @@ button {
   padding: 2%;
   border-radius: 1%;
 }
+.checkbox-button {
+  display: block;
+  font-size: 4vw;
+  margin: 2vw 5vw;
+  padding: 2vw;
+  border: solid 2px white;
+}
 
 #notificaties {
   position: fixed;
