@@ -7,6 +7,7 @@
 }
 
 .inv-blok {
+  background: white;
   width: 300px;
   height: 300px;
   position: relative;
@@ -14,6 +15,7 @@
   border: solid 2px white;
   float: left;
   position: relative;
+  border-radius: 2vw;
 }
 
 .inv-blok > .inv-icoon {
