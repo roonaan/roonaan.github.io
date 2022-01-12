@@ -40,6 +40,7 @@ button {
   margin: 2vw 5vw;
   padding: 2vw;
   border: solid 2px white;
+  color: white;
 }
 
 #notificaties {
@@ -79,14 +80,14 @@ button {
 }
 .menu-button {
   display: block;
-  font-size: 4vw;
-  margin: 2% 0;
+  font-size: 5vw;
+  margin: 2vw 0;
   padding: 1vw 2vw;
-  background: url('images/IMG_20220112_074115.png') no-repeat center;
+  background: url(images/IMG_20220112_074115.png) no-repeat center;
   background-size: cover;
-  color: limegreen;
-  padding: 2%;
+  color: #030;
   border-bottom-right-radius: 2vw;
+  border-top-right-radius: 2vw;
 } 
 .submit-button {
   background: url('images/IMG_20220112_074115.png') no-repeat center;
