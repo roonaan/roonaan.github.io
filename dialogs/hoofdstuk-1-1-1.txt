@@ -1,5 +1,10 @@
-Grunt.praat=Heb jij weleens een kat gezien?
-Grizzly.praat=Erm, om te eten bedoel je?
-Grunt.praat=Neeeeeeeeeee. Katten zijn lief!
-Grizzly.praat=Vandaar die striemen op je rug.....
-Grunt.praat=Nou laat maar, ik ga er één zoeken!
+Greta.kant=links
+Greta.class=greta
+Grumble.class=grumbl
+Verteller.praat=Het was een zonnige morgen. Tijd voor een epic avontuur
+Verteller.praat=Greta, onze heldhaftige heldin was aan het spelen met haar jongere - misschien nog wel meer heldhaftige - broer Grunt
+Greta.praat=Heb jij weleens een kat gehad?
+Grumble.praat=Erm, om te eten bedoel je?
+Greta.praat=Neeeeeeeeeee. Katten zijn lief!
+Grumble.praat=Vandaar die striemen op je rug.....
+Greta.praat=Nou laat maar, ik ga er één zoeken!
