@@ -1,4 +1,6 @@
 getModule('GameStorage', function(GameStorage) {
+
+    const assetMapping = {};
     
     const Inventory = function Inventory() {
       this.storage = new GameStorage('Inventory');  
@@ -14,5 +16,18 @@ getModule('GameStorage', function(GameStorage) {
        return this.storage.getItems();
     }
     
-    window.Inventory = new Inventory();    
+    Inventory.prototype.getImage = function(key) {
+        return assetMapping[key] || 'assets/inventory/' + key + '.png';
+    }
+    
+    http.get('assets/inventory/inventory.txt', function(mapping) {
+        const lines = mapping.split(/[\r\n]+/);
+        while (lines.length > 0) {
+            const kv = lines.shift().trim().split('=');
+            if (kv.length === 2) {
+                assetMapping[kv[0].trim()] = kv[1].trim();
+            }
+        }
+        window.Inventory = new Inventory();    
+    });
 });
