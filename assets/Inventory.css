@@ -1,0 +1,29 @@
+.inv-lijst:after {
+  clear: both;
+  content: ' ';
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+
+.inv-blok {
+  width: 30%;
+  height: 30%;
+  position: relative;
+  margin: 1%;
+  border: solid 2px white;
+}
+
+.inv-blok > .inv-icoon {
+  margin: 2vw auto;
+  width: 90%;
+  height: 90%;
+}
+
+.inv-blok > .inv-teller {
+  position: absolute;
+  border:radius: 100px;
+  background: maroon;
+  color: white;
+  padding: 1vw;  
+}
