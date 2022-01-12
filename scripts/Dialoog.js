@@ -33,7 +33,7 @@ Dialoog.prototype.volgendeStap = function() {
    }
    const regel = this.stappen.shift();
    if (/^Missie\.klaar=.*$/.test(regel)) {
-     getModule('MissieVoortgang', (m) {
+     getModule('MissieVoortgang', function(m) {
          m.complete(regel.split('=')[1].trim());
      });
      this.volgendeStap();
