@@ -5,6 +5,8 @@ getModule('Inventory', function(Inventory) {
     console.log('Current inventory', inventoryItems);
     this.inventoryNode = (node.querySelector('[data-inventory]') || document.createElement('div'));
     this.inventoryNode.innerHTML = '';
+    const lijst = document.createElement('div');
+    lijst.className = 'inv-lijst';
     Object.entries(inventoryItems).forEach(item => {
       const key = item[0];
       const aantal = item[1];
@@ -26,8 +28,10 @@ getModule('Inventory', function(Inventory) {
       teller.className = 'inv-teller';
       teller.innerText = aantal;
       blok.appendChild(teller);
-      this.inventoryNode.appendChild(blok);
+      
+      lijst.appendChild(blok);
     });
+    this.inventoryNode.appendChild(lijst);
   }
   
   window.Pages_Profiel = Pages_Profiel;
