@@ -13,7 +13,7 @@ getModule('Inventory', function(Inventory) {
       blok.className = 'inv-blok';
       
       const icoon = document.createElement('img');
-      icoon.alt = item;
+      icoon.alt = key;
       icoon.className = 'inv-icoon';
       blok.appendChild(icoon);
       
