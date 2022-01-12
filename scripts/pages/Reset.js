@@ -3,6 +3,10 @@ function reset(node) {
   form.querySelector('button').addEventListener('click', function() {
     if (form.elements.voortgang && form.elemens.voortgang.checked) {
       getModule('MissieVoortgang', function(mv) { mv.reset(); });
+      notificatie('Het spel herstart in 5 seconden');
+      setTimeout(function() {
+          document.location.reload();
+      }, 5000);
     }
     if (form.elements.inventory && form.elemens.inventory.checked) {
       getModule('Inventory', function(i) { i.reset(); });
