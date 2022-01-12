@@ -73,12 +73,12 @@ function dataIf(node, expression) {
   const mod = parts[0];
   const prop = parts[1];
   switch(mod) {
-    case 'completed':
+    case 'gedaan':
       getModule('MissieVoortgang', function(mv) {
         mv.isComplete(expression.split(':')[1]) ? show() : hide();
       }, error);
       break;
-    case '!completed':
+    case 'niet-gedaan':
       getModule('MissieVoortgang', function(mv) {
         mv.isComplete(expression.split(':')[1]) ? hide() : show();
       }, error);
