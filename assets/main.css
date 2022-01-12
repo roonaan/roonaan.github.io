@@ -91,3 +91,9 @@ h1 {
   padding: 1vw 0;
   text-align: center;
 }
+
+.omschrijving {
+  margin: 1vw 5vw;
+  font-size: 5vw;
+  color: white;
+}
