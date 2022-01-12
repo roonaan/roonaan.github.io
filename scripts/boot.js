@@ -14,7 +14,7 @@ function enhance(rootNode) {
   widgets(rootNode.querySelectorAll('[data-dialoog]'), 'Dialoog');
 }
 
-function applyAll(rootNodes, attribute, method) {
+function applyAll(rootNode, attribute, method) {
   rootNode.querySelectorAll('[' + attribute + ']').forEach(n => method(n, n.getAttribute(attribute)));
 }
 
