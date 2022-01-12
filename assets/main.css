@@ -71,9 +71,8 @@ button {
   background: #00A300;
 }
 .menu-button {
-  width: 20%;
   display: block;
-  font-size: 12px;
+  font-size: 2vw;
   margin: 2% 0;
   background: url('images/IMG_20220112_074115.png') cover no-repeat center;
   color: limegreen;
