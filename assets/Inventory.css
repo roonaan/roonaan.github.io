@@ -20,6 +20,9 @@
   margin: 2vw auto;
   width: 90%;
   height: 90%;
+  background-repeat:no-repeat;
+  background-size: cover;
+  background-position; 50% 50%;
 }
 
 .inv-blok > .inv-naam {
