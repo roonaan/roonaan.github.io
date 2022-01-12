@@ -80,3 +80,14 @@ button {
   padding: 2%;
   border-bottom-right-radius: 2vw;
 } 
+
+h1 {
+  margin: 1vw 5vw;
+  border-top: solid 1px white;
+  border-bottom: solid 1px white;
+  color: white;
+  font-weight: bold;
+  font-size: 6vw;
+  padding: 1vw 0;
+  text-align: center;
+}
