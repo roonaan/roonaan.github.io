@@ -38,6 +38,10 @@ _GameStorage.prototype.getItems = function() {
   return items;
 }
 
+_GameStorage.prototype.reset = function() {
+  Object.keys(this.getItems()).forEach(i => this.removeItem(i));
+}
+
 _GameStorage.getStorage = function(prefix) {
   return new Storage(prefix);
 }
