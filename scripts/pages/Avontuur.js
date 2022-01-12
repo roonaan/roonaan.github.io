@@ -60,7 +60,7 @@ getModule('MissieVoortgang', function(Storage) {
     }
     Avontuur.prototype.flexBoxBottom = function() {
         this.avontuurNode.innerHTML = '<div class="rows full-screen"><div></div><div class="no-stretch"></div></div>';
-        return this.avontuurNode.querySelector('no-stretch');
+        return this.avontuurNode.querySelector('.no-stretch');
     }
     Avontuur.prototype.renderOverzicht = function() {
         const flexBox = this.flexBoxBottom();
