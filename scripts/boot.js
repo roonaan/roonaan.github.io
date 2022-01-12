@@ -9,8 +9,13 @@ function start(rootNode) {
 function enhance(rootNode) {
   rootNode.style.border = "solid 1px green";
   onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange);
-  rootNode.querySelectorAll('[data-widget]').forEach(n => widget(n, n.getAttribute('data-widget').split('?')[0]));
+  applyAll(rootNode, 'data-widget', widget);
+  applyAll(rootNode, 'data-if', dataIf);
   widgets(rootNode.querySelectorAll('[data-dialoog]'), 'Dialoog');
+}
+
+function applyAll(rootNodes, attribute, method) {
+  rootNode.querySelectorAll('[' + attribute + ']').forEach(n => method(n, n.getAttribute(attribute)));
 }
 
 function onEvent(nodes, event, handler) {
@@ -18,11 +23,7 @@ function onEvent(nodes, event, handler) {
     nodes[i].addEventListener(event, handler);
   }
 }
-function widgets(nodes, module) {
-  for(var i = 0, c = nodes.length; i < c; i++) {
-    widget(nodes[i], module);
-  }
-}
+
 function getModule(module, callback, isTimeout) {
   if (!isTimeout) {
     console.debug('getModule(' + module + ')');
@@ -54,7 +55,51 @@ function getModule(module, callback, isTimeout) {
   }, 100);
 }
 
+function dataIf(node, expression) {
+  node.style.visibility = 'hidden';
+  
+  const show = function() { node.style.visibility = 'visible'; }
+  const hide = function() { node.style.display = 'none'; }
+  const error = function() {
+    show();
+    node.style.border = 'solid 2px red';
+  }
+  
+  if (!expression.includes(':') || expression.split(':').length !== 2) {
+    error();
+    return
+  }
+  const parts = expression.split(':');
+  const mod = parts[0];
+  const prop = parts[1];
+  switch(mod) {
+    case 'completed':
+      getModule('MissieVoortgang', function(mv) {
+        mv.isComplete(expression.split(':')[1]) ? show() : hide();
+      }, error);
+      break;
+    case '!completed':
+      getModule('MissieVoortgang', function(mv) {
+        mv.isComplete(expression.split(':')[1]) ? hide() : show();
+      }, error);
+      break;
+    default:
+      getModule(mod, function(m) {
+        m[prop] ? show() : hide();
+      }, error);
+  }
+}
+
+function widgets(nodes, module) {
+  for(var i = 0, c = nodes.length; i < c; i++) {
+    widget(nodes[i], module);
+  }
+}
+
 function widget(node, moduleName) {
+  if (moduleName.includes('?')) {
+    return widget(node, moduleName.split('?')[0]);
+  }
   const widgetId = moduleName + 'Widget';
   if (widgetId in node) {
       return;
