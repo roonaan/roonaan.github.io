@@ -3,8 +3,8 @@ function start(rootNode) {
   const node = rootNode || document.getElementById('main');
   node.innerHTML = H_LAAD_ICON + 'Bezig met laden';
   
-  const hash = (document.location.hash || '').replace(/^#/, '');
-  if (/^\w+$/.test(hash)) {
+  const hash = (document.location.hash || '').replace(/^#/, '').replace(/([a-z]+)(.*?)$/, '$1');
+  if (/^(demo_)?\w+$/.test(hash)) {
     loadPage(node, hash, function() {
       loadPage(node, 'homepage');
     });
@@ -158,10 +158,17 @@ function onPageChange(event) {
 }
 
 function loadPage(node, pagina) { 
-  node.style.border = "dotted 1px aqua";
-  http.get('pages/' + pagina + '/' + pagina + '.html?' + new Date().getTime(), function(content) {
+  let path = 'pages/' + pagina + '/' + pagina + '.html';
+  if (/^demo_.*$/.test(pagina)) {
+      const parts = pagina.split('_');
+      path = 'pages/' + parts.join('/') + '/' + parts[parts.length - 1] + '.html';
+      document.title = 'This really is a demo page: ' + pagina;
+  }
+  http.get(path + '?' + new Date().getTime(), function(content) {
     node.innerHTML = content;
-    document.location.hash = pagina;
+    if (!document.location.hash || !document.location.hash.includes(pagina)) {
+      document.location.hash = pagina;
+    }
     enhance(node);
   });
 }

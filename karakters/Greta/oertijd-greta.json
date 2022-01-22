@@ -8,14 +8,17 @@
 	"skills": [
 		{
 			"id": "ontwijken",
+			"omschrijving": "Haha, pak me dan als je kan! Je kan me toch niet krijgen!",
 			"energie": 1
 		},
 		{
 			"id": "supertrap",
+			"omschrijving": "He, kijk eens omhoog. Haha! Wat lig je daar nou?",
 			"energie": 10
 		},
 		{
 			"id": "megaworp",
+			"omschrijving": "Wat denk je? Kan je vliegen?",
 			"energie": 13
 		}
 	]

@@ -7,13 +7,29 @@ getModule('KarakterLijst', function(KarakterLijst) {
 		const karakterLijst = this;
 		http.get('pages/karakters/karakter-details.html', function(tpl) {
 			karakterLijst.detailTemplate = tpl;
-			karakterLijst.toonOverzicht();
+			const detailPagina = Object.keys(KarakterLijst.getBeschikbareKarakters()).find(k => document.location.hash.includes(k));
+			if (detailPagina) {
+				karakterLijst.toonKarakter({id: detailPagina });
+			} else {
+				karakterLijst.toonOverzicht();
+			}
 		})
 	}
 
+	Pages_Karakters.prototype.setPaginaDetails = function(title, label) {
+		this.node.querySelector('#bovenbalk h1').innerHTML = label || title;
+		if (title == 'Karakters') {
+			document.location.hash = 'Karakters'; 
+			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'binnenstad');
+		} else {
+			document.location.hash = 'Karakters/' + title;
+			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'Karakters');
+		}
+	}
+
 	Pages_Karakters.prototype.toonOverzicht = function() {
+		this.setPaginaDetails('Karakters');
 		this.listNode.innerHTML = "";
-		this.node.querySelector('.terug-knop').setAttribute('data-page', 'binnenstad');
 		const karakters = Object.values(KarakterLijst.getBeschikbareKarakters());
 
 		// sorteren
@@ -43,8 +59,28 @@ getModule('KarakterLijst', function(KarakterLijst) {
 		}
 		this.listNode.appendChild(nodes);
 	}
+	function setNodeText(node, selector, value) {
+		if (!node || !selector || !value) {
+			console.log('Cannot set text', node, selector, value);
+			return;
+		}
+		const item = node.querySelector(selector);
+		if (item) {
+			item.appendChild(document.createTextNode(value));
+		} else {
+			console.log('Cannot find node', selector);
+		}
+	}
+	function setSkillDetails(node, details) {
+		if (!node || !details) {
+			return;
+		}
+		setNodeText(node, '.skill-naam', details.naam || details.id);
+		setNodeText(node, '.skill-energie', details.energie);
+		setNodeText(node, '.skill-omschrijving', details.omschrijving);
+	}
 	Pages_Karakters.prototype.toonKarakter = function(karakter) {
-		this.node.querySelector('.terug-knop').setAttribute('data-page', 'Karakters');
+		this.setPaginaDetails(karakter.id, karakter.naam);
 		const karakterLijst = this.listNode;
 		karakterLijst.innerHTML = this.detailTemplate;
 		KarakterLijst.getKarakter(karakter.id, function(k) {
@@ -55,9 +91,11 @@ getModule('KarakterLijst', function(KarakterLijst) {
 			karakterLijst.querySelector('.karakter-leven').appendChild(document.createTextNode(k.leven));
 			karakterLijst.querySelector('.karakter-aanval').appendChild(document.createTextNode(k.aanval));
 			karakterLijst.querySelector('.karakter-energiepunten').appendChild(document.createTextNode(k.energiepunten));
-			setAanvalDetails(karakterLijst.querySelector('.skill:eq(0)'), data.aanvallen[0]);
-			setAanvalDetails(karakterLijst.querySelector('.skill:eq(1)'), data.aanvallen[1]);
-			setAanvalDetails(karakterLijst.querySelector('.skill:eq(2)'), data.aanvallen[2]);
+			if (k.skills) {
+				setSkillDetails(karakterLijst.querySelector('.skill:nth-child(1)'), k.skills[0]);
+				setSkillDetails(karakterLijst.querySelector('.skill:nth-child(2)'), k.skills[1]);
+				setSkillDetails(karakterLijst.querySelector('.skill:nth-child(3)'), k.skills[2]);
+			}
 		});
 	}
 	window.Pages_Karakters = Pages_Karakters;

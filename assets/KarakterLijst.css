@@ -36,3 +36,86 @@
 	font-size: 2vw;
 	font-weight: bold;
 }
+
+/* Detail pagina */
+
+.karakter-details {
+	margin: 0 5%;
+	position: relative;
+}
+.karakter-details .karakter-logo {
+	height: calc(6 * var(--font-size-regular));
+	width: calc(6 * var(--font-size-regular));
+	border: solid 1px gold;
+}
+.karakter-details .karakter-naam {
+	position: absolute;
+	left:  calc(6 * var(--font-size-regular));
+	padding-left:  var(--padding);
+	top:  calc(1 * var(--font-size-regular));
+}
+.karakter-details .karakter-personage {
+	position: absolute;
+	left:  calc(6 * var(--font-size-regular));
+	padding-left:  var(--padding);
+	top:  calc(2 * var(--font-size-regular));
+}
+.karakter-details .karakter-level {
+	position: absolute;
+	left:  calc(6 * var(--font-size-regular));
+	padding-left:  var(--padding);
+	top:  calc(3 * var(--font-size-regular));
+}
+.karakter-details .karakter-energiepunten {
+	position: absolute;
+	left:  calc(6 * var(--font-size-regular));
+	padding-left:  var(--padding);
+	top:  calc(4 * var(--font-size-regular));
+}
+.karakter-details .karakter-stats {
+	position: absolute;
+	left: 50%;
+	width: 50%;
+	top: 0;
+	font-size: var(--font-size-regular);
+}
+.karakter-details .karakter-stats td {
+	padding: 0 var(--padding-small) 0 0;
+	text-align: left;
+	color:  gold;
+	font-weight:  bold;
+	font-size:  var(--font-size-regular);
+}
+.karakter-details .karakter-stats th {
+	padding: 0 var(--padding-small) 0 0;
+	text-align: right;
+	color:  gold;
+	font-weight:  normal;
+	font-size:  var(--font-size-small);
+}
+.karakter-details .karakter-skills {
+	padding-top: var(--padding);
+	padding-left: calc(var(--padding) + (6 * var(--font-size-regular)));
+}
+.karakter-details .skill {
+	display: block;
+	font-size: var(--font-size-small);
+	margin-bottom:  var(--margin-large);
+	border:  solid 1px gold;
+	color: gold;
+	background: dimgrey;
+	border-radius: var(--padding-small);
+	padding:  var(--padding-small);
+	position: relative;
+}
+.karakter-details .skill-energie {
+	position: absolute;
+	top: var(--padding-small);
+	right: var(--padding-small);
+	font-size: var(--font-size-small);
+	color: gold;
+}
+.karakter-details .skill-omschrijving {
+	font-size: var(--font-size-tiny);
+	font-style: italic;
+}
