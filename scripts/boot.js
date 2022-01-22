@@ -3,7 +3,14 @@ function start(rootNode) {
   const node = rootNode || document.getElementById('main');
   node.innerHTML = H_LAAD_ICON + 'Bezig met laden';
   
-  loadPage(node, 'homepage');
+  const hash = (document.location.hash || '').replace(/^#/, '');
+  if (/^\w+$/.test(hash)) {
+    loadPage(node, hash, function() {
+      loadPage(node, 'homepage');
+    });
+  } else {
+    loadPage(node, 'homepage');
+  }
 }
 
 function enhance(rootNode) {
@@ -30,15 +37,18 @@ function getModule(module, callback, isTimeout) {
   }
   let moduleObj = module;
   if (module.includes('/')) {
-    moduleObj = moduleObj.replace(/\w+\//g, function(o) {
-      return o.substring(0,1).toUpperCase() + o.substring(1, o.length - 1) + "_";
-    });
+    const parts = moduleObj.split('/');
+    moduleObj = parts.map(function(o) {
+      return o.substring(0,1).toUpperCase() + o.substring(1);
+    }).join('_');
   }
   
   if (moduleObj in window) {
       console.debug('Module is present', module, ' as ', moduleObj);
       callback(window[moduleObj]);
       return;
+  } else {
+    console.debug('Module is not yet loaded. Expecting', module, ' as ', moduleObj);
   }
  
   const scriptId = "extra-module-" + module;
@@ -46,7 +56,14 @@ function getModule(module, callback, isTimeout) {
     console.debug('Loading new module', module);
     const script = document.createElement('script');
     script.type = "text/javascript";
-    script.src = "scripts/" + module + ".js?" + new Date().getTime();
+    if (module.startsWith('pages/')) {
+      const parts = module.split('/');
+      const last = parts.pop();
+      const modName = last.substring(0, 1).toUpperCase() + last.substring(1);
+      script.src = module + "/" + modName + ".js?" + new Date().getTime();
+    } else {
+      script.src = "scripts/" + module + ".js?" + new Date().getTime();
+    }
     script.id = scriptId;
     document.body.appendChild(script);
   }
@@ -117,8 +134,9 @@ function onPageChange(event) {
 
 function loadPage(node, pagina) { 
   node.style.border = "dotted 1px aqua";
-  http.get('pages/' + pagina + '.html?' + new Date().getTime(), function(content) {
+  http.get('pages/' + pagina + '/' + pagina + '.html?' + new Date().getTime(), function(content) {
     node.innerHTML = content;
+    document.location.hash = pagina;
     enhance(node);
   });
 }

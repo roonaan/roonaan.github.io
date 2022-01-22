@@ -34,7 +34,7 @@ button {
   padding: 2%;
   border-radius: 1%;
 }
-.checkbox-button {
+.checkbox-knop {
   display: block;
   font-size: 4vw;
   margin: 2vw 5vw;
@@ -78,7 +78,7 @@ button {
 .start-knop.disabled {
   background: #00A300;
 }
-.menu-button {
+.menu-knop {
   display: block;
   font-size: 5vw;
   margin: 2vw 0;
@@ -89,7 +89,10 @@ button {
   border-bottom-right-radius: 2vw;
   border-top-right-radius: 2vw;
 } 
-.submit-button {
+.menu-knop.terug-knop {
+  color: #696;
+}
+.submit-knop {
   background: url('images/IMG_20220112_074115.png') no-repeat center;
   background-size: cover;
   color: black;
@@ -99,7 +102,29 @@ button {
   width: 50%;
   margin: 2% 25%;
 }
-
+.rechts-knop {
+  display:  block;
+  font-size: 5vw;
+  margin: 2vw 0;
+  padding:  1vw 2vw;
+  border-top-left-radius: 2vw;
+  border-bottom-left-radius: 2vw;
+}
+.onderkant-knop {
+	border-top-left-radius: 2vw;
+	border-top-right-radius: 2vw;
+}
+#bovenbalk .terug-knop {
+  position: absolute;
+  top: 3vw;
+  font-size: 3vw;
+  padding: 1vw;
+  left: 1vw;
+  background: maroon;
+  color: white;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+}
 h1 {
   margin: 1vw 5vw;
   border-top: solid 2px white;
