@@ -17,9 +17,10 @@ Gevecht.prototype.start = function() {
 	this.node.innerHTML = 'Het gevecht gaat beginnen!!!';
 	const button = document.createElement('button');
 	button.type = 'button';
+	const gevecht = this;
 	button.addEventListener('click', function() {
-		this.node.innerHTML = 'Het gevecht is klaar. Super gedaan!';
-		this.node.dispatchEvent(new CustomEvent('gevecht-complete', { bubbles: true}));
+		gevecht.node.innerHTML = 'Het gevecht is klaar. Super gedaan!<br />' + H_LAAD_ICON;
+		gevecht.node.dispatchEvent(new CustomEvent('gevecht-complete', { bubbles: true}));
 	})
 	button.innerHTML = 'Klaar met vechten';
 	this.node.appendChild(button);
