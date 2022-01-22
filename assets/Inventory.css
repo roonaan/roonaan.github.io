@@ -8,18 +8,19 @@
 
 .inv-blok {
   background: white;
-  width: 300px;
-  height: 300px;
+  width: var(--v24);
+  height: var(--v24);
   position: relative;
-  margin: 10px;
+  margin: var(--v1);
   border: solid 2px white;
+  box-model: border-box;
   float: left;
   position: relative;
-  border-radius: 2vw;
+  border-radius: var(--padding);
 }
 
 .inv-blok > .inv-icoon {
-  margin: 2vw auto;
+  margin: 10%;
   width: 80%;
   height: 80%;
   background-repeat:no-repeat;
@@ -34,12 +35,13 @@
   bottom: 0;
   background: maroon;
   color: white;
-  padding: 2vw;
-  font-size: 3vw;
+  padding: var(--padding-small);
+  font-size: var(--font-size-small);
   box-sizing: border-box;
   text-align: center;
-  border-top-left-radius:4vw;
-  border-top-right-radius:4vw;
+  border-radius: var(--padding);
+  border-top-left-radius:var(--padding-large);
+  border-top-right-radius:var(--padding-large);
 }
 
 .inv-blok > .inv-teller {
@@ -49,6 +51,6 @@
   border-radius: 100px;
   background: maroon;
   color: white;
-  padding: 1vw;  
-  font-size: 2vw;
+  padding: var(--padding-small);  
+  font-size: var(--font-size-tiny);
 }

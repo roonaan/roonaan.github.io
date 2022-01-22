@@ -17,7 +17,7 @@ getModule('MissieVoortgang', function(Storage) {
         button.className = 'start-knop';
         button.innerText = titel || id;
         if (MissieVoortgang.isComplete(id)) {
-            button.innerText += ' [ Voltooid ]';
+            button.className += ' voltooid'
         }
         if (allowed) {
             button.addEventListener('click', function() {

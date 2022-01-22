@@ -32,7 +32,7 @@ getModule('GameStorage', function(GameStorage) {
 
 	KarakterLijst.prototype.verkrijgKarakter = function(naam, level) {
 		if (!(naam in karakterMapping)) {
-			console.warn('Dit is geen bestaand karakter', naam);
+			console.warn('Dit is geen bestaand karakter', "'" + naam + "'", Object.keys(karakterMapping));
 			return
 		}
 		if (naam in this.getBeschikbareKarakters()) {

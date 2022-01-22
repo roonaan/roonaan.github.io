@@ -37,6 +37,12 @@ Gesprek.prototype.volgendeStap = function() {
          m.complete(regel.split('=')[1].trim());
      });
      this.volgendeStap();
+   } else if (/^Karakters\.verkrijg=.*$/.test(regel)) {
+     getModule('KarakterLijst', function(k) {
+        const args = regel.split('=')[1].trim().split(',');
+        k.verkrijgKarakter(args[0].trim(), parseInt(args[1].trim()));
+     });
+     this.volgendeStap();
    } else if (/^\w+\.(kant|class)=.*$/.test(regel)) {
      const parts = regel.split("=");
      const items = parts[0].split(".");

@@ -3,8 +3,10 @@ function reset(node) {
   form.querySelector('button').addEventListener('click', function() {
     if (form.elements.voortgang && form.elements.voortgang.checked) {
       getModule('MissieVoortgang', function(mv) { mv.reset(); });
+      getModule('KarakterLijst', function(k) { k.reset(); });
       notificatie('Het spel herstart in 5 seconden');
       setTimeout(function() {
+          document.location.hash = '';
           document.location.reload();
       }, 5000);
     }
