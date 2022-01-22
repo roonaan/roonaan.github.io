@@ -1,6 +1,6 @@
 Greta.kant=links
 Greta.class=greta
-Grumble.class=grumbl
+Grumble.class=grumble
 Verteller.praat=Het was een zonnige morgen. Tijd voor een epic avontuur
 Verteller.praat=Greta, onze heldhaftige heldin was aan het spelen met haar jongere - misschien nog wel meer heldhaftige - broer Grunt
 Greta.praat=Heb jij weleens een kat gehad?

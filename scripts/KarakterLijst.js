@@ -2,6 +2,18 @@ getModule('GameStorage', function(GameStorage) {
 
 	const karakterMapping = {};
 	
+	function bereken(minMax, level) {
+		const min = minMax ? minMax[0] : 0;
+		const max = minMax ? minMax[1] : 0;
+		if (level >= 100) {
+			return max;
+		}
+		if (level <= 1) {
+			return min;
+		}
+		return Math.min(min + ((max-min) / 100) * level);
+	}
+
 	const KarakterLijst = function() {
 		this.storage = new GameStorage('Karakters');
 		const karakters = this.getBeschikbareKarakters();
@@ -28,6 +40,33 @@ getModule('GameStorage', function(GameStorage) {
 
 	KarakterLijst.prototype.reset = function() {
 		this.storage.reset();
+	};
+
+	KarakterLijst.prototype.getKarakter = function(naam, callback, error) {
+		const errorCallback = error || function() {};
+		if(!(naam in karakterMapping)) {
+			errorCallback();
+			return;
+		}
+		const beschikbaar = this.getBeschikbareKarakters()[naam] || {};
+		const level = beschikbaar.level || 1;
+		const experience = beschikbaar.experience || 0;
+		http.get("karakters/" + karakterMapping[naam], function(text) {
+			const data = JSON.parse(text);
+			console.debug('We have all the data!', data);
+			callback({
+				id: naam,
+				level: level,
+				experience: experience,
+				naam: data.naam || naam,
+				personage: data.personage || '',
+				leven: bereken(data.leven, level),
+				aanval: bereken(data.aanval, level),
+				snelheid: bereken(data.snelheid, level),
+				energiepunten: data.energiepunten,
+				skills: data.skills
+			});
+		}, errorCallback);
 	};
 
 	KarakterLijst.prototype.verkrijgKarakter = function(naam, level) {

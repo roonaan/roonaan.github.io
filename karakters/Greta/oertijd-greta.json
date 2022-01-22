@@ -1,3 +1,23 @@
 {
-	"id": "oertijd-greta"
-}
+	"id": "oertijd-greta",
+	"personage": "greta",
+	"leven": [10, 1000],
+	"aanval": [8, 80],
+	"snelheid": [7, 10],
+	"energiepunten": 10,
+	"skills": [
+		{
+			"id": "ontwijken",
+			"energie": 1
+		},
+		{
+			"id": "supertrap",
+			"energie": 10
+		},
+		{
+			"id": "megaworp",
+			"energie": 13
+		}
+	]
+
+}   

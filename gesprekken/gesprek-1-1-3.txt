@@ -1,0 +1,7 @@
+Greta.kant=links
+Greta.class=greta
+Grumble.class=grumble
+Verteller.praat=Greta was ontzettend geschrokken van die agressieve muis!
+Greta.praat=Oh, ik ben zo geschrokken. Wat een wappie muis!
+Grumble.praat=Grumble, wat ben jij een bangerik zeg!
+Greta.praat=Hé, suffie! bemoei je met je eigen zaken! 

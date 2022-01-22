@@ -4,19 +4,19 @@
 	"leven": [10, 1000],
 	"aanval": [10, 100],
 	"snelheid": [4, 7],
-	"aanvalspunten": 10,
-	"aanvallen": [
+	"energiepunten": 10,
+	"skills": [
 		{
 			"id": "knots-mep",
-			"aanvalspunten": 3
+			"energiepunten": 3
 		},
 		{
 			"id": "boze-grumble",
-			"aanvalspunten": 10
+			"energiepunten": 10
 		},
 		{
 			"id": "aardschok",
-			"aanvalspunten": 7
+			"energiepunten": 7
 		}
 	]
 
