@@ -3,7 +3,7 @@
     {
       "id": "hoofdstuk-1-1-1",
       "titel": "1. Een verloren kat 1",
-      "dialoog": "hoofdstuk-1-1-1",
+      "gesprek": "gesprek-1-1-1",
       "beloning": {
         "eerste-keer": [
            ["tas", 1, 100],
@@ -17,7 +17,8 @@
     {
       "id": "hoofdstuk-1-1-2",
       "titel": "2. Een verloren kat 2",
-      "alleen-na": ["hoofdstuk-1-1-1"]
+      "alleen-na": ["hoofdstuk-1-1-1"],
+      "gevecht": "gevecht-1-1-2"
     },
     {
       "id": "hoofdstuk-1-1-3",

@@ -1,0 +1,21 @@
+{
+	"id": "veldmuis",
+	"leven": [10, 200],
+	"aanval": [1, 10],
+	"snelheid": [6,10],
+	"aanvalspunten": [10],
+	"aanvallen": [
+		{
+			"id": "bijten",
+			"aanvalspunten": 1,
+			"snelheid": "hoog",
+			"schade": 20,
+		},
+		{
+			"id": "keutel",
+			"aanvalspunten": 6,
+			"snelheid": "super-traag",
+			"schade": 60
+		}
+	]
+}

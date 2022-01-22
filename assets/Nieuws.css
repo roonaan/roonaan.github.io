@@ -1,0 +1,15 @@
+.nieuws-items .nieuws-item {
+	background: navajowhite;
+	border: solid 1px maroon;
+	padding: 1vw;
+	font-size: 3vw;
+	border-radius: 1vw;
+	margin: 2vw;
+}
+.nieuws-item .leesmeer-knop {
+	font-size: 3vw;
+	background: transparent;
+	border: none;
+	text-decoration: underline;
+	color: maroon;
+}

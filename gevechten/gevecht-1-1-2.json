@@ -1,0 +1,18 @@
+{
+	"id": "gevecht-1-1-1",
+	"titel": "Een boze veldmuis",
+	"rondes": [
+		{
+			"formatie": "simpel",
+			"vijanden": {
+				"positie1": [
+					{
+						"kans": 100,
+						"vijand": "veldmuis",
+						"niveau": 1
+					}
+				]
+			}
+		}
+	]
+}

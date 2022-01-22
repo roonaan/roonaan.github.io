@@ -23,3 +23,5 @@ Verteller.antwoord=Een fakkel;krijg:fakkel;naar:profiel
 Verteller.antwoord=Een speer;krijg:speer;naar:profiel
 Verteller.antwoord=Een knuppel;krijg:knuppel;naar:profiel
 Verteller.antwoord=Geef me alles wat ik krijgen kan;naar:cheats
+Karakter.verkrijg=oertijd_grumble,1
+Karakter.verkrijg_oertijd_greta,1

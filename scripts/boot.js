@@ -18,7 +18,9 @@ function enhance(rootNode) {
   onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange);
   applyAll(rootNode, 'data-widget', widget);
   applyAll(rootNode, 'data-if', dataIf);
-  widgets(rootNode.querySelectorAll('[data-dialoog]'), 'Dialoog');
+  applyAll(rootNode, 'data-toggle', dataToggle);
+  widgets(rootNode.querySelectorAll('[data-gesprek]'), 'Gesprek');
+  widgets(rootNode.querySelectorAll('[data-gevecht]'), 'Gevecht');
 }
 
 function applyAll(rootNode, attribute, method) {
@@ -32,8 +34,9 @@ function onEvent(nodes, event, handler) {
 }
 
 function getModule(module, callback, isTimeout) {
-  if (!isTimeout) {
+  if (isNaN(isTimeout)) {
     console.debug('getModule(' + module + ')');
+    isTimeout = 1;
   }
   let moduleObj = module;
   if (module.includes('/')) {
@@ -48,7 +51,7 @@ function getModule(module, callback, isTimeout) {
       callback(window[moduleObj]);
       return;
   } else {
-    console.debug('Module is not yet loaded. Expecting', module, ' as ', moduleObj);
+    console.debug('Module is not yet loaded. Expecting', module, ' as ', moduleObj, isTimeout);
   }
  
   const scriptId = "extra-module-" + module;
@@ -67,8 +70,12 @@ function getModule(module, callback, isTimeout) {
     script.id = scriptId;
     document.body.appendChild(script);
   }
+  if (isTimeout > 20) {
+    console.warn("We gaan niet langer wachten op ", module, moduleObj);
+    return;
+  }
   setTimeout(function() {
-    getModule(module, callback, true);
+    getModule(module, callback, isTimeout + 1);
   }, 100);
 }
 
@@ -104,6 +111,24 @@ function dataIf(node, expression) {
       getModule(mod, function(m) {
         m[prop] ? show() : hide();
       }, error);
+  }
+}
+
+function dataToggle(node, expression) {
+  if (expression === 'open') {
+    node.addEventListener('click', function() {
+        const par = node.parentNode.closest('[data-toggle]');
+        par.className = (par.className.replace(/opened|closed/g, '').trim() + ' opened').trim();
+    })
+  } else if (expression === 'close') {
+    node.addEventListener('click', function() {
+        const par = node.parentNode.closest('[data-toggle]');
+        par.className = (par.className.replace(/opened|closed/g, '').trim() + ' closed').trim();
+    });
+  } else if (node.className.includes('opened') || node.className.includes('closed')) {
+    // ignore
+  } else {
+    node.className = (node.className + ' closed').trim();
   }
 }
 

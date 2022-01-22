@@ -141,3 +141,13 @@ h1 {
   font-size: 4vw;
   color: white;
 }
+
+.when-closed,
+.when-opened {
+  display: none;
+}
+
+.closed .when-closed,
+.opened .when-opened {
+  display: initial;
+}

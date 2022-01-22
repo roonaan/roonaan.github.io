@@ -84,7 +84,7 @@ getModule('MissieVoortgang', function(Storage) {
         const avontuur = this;
         if (list.bestand) {
             this.avontuurNode.innerHTML = H_LAAD_ICON;
-            http.get('/avonturen/' + list.bestand, function(text) {
+            http.get('/avonturen/' + list.bestand + '?' + new Date().getTime(), function(text) {
                 delete list.bestand;
                 const json = JSON.parse(text);
                 list.items = json.items || json.missies;
@@ -110,19 +110,36 @@ getModule('MissieVoortgang', function(Storage) {
     }
     
     Avontuur.prototype.renderItem = function(pagina, item) {
-        console.debug('renderItem', pagina);
+        console.debug('renderItem', pagina, item);
         const avontuur = this;
-        if (item.dialoog) {
+        if (item.gesprek) {
             this.avontuurNode.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'full-screen';
-            const dialoog = document.createElement('div');
-            dialoog.className = 'full-screen';
-            dialoog.setAttribute('data-dialoog', item.dialoog);
-            wrapper.appendChild(dialoog);
+            const gesprek = document.createElement('div');
+            gesprek.className = 'full-screen';
+            gesprek.setAttribute('data-gesprek', item.gesprek);
+            wrapper.appendChild(gesprek);
             this.avontuurNode.appendChild(wrapper);
-            dialoog.addEventListener('dialoog-complete', function() {
-                console.log('We catched a dialoog-complete event. Back to rendering');
+            gesprek.addEventListener('gesprek-complete', function() {
+                console.log('We catched a gesprek-complete event. Back to rendering');
+                avontuur.completeStep(pagina, item.beloning);
+                avontuur.render(item.parent);
+            });
+            enhance(this.avontuurNode);
+            return;
+        }
+        if (item.gevecht) {
+            this.avontuurNode.innerHTML = '';
+            const wrapper = document.createElement('div');
+            wrapper.className = 'full-screen';
+            const gevecht = document.createElement('div');
+            gevecht.className = 'full-screen';
+            gevecht.setAttribute('data-gevecht', item.gevecht);
+            wrapper.appendChild(gevecht);
+            this.avontuurNode.appendChild(wrapper);
+            gevecht.addEventListener('gevecht-complete', function() {
+                console.log('We catched a gevecht-complete event. Back to rendering');
                 avontuur.completeStep(pagina, item.beloning);
                 avontuur.render(item.parent);
             });

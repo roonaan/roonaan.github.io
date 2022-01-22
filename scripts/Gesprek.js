@@ -1,18 +1,18 @@
-function Dialoog(node) {
-  this.verhaal = node.getAttribute("data-dialoog");
+function Gesprek(node) {
+  this.verhaal = node.getAttribute("data-gesprek");
   this.node = node;
   this.node.innerHTML = H_LAAD_ICON;
   this.personen = { 
     Verteller: { kant: 'links' }
   };
   this.stappen = [];
-  const dialoog = this;
-  http.get('dialogs/' + this.verhaal + '.txt?' + new Date().getTime(), function(text) {
-    dialoog.parse(text);
-    dialoog.volgendeStap();
+  const gesprek = this;
+  http.get('gesprekken/' + this.verhaal + '.txt?' + new Date().getTime(), function(text) {
+    gesprek.parse(text);
+    gesprek.volgendeStap();
   });
 }
-Dialoog.prototype.parse = function(text) {
+Gesprek.prototype.parse = function(text) {
   const stappen = [];
   const regels = text.split("\n");
   while (regels.length > 0) {
@@ -24,11 +24,11 @@ Dialoog.prototype.parse = function(text) {
   }
   this.stappen = stappen;
 }
-Dialoog.prototype.volgendeStap = function() {
+Gesprek.prototype.volgendeStap = function() {
    console.log('volgendeStap met nog ' + this.stappen.length + ' stappen te gaan');
    if (this.stappen.length === 0) {
       this.node.innerHTML = '<div class="fout">Oeps er is iets mis gegaan</div>';
-      this.node.dispatchEvent(new CustomEvent('dialoog-complete', { bubbles: true}));
+      this.node.dispatchEvent(new CustomEvent('gesprek-complete', { bubbles: true}));
       return;
    }
    const regel = this.stappen.shift();
@@ -72,10 +72,10 @@ Dialoog.prototype.volgendeStap = function() {
    }
 }
 
-Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) { 
-  const dialoog = this;
+Gesprek.prototype.toonBericht = function (persoon, bericht, antwoorden) { 
+  const gesprek = this;
   const temp = document.createElement('div');
-  temp.className = 'dialoog';
+  temp.className = 'gesprek';
   const p = this.personen[persoon] || {};
   const links = 'links' === p.kant;
   const avatarContainer = document.createElement('div');
@@ -123,7 +123,7 @@ Dialoog.prototype.toonBericht = function (persoon, bericht, antwoorden) {
     button.className = 'volgende-knop';
     button.innerText = 'Volgende';
     button.addEventListener('click', function() {
-      dialoog.volgendeStap();
+      gesprek.volgendeStap();
     });
     temp.appendChild(button);
   }

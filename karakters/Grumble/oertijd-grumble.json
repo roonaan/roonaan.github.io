@@ -1,0 +1,23 @@
+{
+	"id": "oertijd-grumble",
+	"personage": "grumble",
+	"leven": [10, 1000],
+	"aanval": [10, 100],
+	"snelheid": [4, 7],
+	"aanvalspunten": 10,
+	"aanvallen": [
+		{
+			"id": "knots-mep",
+			"aanvalspunten": 3
+		},
+		{
+			"id": "boze-grumble",
+			"aanvalspunten": 10
+		},
+		{
+			"id": "aardschok",
+			"aanvalspunten": 7
+		}
+	]
+
+}
