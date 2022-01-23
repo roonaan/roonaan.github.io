@@ -1,18 +1,42 @@
 {
 	"id": "gevecht-1-1-1",
 	"titel": "Een boze veldmuis",
-	"rondes": [
+	"kaart": {
+		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
+		"tileSize": 250,
+		"achtergrond": "Tile_5",
+		"tegels": [
+			["Tile_5", "Tile_5", "Tile_5,Object_2", "Tile_5", "Tile_5", "Tile_5"],
+			["Tile_5","Tile_1", "Tile_2", "Tile_2,Object_16", "Tile_3", "Tile_5"],
+			["Tile_5,Object_2","Tile_7", "Tile_8", "Tile_16", "Tile_9", "Tile_5"],
+			["Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5,Object_14"]
+		]
+	},
+	"start-punt": [0 ,2],
+	"vijanden": [
 		{
-			"formatie": "simpel",
-			"vijanden": {
-				"positie1": [
-					{
-						"kans": 100,
-						"vijand": "veldmuis",
-						"niveau": 1
-					}
-				]
-			}
+			"positie": [1, 1],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 1
+			}]
+		},
+		{
+			"positie": [1, 3],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 1
+			}]
+		},
+		{
+			"positie": [2, 2],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 1
+			}]
 		}
 	]
 }

@@ -1,56 +1,68 @@
-(function() {
+getModule('CanvasSize', function(CANVAS) {
 	
 	const lib = document.createElement('script');
 	lib.src = 'https://pixijs.download/release/pixi.js';
 	lib.type = 'text/javascript';
 	document.body.appendChild(lib);
 
-	function CanvasSize(app) {
-		this.app = app;
-		const canvas = this;
-		window.addEventListener('resize', function() {
-			console.log('resize');
-			clearTimeout(window.canvasSizeTimer);
-			window.canvasSizeTimer = setTimeout(() => { 
-				canvas.onResize();
-			}, 100);
-		})
+	const VijandDetails = {};
+
+	function kiesVijand(lijst) {
+		const gekozen = lijst[0];
+		const details = VijandDetails[gekozen.vijand];
+		return {
+			...gekozen,
+			...details
+		};
 	}
-
-	CanvasSize.prototype.onResize = function() {
-		const pixi = this.pixi;
-		if (!pixi) {
-			console.warn("Pixi not found");
-			return;
-		}
-		const app = pixi.app;
-		if (!app) {
-			console.warn("Pixi.app not found");
-			return;
-		}
-		const view = app.view;
-		if (!view) {
-			console.warn("Pixi.app.view not found");
-			return;
-		}
-		if (pixi.grond) {
-			const scaleX = 1 / pixi.grond.width * view.offsetWidth;
-			const scaleY = 1 / pixi.grond.height * view.offsetHeight;
-			// We hebben een minimale schaal, omdat anders de iconen heel
-			// erg klein worden.
-			let scale = Math.max(1, Math.max(scaleX, scaleY));
-			app.stage.scale.set(scale);
-		}
-	};
-
-	const CANVAS = new CanvasSize();
 
 	function Pixi(node) {
 		this.node = node.querySelector('[data-pixi]');
 		this.node.innerHTML = H_LAAD_ICON;
-		this.waitForPixi();
+		this.vijandDetails = {};
+		this.resources = {};
+		const gevecht = this.node.getAttribute('data-pixi') || 'gevecht-1-1-2';
+		if (!gevecht) {
+			this.laadStandaardGegevens();
+		} else {
+			this.laadGevechtsGegevens(gevecht);
+		}
+		this.waitForGegevens();
 		this.meta = {scale: 1};
 	};
+
+	Pixi.prototype.waitForGegevens = function() {
+		const pixi = this;
+		if (!this.terrein || !this.kaart || !this.tileSize) {
+			return setTimeout(() => pixi.waitForGegevens(), 100);
+		}
+		let klaar = true;
+		if (this.vijanden) {
+			this.vijanden.forEach(function(positie) {
+				positie.vijanden.forEach(function(vijand) {
+					const spec = vijand.vijand;
+					if (!(spec in VijandDetails)) {
+						VijandDetails[spec] = { geladen: false };
+						http.get('karakters/Vijanden/' + spec + '.json?' + new Date().getTime(), function(text) {
+							const json = JSON.parse(text);
+							if (json.afbeeldingen && json.afbeeldingen.sprite) {
+								pixi.resources[json.id] = json.afbeeldingen.sprite;
+							}
+							VijandDetails[spec] = json;
+							VijandDetails[spec].geladen = true;
+						})
+						klaar = false;
+						return;
+					}
+					klaar = klaar && VijandDetails[spec].geladen;
+				});
+			});
+		}
+		if (!klaar) {
+			return setTimeout(() => pixi.waitForGegevens(), 100);
+		}
+		this.waitForPixi();
+	}
 
 	Pixi.prototype.waitForPixi = function() {
 		const pixi = this;
@@ -63,21 +75,28 @@
 		}, 100);
 	};
 
-	const SS_FREE_DESERT = "assets/terrein/opa-free-desert/opa-free-desert.json";
 	const Z_GROUND = 0;
 	const Z_CHARACTERS = 1000;
 
 	Pixi.prototype.loadPixi = function() {
 		const pixi = this;
-		const loader = new PIXI.Loader();
+		let loader = new PIXI.Loader();
+		console.log('Resources magic', pixi.resources, Object.keys(pixi.resources));
+		Object.keys(pixi.resources).forEach( function(key) {
+			console.log('Adding resource', key);
+			loader = loader.add(key, pixi.resources[key]);
+		});
 		loader
-			.add('desert', SS_FREE_DESERT)
+			.add('terrein', this.terrein)
 			.load((_, resources) => {
 				pixi.startPixi(resources);
 			});
 	}	
 
 	Pixi.prototype.startPixi = function(resources) {
+
+		console.log('We loaded the following resources', Object.keys(resources));
+
 		CANVAS.pixi = this;
 		const pixi = this;
 		const app = new PIXI.Application({
@@ -101,13 +120,40 @@
 		koe.anchor.set(0.5);
 		koe.height = 100;
 		koe.width = 100;
-		koe.x = 100;
-		koe.y = 100;
+		if (pixi.startPunt) {
+			koe.x = 50 + pixi.startPunt[0] * pixi.tileSize;
+			koe.y = 50 + pixi.startPunt[1] * pixi.tileSize;
+			koe.meta = {
+				targetX: koe.x,
+				targetY: koe.y
+			}
+		} else {
+			koe.x = 100;
+			koe.y = 100;
+			// Om het spel wat te laten doen, sturen we hem maar naar het
+			// midden van het scherm
+			koe.meta = {targetX: this.grond.width / 2, targetY: this.grond.height / 2};
+		}
 		this.box.addChild(koe);
 
-		// Om het spel wat te laten doen, sturen we hem maar naar het
-		// midden van het scherm
-		koe.meta = {targetX: this.grond.width / 2, targetY: this.grond.height / 2};
+		const collisions = [];
+
+		if (this.vijanden) {
+			this.vijanden.forEach(function(v) {
+				const vijand = kiesVijand(v.vijanden);
+				const sprite = new PIXI.AnimatedSprite(resources[vijand.id].spritesheet.animations['links']);
+				sprite.y = v.positie[0] * pixi.tileSize;
+				sprite.x = v.positie[1] * pixi.tileSize;
+				sprite.scale.set(2);
+				sprite.autoPlay = true;
+				sprite.autoUpdate = true;
+				sprite.animationSpeed = vijand.afbeeldingen.animationSpeed;
+				sprite.play();
+				pixi.box.addChild(sprite);
+				collisions.push(sprite);
+			});
+		}
+
 
 		// Elke paar seconden moeten we de koe verplaatsen
 		app.ticker.add( (delta) => {
@@ -125,37 +171,66 @@
 		CANVAS.onResize();
 	};
 
-	Pixi.prototype.tekenDeGrond = function(box, resources) {
-		const desert = resources.desert;
-		const container = new PIXI.Container();
-
-		const map = [
+	Pixi.prototype.laadStandaardGegevens = function() {
+		this.tileSize = 255;
+		this.terrein = "assets/terrein/opa-free-desert/opa-free-desert.json";
+		this.kaart = [
 			['Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png'],
 			['Tile_5.png','Tile_1.png', 'Tile_2.png', 'Tile_2.png,Object_16.png', 'Tile_3.png', 'Tile_5.png'],
 			['Tile_5.png,Object_2.png','Tile_7.png', 'Tile_8.png', 'Tile_16.png', 'Tile_9.png', 'Tile_5.png'],
 			['Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png,Object_14.png']
 		];
-		map.unshift([...map[0]]);
-		map.push([...map[0]]);
-		map.push([...map[0]]);
-		map.push([...map[0]]);
-		map.push([...map[0]]);
-		map.push([...map[0]]);
-		map.push([...map[0]]);
 
+		this.kaart.unshift([...this.kaart[0]]);
+		this.kaart.push([...this.kaart[0]]);
+		this.kaart.push([...this.kaart[0]]);
+		this.kaart.push([...this.kaart[0]]);
+		this.kaart.push([...this.kaart[0]]);
+		this.kaart.push([...this.kaart[0]]);
+		this.kaart.push([...this.kaart[0]]);
+	}
+
+	Pixi.prototype.laadGevechtsGegevens = function(naam) {
+		const pixi = this;
+		http.get('gevechten/' + naam + '.json?' + new Date().getTime(), function(text) {
+			const json = JSON.parse(text);
+			const kaart = json.kaart;
+			pixi.startPunt = json['start-punt'];
+			pixi.vijanden = json.vijanden;
+			pixi.terrein = kaart.terrein;
+			pixi.tileSize = kaart.tileSize;
+			const map = kaart.tegels.map(function(regel) {
+				return regel.map(function(cel) {
+					const parts = cel.split(',');
+					if (kaart.achtergrond && !parts.includes(kaart.achtergrond)) {
+						parts.unshift(kaart.achtergrond);
+					}
+					return parts.map(function(cel) {
+						return cel.endsWith(".png") ? cel : (cel + ".png");
+					}).join(",");
+				});
+			});
+			pixi.kaart = map;
+
+		}, function() {
+			pixi.node.innerHTML = 'Gevecht kon niet worden geladen';
+		})
+	}
+
+	Pixi.prototype.tekenDeGrond = function(box, resources) {
+		const terrein = resources.terrein;
+		const container = new PIXI.Container();
+
+		const kaart = this.kaart;
 		const bg = 'Tile_5.png';
 
-		map.forEach((row, rowIndex) => {
-			const top = rowIndex * 256;
-			row.push(bg);
-			row.push(bg);
-			row.unshift(bg);
-			row.unshift(bg);
+		kaart.forEach((row, rowIndex) => {
+			const top = rowIndex * this.tileSize;
 			row.forEach((col, colIndex) => {
-				const left = colIndex * 256;
+				const left = colIndex * this.tileSize;
 				const colWithBg = col.includes(bg) ? col : (bg + "," + col);
 				colWithBg.split(',').forEach((cell) => {
-					const tile = new PIXI.Sprite(desert.textures[cell]);
+					const tile = new PIXI.Sprite(terrein.textures[cell]);
 					tile.x = left;
 					tile.y = top;
 					tile.zOrder = Z_GROUND;
@@ -247,5 +322,4 @@
 
 	window.Pages_Demo_Pixi = Pixi;
 
-
-})();
+});

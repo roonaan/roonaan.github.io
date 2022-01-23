@@ -1,5 +1,12 @@
 {
 	"id": "veldmuis",
+	"afbeeldingen": {
+		"sprite": "assets/images/oga-mouse/veldmuis.json",
+		"frames": 3,
+		"height": 32,
+		"width": 32,
+		"animationSpeed": 0.1
+	},
 	"leven": [10, 200],
 	"aanval": [1, 10],
 	"snelheid": [6,10],
@@ -9,7 +16,7 @@
 			"id": "bijten",
 			"aanvalspunten": 1,
 			"snelheid": "hoog",
-			"schade": 20,
+			"schade": 20
 		},
 		{
 			"id": "keutel",
