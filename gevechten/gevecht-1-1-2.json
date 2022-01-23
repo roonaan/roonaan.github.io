@@ -1,15 +1,29 @@
 {
 	"id": "gevecht-1-1-1",
+	"spelvariant": "pixi",
 	"titel": "Een boze veldmuis",
 	"kaart": {
 		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
 		"tileSize": 250,
 		"achtergrond": "Tile_5",
 		"tegels": [
-			["Tile_5", "Tile_5", "Tile_5,Object_2", "Tile_5", "Tile_5", "Tile_5"],
-			["Tile_5","Tile_1", "Tile_2", "Tile_2,Object_16", "Tile_3", "Tile_5"],
-			["Tile_5,Object_2","Tile_7", "Tile_8", "Tile_16", "Tile_9", "Tile_5"],
-			["Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5,Object_14"]
+			["Tile_5", "Tile_5", "Tile_5,Object_2", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5"],
+			["Tile_5","Tile_1", "Tile_2", "Tile_2,Object_16", "Tile_3", "Tile_5,Object_1", "Tile_5", "Tile_5"],
+			["Tile_5,Object_2","Tile_7", "Tile_8", "Tile_16", "Tile_9", "Tile_5", "Tile_5", "Tile_5"],
+			["Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5,Object_14", "Tile_5", "Tile_5"],
+			["Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5"]
+		],
+		"objecten": [
+			{
+				"tegel": "Object_17.png",
+				"x": 0,
+				"y": 3
+			},
+			{
+				"tegel": "Object_20.png",
+				"x": 6,
+				"y": 1
+			}
 		]
 	},
 	"start-punt": [0 ,2],

@@ -44,15 +44,17 @@ getModule('CanvasSize', function(CANVAS) {
 					if (!(spec in VijandDetails)) {
 						VijandDetails[spec] = { geladen: false };
 						http.get('karakters/Vijanden/' + spec + '.json?' + new Date().getTime(), function(text) {
-							const json = JSON.parse(text);
-							if (json.afbeeldingen && json.afbeeldingen.sprite) {
-								pixi.resources[json.id] = json.afbeeldingen.sprite;
-							}
-							VijandDetails[spec] = json;
+							VijandDetails[spec] = JSON.parse(text);
 							VijandDetails[spec].geladen = true;
 						})
 						klaar = false;
 						return;
+					}
+					if (VijandDetails[spec]) {
+						const json = VijandDetails[spec];							
+						if (json.afbeeldingen && json.afbeeldingen.sprite) {
+							pixi.resources[json.id] = json.afbeeldingen.sprite;
+						}
 					}
 					klaar = klaar && VijandDetails[spec].geladen;
 				});
@@ -211,6 +213,7 @@ getModule('CanvasSize', function(CANVAS) {
 				});
 			});
 			pixi.kaart = map;
+			pixi.kaartObjecten = kaart.objecten || {};
 
 		}, function() {
 			pixi.node.innerHTML = 'Gevecht kon niet worden geladen';
@@ -238,6 +241,16 @@ getModule('CanvasSize', function(CANVAS) {
 				});
 			})
 		});
+
+		const objecten = this.kaartObjecten;
+		if (objecten) {
+			objecten.forEach((obj) => {
+				const sprite = new PIXI.Sprite(terrein.textures[obj.tegel])
+				sprite.x = obj.x * this.tileSize;
+				sprite.y = obj.y * this.tileSize;
+				container.addChild(sprite);
+			});
+		}
 
 		box.addChild(container);
 
