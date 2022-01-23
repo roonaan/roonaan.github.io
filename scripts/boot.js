@@ -3,7 +3,7 @@ function start(rootNode) {
   const node = rootNode || document.getElementById('main');
   node.innerHTML = H_LAAD_ICON + 'Bezig met laden';
   
-  const hash = (document.location.hash || '').replace(/^#/, '').replace(/([a-z]+)(.*?)$/, '$1');
+  const hash = (document.location.hash || '').replace(/^#/, '').replace(/([a-z_]+)(.*?)$/, '$1');
   if (/^(demo_)?\w+$/.test(hash)) {
     loadPage(node, hash, function() {
       loadPage(node, 'homepage');
