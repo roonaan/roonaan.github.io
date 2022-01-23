@@ -1,5 +1,6 @@
 {
 	"id": "oertijd-grumble",
+	"avatar": "karakters/Grumble/oertijd-grumble.png",
 	"personage": "grumble",
 	"leven": [10, 1000],
 	"aanval": [10, 100],

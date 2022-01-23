@@ -52,25 +52,25 @@
 	position: absolute;
 	left:  calc(6 * var(--font-size-regular));
 	padding-left:  var(--padding);
-	top:  calc(1 * var(--font-size-regular));
+	top:  calc(0 * var(--font-size-regular));
 }
 .karakter-details .karakter-personage {
 	position: absolute;
 	left:  calc(6 * var(--font-size-regular));
 	padding-left:  var(--padding);
-	top:  calc(2 * var(--font-size-regular));
+	top:  calc(1 * var(--font-size-regular));
 }
 .karakter-details .karakter-level {
 	position: absolute;
 	left:  calc(6 * var(--font-size-regular));
 	padding-left:  var(--padding);
-	top:  calc(3 * var(--font-size-regular));
+	top:  calc(2 * var(--font-size-regular));
 }
 .karakter-details .karakter-energiepunten {
 	position: absolute;
 	left:  calc(6 * var(--font-size-regular));
 	padding-left:  var(--padding);
-	top:  calc(4 * var(--font-size-regular));
+	top:  calc(3 * var(--font-size-regular));
 }
 .karakter-details .karakter-stats {
 	position: absolute;
@@ -118,4 +118,8 @@
 .karakter-details .skill-omschrijving {
 	font-size: var(--font-size-tiny);
 	font-style: italic;
+}
+.karakter-details .karakter-logo img {
+	height:  100%;
+	width:  100%;
 }

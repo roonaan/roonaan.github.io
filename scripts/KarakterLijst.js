@@ -57,6 +57,7 @@ getModule('GameStorage', function(GameStorage) {
 			callback({
 				id: naam,
 				level: level,
+				avatar: data.avatar,
 				experience: experience,
 				naam: data.naam || naam,
 				personage: data.personage || '',

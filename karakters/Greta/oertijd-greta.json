@@ -1,5 +1,6 @@
 {
 	"id": "oertijd-greta",
+	"avatar": "karakters/Greta/oertijd-greta.png",
 	"personage": "greta",
 	"leven": [10, 1000],
 	"aanval": [8, 80],
