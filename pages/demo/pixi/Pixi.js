@@ -74,9 +74,10 @@
 
 	Pixi.prototype.tekenDeGrond = function(app, resources) {
 		const desert = resources.desert;
+		const container = new PIXI.Container();
 
 		const map = [
-			['Tile_1.png', 'Tile_2.png', 'Tile_2.png', 'Tile_3.png'],
+			['Tile_1.png', 'Tile_2.png', 'Tile_2.png,Object_16.png', 'Tile_3.png'],
 			['Tile_7.png', 'Tile_8.png', 'Tile_16.png', 'Tile_9.png']
 		];
 
@@ -86,13 +87,21 @@
 			const top = rowIndex * 256;
 			row.forEach((col, colIndex) => {
 				const left = colIndex * 256;
-				const tile = new PIXI.Sprite(desert.textures[col]);
-				tile.x = left;
-				tile.y = top;
-				tile.zOrder = Z_GROUND;
-				app.stage.addChild(tile);
+				col.split(',').forEach((cell) => {
+					const tile = new PIXI.Sprite(desert.textures[cell]);
+					tile.x = left;
+					tile.y = top;
+					tile.zOrder = Z_GROUND;
+					container.addChild(tile);
+				});
 			})
 		});
+
+		app.stage.addChild(container);
+		container.x = app.screen.width / 2;
+		container.y = app.screen.height / 2;
+		container.pivot.x = container.width / 2;
+		container.pivot.y = container.height / 2;
 	}
 
 	window.Pages_Demo_Pixi = Pixi;
