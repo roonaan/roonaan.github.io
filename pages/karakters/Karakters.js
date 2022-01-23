@@ -19,11 +19,11 @@ getModule('KarakterLijst', function(KarakterLijst) {
 	Pages_Karakters.prototype.setPaginaDetails = function(title, label) {
 		this.node.querySelector('#bovenbalk h1').innerHTML = label || title;
 		if (title == 'Karakters') {
-			document.location.hash = 'Karakters'; 
+			document.location.hash = 'karakters'; 
 			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'binnenstad');
 		} else {
-			document.location.hash = 'Karakters/' + title;
-			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'Karakters');
+			document.location.hash = 'karakters/' + title;
+			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'karakters');
 		}
 	}
 
