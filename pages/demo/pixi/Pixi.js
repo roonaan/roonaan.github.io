@@ -1,10 +1,29 @@
 (function() {
 	
-
 	const lib = document.createElement('script');
 	lib.src = 'https://pixijs.download/release/pixi.js';
 	lib.type = 'text/javascript';
 	document.body.appendChild(lib);
+
+	function CanvasSize(app) {
+		this.app = app;
+		const canvas = this;
+		window.addEventListener('resize', function() {
+			console.log('resize');
+			canvas.onResize();
+		})
+	}
+
+	CanvasSize.prototype.onResize = function() {
+		if (this.app) {
+			console.debug('Adjusting viewport');
+			this.app.view.style.height = this.app.view.parentNode.offsetHeight;
+			this.app.view.style.width = this.app.view.parentNode.offsetWidth;
+			this.app.resize();
+		}
+	};
+
+	const CANVAS = new CanvasSize();
 
 	function Pixi(node) {
 		this.node = node.querySelector('[data-pixi]');
@@ -37,7 +56,6 @@
 			});
 	}	
 
-
 	Pixi.prototype.startPixi = function(resources) {
 		const pixi = this;
 		const app = new PIXI.Application({
@@ -45,31 +63,48 @@
 			height: pixi.node.offsetHeight,
 			transparent: true
 		});
+		CANVAS.app = app;
 		this.node.appendChild(app.view);
 
+		const grond = this.tekenDeGrond(app, resources);
 
-		this.tekenDeGrond(app, resources);
+		const koe = PIXI.Sprite.from("assets/gekkekoe.png");
+		koe.anchor.set(0.5);
+		koe.height = 100;
+		koe.width = 100;
+		app.stage.addChild(koe);
 
-		const sprite = PIXI.Sprite.from("assets/gekkekoe.png");
-		sprite.height = 100;
-		sprite.width = 100;
-		//sprite.anchor.x = 50;
-		//sprite.anchor.y = 50;
-		app.stage.addChild(sprite);
+		koe.meta = {targetX: app.screen.width / 2, targetY: app.screen.height / 2};
 
-		let counter = 0;
 		app.ticker.add( (delta) => {
-			counter += delta;
-			sprite.x = 100 + Math.sin(counter / 20) * 100;
-			sprite.y = 100 + Math.cos(counter / -20) * 100;
-			//sprite.rotation = (counter % 360) / 10;
+			if (koe.x != koe.meta.targetX) {
+				const diff = Math.abs(koe.x - koe.meta.targetX);
+				if (diff < delta) {
+					koe.x = koe.meta.targetX;
+				} else if (koe.x > koe.meta.targetX) {
+					koe.x -= delta;
+				} else {
+					koe.x += delta;
+				}
+			}
+			if (koe.y != koe.meta.targetY) {
+				const diff = Math.abs(koe.y - koe.meta.targetY);
+				if (diff < delta) {
+					koe.y = koe.meta.targetY;
+				} else if (koe.y < koe.meta.targetY) {
+					koe.y += delta;
+				} else {
+					koe.y -= delta;
+				}
+			}
 		})
-		sprite.interactive = true;
-		sprite.on('pointerdown', () => {
-			sprite.rotation += 90;
-		});
-		sprite.zOrder = Z_CHARACTERS;
+		koe.zOrder = Z_CHARACTERS;
 	
+		grond.interactive = true;
+		grond.on("pointerdown", (ev) => {
+			koe.meta.targetX = ev.data.global.x;
+			koe.meta.targetY = ev.data.global.y;
+		});
 	};
 
 	Pixi.prototype.tekenDeGrond = function(app, resources) {
@@ -80,8 +115,6 @@
 			['Tile_1.png', 'Tile_2.png', 'Tile_2.png,Object_16.png', 'Tile_3.png'],
 			['Tile_7.png', 'Tile_8.png', 'Tile_16.png', 'Tile_9.png']
 		];
-
-		console.log(desert);
 
 		map.forEach((row, rowIndex) => {
 			const top = rowIndex * 256;
@@ -102,6 +135,9 @@
 		container.y = app.screen.height / 2;
 		container.pivot.x = container.width / 2;
 		container.pivot.y = container.height / 2;
+		container.scale.set(0.5);
+
+		return container;
 	}
 
 	window.Pages_Demo_Pixi = Pixi;
