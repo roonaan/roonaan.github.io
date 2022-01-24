@@ -7,6 +7,12 @@ getModule('CanvasSize', function(CANVAS) {
 
 	const VijandDetails = {};
 
+	let CollissionMap = undefined;
+
+	getModule('pixi/CollissionMap', function(cm) {
+		CollissionMap = cm;
+	});
+
 	function kiesVijand(lijst) {
 		const gekozen = lijst[0];
 		const details = VijandDetails[gekozen.vijand];
@@ -17,10 +23,12 @@ getModule('CanvasSize', function(CANVAS) {
 	}
 
 	function Pixi(node) {
+		const pixi = this;
 		this.node = node.querySelector('[data-pixi]');
 		this.node.innerHTML = H_LAAD_ICON;
 		this.vijandDetails = {};
 		this.resources = {};
+		this.collisionMap = [];
 		const gevecht = this.node.getAttribute('data-pixi') || 'gevecht-1-1-2';
 		if (!gevecht) {
 			this.laadStandaardGegevens();
@@ -33,7 +41,7 @@ getModule('CanvasSize', function(CANVAS) {
 
 	Pixi.prototype.waitForGegevens = function() {
 		const pixi = this;
-		if (!this.terrein || !this.kaart || !this.tileSize) {
+		if (!this.terrein || !this.kaart || !this.tileSize || !CollissionMap) {
 			return setTimeout(() => pixi.waitForGegevens(), 100);
 		}
 		let klaar = true;
@@ -114,12 +122,13 @@ getModule('CanvasSize', function(CANVAS) {
 		// De "box" hebben we nodig, zodat we kunnen scrollen als
 		// de speler uit het scherm dreigt te lopen.
 		this.box = new PIXI.Container();
+		this.collissionMap = new CollissionMap(this.box);
 		app.stage.addChild(this.box);
 		this.grond = this.tekenDeGrond(this.box, resources);
 
 		// We laden onze speler
 		const koe = PIXI.Sprite.from("assets/gekkekoe.png");
-		koe.anchor.set(0.5);
+		//koe.anchor.set(0.5);
 		koe.height = 100;
 		koe.width = 100;
 		if (pixi.startPunt) {
@@ -138,8 +147,6 @@ getModule('CanvasSize', function(CANVAS) {
 		}
 		this.box.addChild(koe);
 
-		const collisions = [];
-
 		if (this.vijanden) {
 			this.vijanden.forEach(function(v) {
 				const vijand = kiesVijand(v.vijanden);
@@ -152,7 +159,6 @@ getModule('CanvasSize', function(CANVAS) {
 				sprite.animationSpeed = vijand.afbeeldingen.animationSpeed;
 				sprite.play();
 				pixi.box.addChild(sprite);
-				collisions.push(sprite);
 			});
 		}
 
@@ -168,6 +174,10 @@ getModule('CanvasSize', function(CANVAS) {
 			koe.meta.targetX = (ev.data.global.x / app.stage.scale._x) - pixi.box.x;
 			koe.meta.targetY = (ev.data.global.y / app.stage.scale._y) - pixi.box.y;
 		});
+
+		if (this.collissionMap.debug) {
+			this.collissionMap.render();
+		}
 
 		// Voor de zekerheid resizen we naar het scherm
 		CANVAS.onResize();
@@ -223,6 +233,7 @@ getModule('CanvasSize', function(CANVAS) {
 	Pixi.prototype.tekenDeGrond = function(box, resources) {
 		const terrein = resources.terrein;
 		const container = new PIXI.Container();
+		const collision = this.collissionMap;
 
 		const kaart = this.kaart;
 		const bg = 'Tile_5.png';
@@ -238,6 +249,7 @@ getModule('CanvasSize', function(CANVAS) {
 					tile.y = top;
 					tile.zOrder = Z_GROUND;
 					container.addChild(tile);
+					this.addCollission(terrein, cell, left, top, collision);
 				});
 			})
 		});
@@ -253,37 +265,100 @@ getModule('CanvasSize', function(CANVAS) {
 		}
 
 		box.addChild(container);
-
+	
 		return container;
 	}
 
+	Pixi.prototype.addCollission = function(spritesheet, naam, left, top, collissionMap) {
+		if (!spritesheet || !naam || !collissionMap) {
+			return;
+		}
+		const frame = spritesheet.data?.frames?.[naam];
+		if (!frame || !frame.collision || frame.collision.length < 1) {
+			console.log('No frame data for', naam);
+			return;
+		}
+		const blocks = frame.collision;
+		const x1 = left;
+		const x2 = left + Math.ceil(0.33 * this.tileSize);
+		const x3 = left + Math.ceil(0.66 * this.tileSize);
+		const s = Math.ceil(0.33 * this.tileSize);
+		const y1 = top;		
+		const y2 = top + Math.ceil(0.33 * this.tileSize);
+		const y3 = top + Math.ceil(0.66 * this.tileSize);	
+
+		if (blocks.includes(7)) {
+			collissionMap.addHitArea(x1, y1, s, s);
+		}
+		if (blocks.includes(8)) {
+			collissionMap.addHitArea(x2, y1, s, s);
+		}
+		if (blocks.includes(9)) {
+			collissionMap.addHitArea(x3, y1, s, s);
+		}
+		if (blocks.includes(4)) {
+			collissionMap.addHitArea(x1, y2, s, s);
+		}
+		if (blocks.includes(5)) {
+			collissionMap.addHitArea(x2, y2, s, s);
+		}
+		if (blocks.includes(6)) {
+			collissionMap.addHitArea(x3, y2, s, s);
+		}
+		if (blocks.includes(1)) {
+			collissionMap.addHitArea(x1, y3, s, s);
+		}
+		if (blocks.includes(2)) {
+			collissionMap.addHitArea(x2, y3, s, s);
+		}
+		if (blocks.includes(3)) {
+			collissionMap.addHitArea(x3, y3, s, s);
+		}
+	}
+
 	Pixi.prototype.verplaatsKoe = function(koe, delta) {
+		const originalX = koe.x;
+		const originalY = koe.y;
 		const beweging = delta * 3;
-		let bewogen = false;
+		const check = this.collissionMap.movementCheck(koe);
+
+		// const gfx = new PIXI.Graphics();
+		// gfx.lineStyle(0.7, 0x00FF00, 0.7);
+		// gfx.drawRect(koe.x, koe.y, koe.width, koe.height);
+		// gfx.endFill();
+		// this.box.addChild(gfx);
+		// setTimeout(function() {
+		// 	gfx.parent.removeChild(gfx);
+		// }, 1000);
+
 		if (koe.x != koe.meta.targetX) {
 			const diff = Math.abs(koe.x - koe.meta.targetX);
 			if (diff < beweging) {
-				koe.x = koe.meta.targetX;
+				koe.x = check.moveX(koe.meta.targetX);
 			} else if (koe.x > koe.meta.targetX) {
-				koe.x -= beweging;
+				koe.x = check.moveX(koe.x - beweging);
 			} else {
-				koe.x += beweging;
+				koe.x = check.moveX(koe.x + beweging);
 			}
-			bewogen = true;
 		}
 		if (koe.y != koe.meta.targetY) {
 			const diff = Math.abs(koe.y - koe.meta.targetY);
 			if (diff < beweging) {
-				koe.y = koe.meta.targetY;
-			} else if (koe.y < koe.meta.targetY) {
-				koe.y += beweging;
+				koe.y = check.moveY(koe.meta.targetY);
+			} else if (koe.y > koe.meta.targetY) {
+				koe.y = check.moveY(koe.y - beweging);
 			} else {
-				koe.y -= beweging;
+				koe.y = check.moveY(koe.y + beweging);
 			}
-			bewogen = true;
+			koe.zOrder = koe.y + Math.floor(koe.height/2);
 		}
+		const bewogen = koe.x != originalX || koe.y != originalY;
 		if (bewogen) {
 			this.focus(koe.x, koe.y, beweging);
+		} else {
+			koe.meta.targetX = koe.x;
+			koe.meta.targetY = koe.y;
+			//this.collissionMap.render(this.box);
 		}
 	};
 
@@ -295,7 +370,7 @@ getModule('CanvasSize', function(CANVAS) {
 		}
 		const width = this.app.screen.width / this.app.stage.scale.x;
 		const height = this.app.screen.height / this.app.stage.scale.y;
-		console.debug("Screen", { width, height, sh: this.app.screen.height, sw: this.app.screen.width});
+		// console.debug("Screen", { width, height, sh: this.app.screen.height, sw: this.app.screen.width});
 
 		let minX = 0.25 * width - this.box.x;
 		let minY = 0.25 * height - this.box.y;

@@ -6,7 +6,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [5],
+	"meta": "Schedel"
 },
 "Object_2.png":
 {
@@ -14,7 +16,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [5,2],
+	"meta": "stapel-stenen"
 },
 "Object_3.png":
 {
@@ -78,7 +82,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [5],
+	"meta": "Mosgroen gras"
 },
 "Object_11.png":
 {
@@ -86,7 +92,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [5],
+	"meta": "Groen gras"
 },
 "Object_12.png":
 {
@@ -94,7 +102,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [5],
+	"meta": "Rood gras"
 },
 "Object_13.png":
 {
@@ -102,7 +112,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [5, 2],
+	"meta": "Groene cactus met rode bloem"
 },
 "Object_14.png":
 {
@@ -110,7 +122,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [5, 2],
+	"meta": "Groene cactus met gele bloem"
 },
 "Object_15.png":
 {
@@ -166,7 +180,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [2, 5, 6],
+	"meta": "verhoging-linksboven"
 },
 "Tile_2.png":
 {
@@ -174,7 +190,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [4, 5, 6],
+	"meta": "verhoging-boven"
 },
 "Tile_3.png":
 {
@@ -182,7 +200,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [4, 5, 2],
+	"meta": "verhoging-rechtsboven"
 },
 "Tile_4.png":
 {
@@ -190,7 +210,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [8, 5, 2],
+	"meta": "verhoging-links"
 },
 "Tile_5.png":
 {
@@ -198,7 +220,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [],
+	"meta": "Zand"
 },
 "Tile_6.png":
 {
@@ -206,7 +230,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [8,5,2],
+	"meta": "verhoging-rechtsmidden"
 },
 "Tile_7.png":
 {
@@ -214,7 +240,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [8,5,6,2,3],
+	"meta": "verhoging-linksonder"
 },
 "Tile_8.png":
 {
@@ -222,7 +250,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [4,5,6,1,2,3],
+	"meta": "verhoging-onder"
 },
 "Tile_9.png":
 {
@@ -230,7 +260,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [8,4,5,1,2],
+	"meta": "verhoging-rechtsonder"
 },
 "Tile_10.png":
 {
@@ -238,7 +270,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision" : [5,6,2,3],
+	"meta": "verlaging-rechtsonder"
 },
 "Tile_11.png":
 {
@@ -246,7 +280,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [4,5,1,2],
+	"meta": "verlaging-linksonder"
 },
 "Tile_12.png":
 {
@@ -254,7 +290,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [8,9,5,6],
+	"meta": "verlaging-rechtsboven"
 },
 "Tile_13.png":
 {
@@ -262,7 +300,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [7,8,4,5],
+	"meta": "verlaging-linksboven"
 },
 "Tile_14.png":
 {
@@ -270,7 +310,8 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"meta": "trap-links"
 },
 "Tile_15.png":
 {
@@ -278,7 +319,8 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"meta": "trap-rechts"
 },
 "Tile_16.png":
 {
@@ -286,7 +328,8 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"meta": "trap-onder"
 },
 "Tile_17.png":
 {
@@ -294,7 +337,8 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"meta": "trap-boven"
 }},
 "animations": {
 	"Object": ["Object_1.png","Object_2.png","Object_3.png","Object_4.png","Object_5.png","Object_6.png","Object_7.png","Object_8.png","Object_9.png","Object_10.png","Object_11.png","Object_12.png","Object_13.png","Object_14.png","Object_15.png","Object_16.png","Object_17.png","Object_18.png","Object_19.png","Object_20.png"],
