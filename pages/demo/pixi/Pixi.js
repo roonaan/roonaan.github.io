@@ -122,7 +122,7 @@ getModule('CanvasSize', function(CANVAS) {
 		// De "box" hebben we nodig, zodat we kunnen scrollen als
 		// de speler uit het scherm dreigt te lopen.
 		this.box = new PIXI.Container();
-		this.collissionMap = new CollissionMap(this.box);
+		this.collissionMap = new CollissionMap(this.box, false);
 		app.stage.addChild(this.box);
 		this.grond = this.tekenDeGrond(this.box, resources);
 
@@ -320,16 +320,7 @@ getModule('CanvasSize', function(CANVAS) {
 		const originalX = koe.x;
 		const originalY = koe.y;
 		const beweging = delta * 3;
-		const check = this.collissionMap.movementCheck(koe);
-
-		// const gfx = new PIXI.Graphics();
-		// gfx.lineStyle(0.7, 0x00FF00, 0.7);
-		// gfx.drawRect(koe.x, koe.y, koe.width, koe.height);
-		// gfx.endFill();
-		// this.box.addChild(gfx);
-		// setTimeout(function() {
-		// 	gfx.parent.removeChild(gfx);
-		// }, 1000);
+		const check = this.collissionMap.movementCheck(koe, 0.1);
 
 		if (koe.x != koe.meta.targetX) {
 			const diff = Math.abs(koe.x - koe.meta.targetX);

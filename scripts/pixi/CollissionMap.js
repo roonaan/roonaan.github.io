@@ -44,16 +44,20 @@
 		return false;
 	}
 
-	CollissionMap.prototype.movementCheck = function(sprite) {
+	CollissionMap.prototype.movementCheck = function(sprite, wiggle) {
 		const bounds = sprite;
 		const originalX = bounds.x;
 		const originalY = bounds.y;
+		const wiggleX = sprite.width * (wiggle || 0);
+		const wiggleY = sprite.height * (wiggle || 0);
+		const sizeX = sprite.width - 2 * wiggleX;
+		const sizeY = sprite.height - 2 * wiggleY;
 		const cm = this;
 		return {
 			moveX (newX) {
 				const bx = originalX - sprite.x + newX;
 				const by = originalY;
-				if (cm.overlaps(bx, by, sprite.width, sprite.height)) {
+				if (cm.overlaps(bx + wiggleX, by + wiggleY, sizeX, sizeY)) {
 					return originalX;
 				}
 				return newX;
@@ -61,7 +65,7 @@
 			moveY (newY) {
 				const bx = originalX;
 				const by = originalY - sprite.y + newY;
-				if (cm.overlaps(bx, by, sprite.width, sprite.height)) {
+				if (cm.overlaps(bx + wiggleX, by + wiggleY, sizeX, sizeY)) {
 					return originalY;
 				}
 				return newY;
