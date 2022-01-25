@@ -186,7 +186,6 @@ getModule('MissieVoortgang', function(Storage) {
                 Object.entries(total).forEach( kv => {
                     if (kv[1] > 0) {
                         inv.addItem(kv[0], kv[1]);
-                        notificatie('Je krijgt ' + kv[0] + ' x ' + kv[1]);
                     }
                 });
             });
