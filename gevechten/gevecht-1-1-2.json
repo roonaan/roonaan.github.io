@@ -4,6 +4,9 @@
 	"titel": "Een boze veldmuis",
 	"kaart": {
 		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
+		"shared": [
+			"kampvuur"
+		],
 		"tileSize": 250,
 		"achtergrond": "Tile_5",
 		"tegels": [

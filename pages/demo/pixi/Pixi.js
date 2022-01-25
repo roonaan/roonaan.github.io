@@ -7,6 +7,10 @@ getModule('CanvasSize', function(CANVAS) {
 
 	const VijandDetails = {};
 
+	const sharedSprites = {
+		kampvuur: "assets/terrein/oga-camp-fire-animation-for-rpgs-finished/kampvuur.json"
+	}
+
 	let CollissionMap = undefined;
 
 	getModule('pixi/CollissionMap', function(cm) {
@@ -211,6 +215,11 @@ getModule('CanvasSize', function(CANVAS) {
 			pixi.startPunt = json['start-punt'];
 			pixi.vijanden = json.vijanden;
 			pixi.terrein = kaart.terrein;
+			if (kaart.shared) {
+				kaart.shared.forEach( (sh) => {
+					pixi.resources[sh] = sharedSprites[sh];
+				});
+			}
 			pixi.tileSize = kaart.tileSize;
 			pixi.eindPunt = json['eind-punt'];
 			const map = kaart.tegels.map(function(regel) {
@@ -259,10 +268,30 @@ getModule('CanvasSize', function(CANVAS) {
 		const objecten = this.kaartObjecten;
 		if (objecten) {
 			objecten.forEach((obj) => {
-				const sprite = new PIXI.Sprite(terrein.textures[obj.tegel])
-				sprite.x = obj.x * this.tileSize;
-				sprite.y = obj.y * this.tileSize;
-				container.addChild(sprite);
+				if (obj.tegel) {
+					const sprite = new PIXI.Sprite(terrein.textures[obj.tegel])
+					sprite.x = obj.x * this.tileSize;
+					sprite.y = obj.y * this.tileSize;
+					container.addChild(sprite);
+				} else if (obj.animatie) {
+					let set = 'terrein';
+					let ani = obj.animatie;
+					if (obj.animatie.includes('#')) {
+						const set_ani = obj.animatie.split('#');
+						set = set_ani[0];
+						ani = set_ani[1];
+					}
+					console.log(resources[set]);
+					const sprite = new PIXI.AnimatedSprite(resources[set].spritesheet.animations[ani]);
+					sprite.x = obj.x * this.tileSize;
+					sprite.y = obj.y * this.tileSize;
+					if (obj.scale) {
+						sprite.scale.set(obj.scale);
+					}
+					sprite.animationSpeed = obj.snelheid || 0.5;
+					sprite.play();
+					container.addChild(sprite);
+				}
 			});
 		}
 
