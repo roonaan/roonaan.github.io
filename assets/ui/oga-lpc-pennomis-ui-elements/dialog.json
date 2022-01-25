@@ -1,0 +1,72 @@
+{
+	"frames": {
+		"topLeft": {
+			"frame": {"x":30,"y":0,"w":100,"h":40},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":40},
+			"sourceSize": {"w":100,"h":50}
+		},
+		"top": {
+			"frame": {"x":100,"y":0,"w":200,"h":40},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":200,"h":40},
+			"sourceSize": {"w":200,"h":40}
+		},
+		"topRight": {
+			"frame": {"x":510,"y":0,"w":100,"h":40},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":40},
+			"sourceSize": {"w":100,"h":40}
+		},
+		"left": {
+			"frame": {"x":30,"y":38,"w":100,"h":20},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":20},
+			"sourceSize": {"w":100,"h":20}
+		},
+		"center": {
+			"frame": {"x":100,"y":38,"w":200,"h":20},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":200,"h":20},
+			"sourceSize": {"w":200,"h":20}
+		},
+		"right": {
+			"frame": {"x":510,"y":38,"w":100,"h":20},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":20},
+			"sourceSize": {"w":100,"h":20}
+		},
+		"bottomLeft": {
+			"frame": {"x":30,"y":56,"w":100,"h":40},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":40},
+			"sourceSize": {"w":100,"h":40}
+		},
+		"bottom": {
+			"frame": {"x":100,"y":56,"w":200,"h":40},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+			"sourceSize": {"w":64,"h":64}
+		},
+		"bottomRight": {
+			"frame": {"x":510,"y":56,"w":100,"h":40},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":40},
+			"sourceSize": {"w":100,"h":40}
+		}
+
+	},
+	"meta": {
+		"image": "images/dialog_box.png",
+		"_size" : "640x96"
+	}
+}	

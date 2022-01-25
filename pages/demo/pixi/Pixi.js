@@ -1,9 +1,24 @@
 getModule('CanvasSize', function(CANVAS) {
 	
-	const lib = document.createElement('script');
-	lib.src = 'https://pixijs.download/release/pixi.js';
-	lib.type = 'text/javascript';
-	document.body.appendChild(lib);
+	const librariesToLoad = [
+		'libs/pixi.6.2.1.dev.js',
+		'libs/pixi-layers.min.js',
+		'scripts/pixi/pixi-dialog.js'
+	];
+
+	function loadLibraries(callback) {
+		if (librariesToLoad.length === 0) {
+			callback();
+			return;
+		}
+		const src = librariesToLoad.shift();
+		const lib = document.createElement('script');
+		lib.addEventListener('load', () => loadLibraries(callback));
+		lib.addEventListener('error', () => loadLibraries(callback));
+		lib.type = 'text/javascript';
+		lib.src = src;
+		document.body.appendChild(lib);
+	}
 
 	const VijandDetails = {};
 
@@ -37,9 +52,11 @@ getModule('CanvasSize', function(CANVAS) {
 		if (!gevecht) {
 			this.node.innerHTML = 'Geen gevecht geselecteerd';
 		} else {
-			this.laadGevechtsGegevens(gevecht);
-			this.waitForGegevens();
-			this.meta = {scale: 1};
+			loadLibraries(() => {
+				this.laadGevechtsGegevens(gevecht);
+				this.waitForGegevens();
+				this.meta = {scale: 1};
+			});
 		}
 	};
 
@@ -95,7 +112,6 @@ getModule('CanvasSize', function(CANVAS) {
 	Pixi.prototype.loadPixi = function() {
 		const pixi = this;
 		let loader = new PIXI.Loader();
-		console.log('Resources magic', pixi.resources, Object.keys(pixi.resources));
 		Object.keys(pixi.resources).forEach( function(key) {
 			console.log('Adding resource', key);
 			loader = loader.add(key, pixi.resources[key]);
@@ -103,6 +119,7 @@ getModule('CanvasSize', function(CANVAS) {
 		loader
 			.add('terrein', this.terrein)
 			.add('portals', 'assets/terrein/oga-explosion-effects-and-more/effect95.json')
+			.add('dialog', 'assets/ui/oga-lpc-pennomis-ui-elements/dialog.json')
 			.load((_, resources) => {
 				pixi.startPixi(resources);
 			});
@@ -117,7 +134,7 @@ getModule('CanvasSize', function(CANVAS) {
 		const app = new PIXI.Application({
 			width: pixi.node.offsetWidth,
 			height: pixi.node.offsetHeight,
-			transparent: true,
+			backgroundAlpha: 0,
 			resizeTo: this.node
 		});
 		this.app = app;
@@ -128,29 +145,32 @@ getModule('CanvasSize', function(CANVAS) {
 		// de speler uit het scherm dreigt te lopen.
 		this.box = new PIXI.Container();
 		this.collissionMap = new CollissionMap(this.box, false);
+		this.eventMap = new CollissionMap(this.box, false);
 		app.stage.addChild(this.box);
 		this.grond = this.tekenDeGrond(this.box, resources);
 
 		// We laden onze speler
-		const koe = PIXI.Sprite.from("assets/gekkekoe.png");
-		//koe.anchor.set(0.5);
-		koe.height = 100;
-		koe.width = 100;
+		const speler = PIXI.Sprite.from("karakters/Greta/oertijd-greta.png");
+		//speler.anchor.set(0.5);
+		speler.height = 100;
+		speler.width = 100;
 		if (pixi.startPunt) {
-			koe.x = 50 + pixi.startPunt[0] * pixi.tileSize;
-			koe.y = 50 + pixi.startPunt[1] * pixi.tileSize;
-			koe.meta = {
-				targetX: koe.x,
-				targetY: koe.y
+			speler.x = 50 + pixi.startPunt[0] * pixi.tileSize;
+			speler.y = 50 + pixi.startPunt[1] * pixi.tileSize;
+			speler.meta = {
+				targetX: speler.x,
+				targetY: speler.y
 			}
 		} else {
-			koe.x = 100;
-			koe.y = 100;
+			speler.x = 100;
+			speler.y = 100;
 			// Om het spel wat te laten doen, sturen we hem maar naar het
 			// midden van het scherm
-			koe.meta = {targetX: this.grond.width / 2, targetY: this.grond.height / 2};
+			speler.meta = {targetX: this.grond.width / 2, targetY: this.grond.height / 2};
 		}
-		this.box.addChild(koe);
+		speler.zOrder = speler.y;
+		this.box.addChild(speler);
+		this.box.sortableChildren = true;
 
 		if (this.vijanden) {
 			this.vijanden.forEach(function(v) {
@@ -164,48 +184,53 @@ getModule('CanvasSize', function(CANVAS) {
 				sprite.animationSpeed = vijand.afbeeldingen.animationSpeed;
 				sprite.play();
 				pixi.box.addChild(sprite);
+				pixi.registerEventArea(sprite, () => {
+					console.log('Een gevecht begint');
+					sprite.parent.removeChild(sprite);
+				});
 			});
 		}
 
 
-		// Elke paar seconden moeten we de koe verplaatsen
+		// Elke paar seconden moeten we de speler verplaatsen
 		app.ticker.add( (delta) => {
-			pixi.verplaatsKoe(koe, delta);
+			pixi.verplaatsspeler(speler, delta);
 		})
 	
-		// Als we klikken, dan moet de koe daarheen.
+		// Als we klikken, dan moet de speler daarheen.
 		this.grond.interactive = true;
 		this.grond.on("pointerdown", (ev) => {
-			koe.meta.targetX = (ev.data.global.x / app.stage.scale._x) - pixi.box.x;
-			koe.meta.targetY = (ev.data.global.y / app.stage.scale._y) - pixi.box.y;
+			speler.meta.targetX = (ev.data.global.x - pixi.box.x) / pixi.box.scale.x;
+			speler.meta.targetY = (ev.data.global.y - pixi.box.y) / pixi.box.scale.y;
+			// const gfx = new PIXI.Graphics();
+			// gfx.lineStyle(2, 0x0000FF);
+			// gfx.drawRect(speler.meta.targetX - 2, speler.meta.targetY - 2, 4, 4);
+			// gfx.endFill();
+			// this.box.addChild(gfx);
+			// setTimeout(() => {
+			// 	gfx.parent.removeChild(gfx);
+			// }, 2000);
 		});
 
 		if (this.collissionMap.debug) {
 			this.collissionMap.render();
 		}
+		if (this.eventMap.debug) {
+			this.eventMap.render();
+		}
+
+		this.dialog = new PIXI.game.Dialog(app.stage, resources.dialog);
+		this.dialog.hide();
 
 		// Voor de zekerheid resizen we naar het scherm
 		CANVAS.onResize();
 	};
 
-	Pixi.prototype.laadStandaardGegevens = function() {
-		this.tileSize = 255;
-		this.terrein = "assets/terrein/opa-free-desert/opa-free-desert.json";
-		this.kaart = [
-			['Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png'],
-			['Tile_5.png','Tile_1.png', 'Tile_2.png', 'Tile_2.png,Object_16.png', 'Tile_3.png', 'Tile_5.png'],
-			['Tile_5.png,Object_2.png','Tile_7.png', 'Tile_8.png', 'Tile_16.png', 'Tile_9.png', 'Tile_5.png'],
-			['Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png', 'Tile_5.png,Object_14.png']
-		];
-
-		this.kaart.unshift([...this.kaart[0]]);
-		this.kaart.push([...this.kaart[0]]);
-		this.kaart.push([...this.kaart[0]]);
-		this.kaart.push([...this.kaart[0]]);
-		this.kaart.push([...this.kaart[0]]);
-		this.kaart.push([...this.kaart[0]]);
-		this.kaart.push([...this.kaart[0]]);
-	}
+	Pixi.prototype.registerEventArea = function(sprite, callback) {
+		this.eventMap.addHitArea(sprite.x, sprite.y, this.tileSize, this.tileSize, {
+			callback
+		});
+	};
 
 	Pixi.prototype.laadGevechtsGegevens = function(naam) {
 		const pixi = this;
@@ -244,6 +269,7 @@ getModule('CanvasSize', function(CANVAS) {
 	Pixi.prototype.tekenDeGrond = function(box, resources) {
 		const terrein = resources.terrein;
 		const container = new PIXI.Container();
+		box.addChild(container);
 		const collision = this.collissionMap;
 
 		const kaart = this.kaart;
@@ -268,10 +294,12 @@ getModule('CanvasSize', function(CANVAS) {
 		const objecten = this.kaartObjecten;
 		if (objecten) {
 			objecten.forEach((obj) => {
+				let sprite;
 				if (obj.tegel) {
-					const sprite = new PIXI.Sprite(terrein.textures[obj.tegel])
+					sprite = new PIXI.Sprite(terrein.textures[obj.tegel])
 					sprite.x = obj.x * this.tileSize;
 					sprite.y = obj.y * this.tileSize;
+					sprite.zOrder = sprite.y;
 					container.addChild(sprite);
 				} else if (obj.animatie) {
 					let set = 'terrein';
@@ -281,16 +309,29 @@ getModule('CanvasSize', function(CANVAS) {
 						set = set_ani[0];
 						ani = set_ani[1];
 					}
-					console.log(resources[set]);
-					const sprite = new PIXI.AnimatedSprite(resources[set].spritesheet.animations[ani]);
+					sprite = new PIXI.AnimatedSprite(resources[set].spritesheet.animations[ani]);
 					sprite.x = obj.x * this.tileSize;
 					sprite.y = obj.y * this.tileSize;
+					sprite.zOrder = sprite.y;
 					if (obj.scale) {
 						sprite.scale.set(obj.scale);
 					}
 					sprite.animationSpeed = obj.snelheid || 0.5;
 					sprite.play();
 					container.addChild(sprite);
+				}
+				if (sprite && obj.beloning) {
+					this.registerEventArea(sprite, () => {
+						sprite.parent.removeChild(sprite);
+						console.log('Er is een beloning!');
+						getModule('Inventory', function(Inv) {
+							if (obj.beloning.eenmalig) {
+								obj.beloning.eenmalig.forEach( (bel) => {
+									Inv.addItem(bel[0], bel[1]);
+								})
+							}
+						});
+					})
 				}
 			});
 		}
@@ -304,8 +345,6 @@ getModule('CanvasSize', function(CANVAS) {
 				y2: (this.eindPunt[1] + 1) * this.tileSize
 			}
 		}
-
-		box.addChild(container);
 	
 		return container;
 	}
@@ -358,7 +397,7 @@ getModule('CanvasSize', function(CANVAS) {
 	}
 
 	Pixi.prototype.tekenEindPunt = function(resources, container, x, y) {
-		console.log("resources", Object.keys(resources), resources.portals);
+		console.debug("resources", Object.keys(resources), resources.portals);
 		const gfx = new PIXI.AnimatedSprite(resources.portals.spritesheet.animations.klein);
 		gfx.animationSpeed = 0.05;
 		gfx.x = (x + 0.25) * this.tileSize; // De correctie is nodig, vanwege het ankerpunt van de animatie
@@ -367,51 +406,59 @@ getModule('CanvasSize', function(CANVAS) {
 		container.addChild(gfx);
 	};
 
-	Pixi.prototype.verplaatsKoe = function(koe, delta) {
-		const originalX = koe.x;
-		const originalY = koe.y;
+	Pixi.prototype.verplaatsspeler = function(speler, delta) {
+		const originalX = speler.x;
+		const originalY = speler.y;
 		const beweging = delta * 3;
-		const check = this.collissionMap.movementCheck(koe, 0.1);
+		const check = this.collissionMap.movementCheck(speler, 0.1);
 
-		if (koe.x != koe.meta.targetX) {
-			const diff = Math.abs(koe.x - koe.meta.targetX);
+		if (speler.x != speler.meta.targetX) {
+			const diff = Math.abs(speler.x - speler.meta.targetX);
 			if (diff < beweging) {
-				koe.x = check.moveX(koe.meta.targetX);
-			} else if (koe.x > koe.meta.targetX) {
-				koe.x = check.moveX(koe.x - beweging);
+				speler.x = check.moveX(speler.meta.targetX);
+			} else if (speler.x > speler.meta.targetX) {
+				speler.x = check.moveX(speler.x - beweging);
 			} else {
-				koe.x = check.moveX(koe.x + beweging);
+				speler.x = check.moveX(speler.x + beweging);
 			}
 		}
-		if (koe.y != koe.meta.targetY) {
-			const diff = Math.abs(koe.y - koe.meta.targetY);
+		if (speler.y != speler.meta.targetY) {
+			const diff = Math.abs(speler.y - speler.meta.targetY);
 			if (diff < beweging) {
-				koe.y = check.moveY(koe.meta.targetY);
-			} else if (koe.y > koe.meta.targetY) {
-				koe.y = check.moveY(koe.y - beweging);
+				speler.y = check.moveY(speler.meta.targetY);
+			} else if (speler.y > speler.meta.targetY) {
+				speler.y = check.moveY(speler.y - beweging);
 			} else {
-				koe.y = check.moveY(koe.y + beweging);
+				speler.y = check.moveY(speler.y + beweging);
 			}
-			koe.zOrder = koe.y + Math.floor(koe.height/2);
+			speler.zOrder = speler.y;
 		}
-		const bewogen = koe.x != originalX || koe.y != originalY;
+		const bewogen = speler.x != originalX || speler.y != originalY;
 		if (bewogen) {
-			this.focus(koe.x, koe.y, beweging);
+			this.focus(speler.x, speler.y, beweging);
+			const overlap = this.eventMap.overlaps(speler.x, speler.y, speler.width, speler.height);
+			if (overlap) {
+				console.log('Er moet iets gebeuren', overlap);
+				this.eventMap.remove(overlap.areaId);
+				if (overlap.callback) {
+					overlap.callback(overlap);
+				}
+			}
 		} else {
-			koe.meta.targetX = koe.x;
-			koe.meta.targetY = koe.y;
+			speler.meta.targetX = speler.x;
+			speler.meta.targetY = speler.y;
 		}
 		if (bewogen && this.exitPoint) {
 			if (
-				koe.x > this.exitPoint.x1
-				&& koe.x < this.exitPoint.x2
-				&& koe.y > this.exitPoint.y1
-				&& koe.y < this.exitPoint.y2
+				speler.x > this.exitPoint.x1
+				&& speler.x < this.exitPoint.x2
+				&& speler.y > this.exitPoint.y1
+				&& speler.y < this.exitPoint.y2
 				) {
 
 				if (!this.dispatchedCompleteEvent) {
 					let alpha = 100;
-					const box = this.box;
+					const box = this.app.stage;
 					const gfx = new PIXI.Graphics();
 					gfx.alpha = 0;
 					gfx.beginFill(0xFFFFFF);
@@ -424,7 +471,7 @@ getModule('CanvasSize', function(CANVAS) {
 						alpha -= delta;
 						if (alpha <= -50) {
 							ticker.destroy();
-							console.log('We zijn hier klaar');
+							console.log('We zijn hier klaar. Het gevecht is over');
 							this.node.dispatchEvent(new CustomEvent('gevecht-complete', { bubbles: true}));							
 						}
 					});
@@ -438,17 +485,16 @@ getModule('CanvasSize', function(CANVAS) {
 	Pixi.prototype.focus = function(x, y, delta) {
 		if (!this.focusArea) {
 			this.focusArea = new PIXI.Graphics();
-			this.focusArea.lineStyle(2, 0x00FF00);
 			// this.box.addChild(this.focusArea); // For debugging, uncomment this line
 		}
-		const width = this.app.screen.width / this.app.stage.scale.x;
-		const height = this.app.screen.height / this.app.stage.scale.y;
+		const width = this.app.screen.width / this.box.scale.x;
+		const height = this.app.screen.height / this.box.scale.y;
 		// console.debug("Screen", { width, height, sh: this.app.screen.height, sw: this.app.screen.width});
 
-		let minX = 0.25 * width - this.box.x;
-		let minY = 0.25 * height - this.box.y;
+		let minX = 0.25 * width - this.box.x / this.box.scale.x;
+		let minY = 0.25 * height - this.box.y / this.box.scale.y;
 		let maxX = minX + (width * 0.5);
-		let maxY = minY + (height * 0.5);
+		let maxY = minY + (height * 0.4);
 		if (maxX + 0.25 * width >= this.grond.width) {
 			maxX = this.grond.width;
 		}
@@ -462,19 +508,20 @@ getModule('CanvasSize', function(CANVAS) {
 			maxY = this.grond.height;
 		}
 		this.focusArea.clear();
+		this.focusArea.lineStyle(2, 0x00FF00);
 		this.focusArea.beginFill(0x00FF00, 0.25);
 		this.focusArea.drawRect(minX, minY, maxX - minX, maxY - minY);
 		this.focusArea.endFill();
 		if (x > maxX) {
 			//console.log('Move to the right');
-			this.box.x -= delta;
+			this.box.x = Math.max(this.box.x - delta, 0 - this.grond.width * this.box.scale.x + this.app.screen.width);
 		} else if (x < minX) {
 			//console.log('Move to the left');
 			this.box.x = Math.min(0, this.box.x + delta);
 		}
 		if (y > maxY) {
 			//console.log('Move down');
-			this.box.y -= delta;
+			this.box.y = Math.max(this.box.y - delta, 0 - this.grond.height * this.box.scale.y + this.app.screen.height);
 		} else if (y < minY) {
 			//console.log('Move up');
 			this.box.y = Math.min(0, this.box.y + delta);

@@ -7,16 +7,20 @@
 		this.debug = debug;
 	}
 
+	let areaIdCounter = 0;
+
 	CollissionMap.prototype.setScale = function(s) {
 		this.scale = s;
 	}
 
-	CollissionMap.prototype.addHitArea = function(x, y, width, height) {
+	CollissionMap.prototype.addHitArea = function(x, y, width, height, meta) {
 		this.areas.push({
 			x1: x,
 			y1: y,
 			x2: x + width,
-			y2: y + height
+			y2: y + height,
+			areaId: 'area' + (++areaIdCounter),
+			meta
 		});
 	}
 
@@ -38,11 +42,15 @@
 						gfx.parent.removeChild(gfx);
 					}, 1000);
 				}
-				return true;
+				return area.meta ? { areaId: area.areaId, ...area.meta } : { areaId: area.areaId };
 			}
 		}
 		return false;
 	}
+
+	CollissionMap.prototype.remove = function(areaId) {
+		this.areas = this.areas.filter( (arr) => arr.areaId != areaId);
+	};
 
 	CollissionMap.prototype.movementCheck = function(sprite, wiggle) {
 		const bounds = sprite;
@@ -82,7 +90,7 @@
 			const g = new PIXI.Graphics();
 			g.x = x;
 			g.y = y;
-			g.beginFill(0xFF0000, 0.25);
+			g.beginFill(0xFF00FF, 0.1);
 			g.drawRect(0, 0, w, h);
 			g.endFill();
 			return g;

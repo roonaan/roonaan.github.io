@@ -32,10 +32,11 @@
 			const shortestSide = Math.min(window.innerHeight, window.innerWidth);
 			const minSize = Math.ceil(shortestSide / 12);
 			const minScale = 1 / 100 * minSize;
+			// const minScale = 0.8;
 			// We hebben een minimale schaal, omdat anders de iconen heel
 			// erg klein worden.
 			let scale = Math.max(minScale, Math.max(scaleX, scaleY));
-			app.stage.scale.set(scale);
+			pixi.box.scale.set(scale);
 		}
 	};
 
