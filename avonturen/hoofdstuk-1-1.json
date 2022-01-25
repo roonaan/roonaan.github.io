@@ -39,7 +39,8 @@
     {
       "id": "hoofdstuk-1-1-4",
       "titel": "4. Een verloren kat 4",
-      "alleen-na": ["hoofdstuk-1-1-3"]
+      "alleen-na": ["hoofdstuk-1-1-3"],
+      "gevecht": "gevecht-1-1-4"
     }
   ]
 }

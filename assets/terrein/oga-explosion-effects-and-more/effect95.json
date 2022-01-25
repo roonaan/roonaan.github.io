@@ -1,0 +1,42 @@
+{
+	"frames": {
+		"Klein1.png": {
+			"frame": {"x":0,"y":0,"w":128,"h":128},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+			"sourceSize": {"w":128,"h":128},
+			"anchor": [0.5, 0.5]
+		},
+		"Klein2.png": {
+			"frame": {"x":128,"y":0,"w":128,"h":128},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+			"sourceSize": {"w":128,"h":128},
+			"anchor": [0.5, 0.5]
+		},
+		"Klein3.png": {
+			"frame": {"x":256,"y":0,"w":128,"h":128},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+			"sourceSize": {"w":128,"h":128},
+			"anchor": [0.5, 0.5]
+		},
+		"Klein4.png": {
+			"frame": {"x":384,"y":0,"w":128,"h":128},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+			"sourceSize": {"w":128,"h":128},
+			"anchor": [0.5, 0.5]
+		}
+	},
+	"animations": {
+		"klein": ["Klein1.png", "Klein2.png", "Klein3.png", "Klein4.png"]
+	},
+	"meta": {
+		"image": "images/Effect95.png"
+	}
+}

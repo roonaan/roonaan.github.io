@@ -23,10 +23,21 @@
 				"tegel": "Object_20.png",
 				"x": 6,
 				"y": 1
+			},
+			{
+				"tegel": "Object_7.png",
+				"x": 7,
+				"y": 4,
+				"beloning": {
+					"eenmalig": [
+						["spirit", 50, 100]
+					]
+				}
 			}
 		]
 	},
 	"start-punt": [0 ,1.5],
+	"eind-punt": [1.5, 1.5],
 	"vijanden": [
 		{
 			"positie": [1, 1],

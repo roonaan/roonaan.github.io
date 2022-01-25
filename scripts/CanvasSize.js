@@ -32,7 +32,6 @@
 			const shortestSide = Math.min(window.innerHeight, window.innerWidth);
 			const minSize = Math.ceil(shortestSide / 12);
 			const minScale = 1 / 100 * minSize;
-			console.log({shortestSide, minScale, scaleX, scaleY});
 			// We hebben een minimale schaal, omdat anders de iconen heel
 			// erg klein worden.
 			let scale = Math.max(minScale, Math.max(scaleX, scaleY));

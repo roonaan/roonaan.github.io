@@ -29,14 +29,14 @@ getModule('CanvasSize', function(CANVAS) {
 		this.vijandDetails = {};
 		this.resources = {};
 		this.collisionMap = [];
-		const gevecht = this.node.getAttribute('data-pixi') || 'gevecht-1-1-2';
+		const gevecht = this.node.getAttribute('data-pixi') || 'gevecht-1-1-4';
 		if (!gevecht) {
-			this.laadStandaardGegevens();
+			this.node.innerHTML = 'Geen gevecht geselecteerd';
 		} else {
 			this.laadGevechtsGegevens(gevecht);
+			this.waitForGegevens();
+			this.meta = {scale: 1};
 		}
-		this.waitForGegevens();
-		this.meta = {scale: 1};
 	};
 
 	Pixi.prototype.waitForGegevens = function() {
@@ -98,6 +98,7 @@ getModule('CanvasSize', function(CANVAS) {
 		});
 		loader
 			.add('terrein', this.terrein)
+			.add('portals', 'assets/terrein/oga-explosion-effects-and-more/effect95.json')
 			.load((_, resources) => {
 				pixi.startPixi(resources);
 			});
@@ -211,6 +212,7 @@ getModule('CanvasSize', function(CANVAS) {
 			pixi.vijanden = json.vijanden;
 			pixi.terrein = kaart.terrein;
 			pixi.tileSize = kaart.tileSize;
+			pixi.eindPunt = json['eind-punt'];
 			const map = kaart.tegels.map(function(regel) {
 				return regel.map(function(cel) {
 					const parts = cel.split(',');
@@ -262,6 +264,16 @@ getModule('CanvasSize', function(CANVAS) {
 				sprite.y = obj.y * this.tileSize;
 				container.addChild(sprite);
 			});
+		}
+
+		if (this.eindPunt) {
+			this.tekenEindPunt(resources, container, this.eindPunt[0], this.eindPunt[1]);
+			this.exitPoint = {
+				x1: this.eindPunt[0] * this.tileSize,
+				x2: (this.eindPunt[0] + 1) * this.tileSize,
+				y1: this.eindPunt[1] * this.tileSize,
+				y2: (this.eindPunt[1] + 1) * this.tileSize
+			}
 		}
 
 		box.addChild(container);
@@ -316,6 +328,16 @@ getModule('CanvasSize', function(CANVAS) {
 		}
 	}
 
+	Pixi.prototype.tekenEindPunt = function(resources, container, x, y) {
+		console.log("resources", Object.keys(resources), resources.portals);
+		const gfx = new PIXI.AnimatedSprite(resources.portals.spritesheet.animations.klein);
+		gfx.animationSpeed = 0.05;
+		gfx.x = (x + 0.25) * this.tileSize; // De correctie is nodig, vanwege het ankerpunt van de animatie
+		gfx.y = (y + 0.25) * this.tileSize; // De correctie is nodig, vanwege het ankerpunt van de animatie
+		gfx.play();
+		container.addChild(gfx);
+	};
+
 	Pixi.prototype.verplaatsKoe = function(koe, delta) {
 		const originalX = koe.x;
 		const originalY = koe.y;
@@ -349,7 +371,38 @@ getModule('CanvasSize', function(CANVAS) {
 		} else {
 			koe.meta.targetX = koe.x;
 			koe.meta.targetY = koe.y;
-			//this.collissionMap.render(this.box);
+		}
+		if (bewogen && this.exitPoint) {
+			if (
+				koe.x > this.exitPoint.x1
+				&& koe.x < this.exitPoint.x2
+				&& koe.y > this.exitPoint.y1
+				&& koe.y < this.exitPoint.y2
+				) {
+
+				if (!this.dispatchedCompleteEvent) {
+					let alpha = 100;
+					const box = this.box;
+					const gfx = new PIXI.Graphics();
+					gfx.alpha = 0;
+					gfx.beginFill(0xFFFFFF);
+					gfx.drawRect(0, 0, box.width, box.height);
+					gfx.endFill();
+					box.addChild(gfx);
+					const ticker = new PIXI.Ticker();
+					ticker.add((delta) => {
+						gfx.alpha = Math.min(1, 1 - alpha / 100);
+						alpha -= delta;
+						if (alpha <= -50) {
+							ticker.destroy();
+							console.log('We zijn hier klaar');
+							this.node.dispatchEvent(new CustomEvent('gevecht-complete', { bubbles: true}));							
+						}
+					});
+					ticker.start();
+					this.dispatchedCompleteEvent = true;
+				}
+			}
 		}
 	};
 

@@ -18,7 +18,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
 	"sourceSize": {"w":256,"h":256},
 	"collision": [5,2],
-	"meta": "stapel-stenen"
+	"meta": "losliggende-stenen"
 },
 "Object_3.png":
 {
@@ -26,7 +26,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [7,8,9,4,5,6,1,2,3],
+	"meta": "stapel-rotsen"
 },
 "Object_4.png":
 {
@@ -34,7 +36,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [5,2],
+	"meta": "stapel-stenen"
 },
 "Object_5.png":
 {
@@ -42,7 +46,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [5],
+	"meta": "Rode varen"
 },
 "Object_6.png":
 {
@@ -50,7 +56,9 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"collision": [5],
+	"meta": "Groene varen"
 },
 "Object_7.png":
 {
@@ -58,7 +66,8 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
-	"sourceSize": {"w":256,"h":256}
+	"sourceSize": {"w":256,"h":256},
+	"meta": "Krat"
 },
 "Object_8.png":
 {
