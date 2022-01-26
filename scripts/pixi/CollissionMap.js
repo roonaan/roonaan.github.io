@@ -24,6 +24,72 @@
 		});
 	}
 
+	CollissionMap.prototype.merge = function(margin, iterations) {
+		if (iterations > 10) {
+			return this.merge(margin, 10);
+		}
+		if (iterations == 0) {
+			return true;
+		}
+
+		this.areas.sort( (a, b) => {
+			if (a.meta && !b.meta) {
+				return 1;
+			}
+			if (!a.meta && b.meta) {
+				return -1;
+			}
+			if (iterations %2 == 0 && a.x !== b.x) {
+				return a.x > b.x ? 1 : -1;
+			}
+			if (a.y === b.y) {
+				return 0;
+			}
+			return a.y > b.y ? 1 : -1;
+		});
+
+		const c = this.areas.length;
+
+		for (let i = 1; i < c; i++) {
+			const iArea = this.areas[i];
+			if (iArea.meta) {
+				break;
+			}
+			for (let j = 0; j < i; j++) {
+				const jArea = this.areas[j];
+				if (jArea.meta || jArea.merged) {
+					continue;
+				}
+				if (Math.abs(iArea.x1 - jArea.x1) < margin && Math.abs(iArea.x2 - jArea.x2) < margin) {
+					// Vertical match
+					if (iArea.y1 <= (jArea.y2 + margin) && iArea.y2 >= (jArea.y1 -margin)) {
+						jArea.y1 = Math.min(jArea.y1, iArea.y1);
+						jArea.y2 = Math.max(jArea.y2, iArea.y2);
+						iArea.merged = true;
+						continue;
+					}
+				}
+				if (Math.abs(iArea.y1 - jArea.y1) < margin && Math.abs(iArea.y2 - jArea.y2) < margin) {
+					// Horiztonal match
+					if (iArea.x1 <= (jArea.x2 + margin) && iArea.x2 >= (jArea.x1 -margin)) {
+						jArea.x1 = Math.min(jArea.x1, iArea.x1);
+						jArea.x2 = Math.max(jArea.x2, iArea.x2);
+						iArea.merged = true;
+						continue;
+					}
+				}
+			}
+		}
+
+		this.areas = this.areas.filter(a => !a.merged);
+
+		console.log('Before', c, 'After', this.areas.length);
+
+		if (iterations > 0) {
+			return this.merge(margin, iterations - 1);
+		}
+	}
+
 	CollissionMap.prototype.overlaps = function(x, y, width, height) {
 		const x1 = x;
 		const x2 = x + width;
@@ -91,6 +157,7 @@
 			g.x = x;
 			g.y = y;
 			g.beginFill(0xFF00FF, 0.1);
+			g.lineStyle(2, 0xFF0000);
 			g.drawRect(0, 0, w, h);
 			g.endFill();
 			return g;

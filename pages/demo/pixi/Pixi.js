@@ -291,6 +291,8 @@ getModule('CanvasSize', function(CANVAS) {
 			})
 		});
 
+		collision.merge(0.1 * this.tileSize, 15);
+
 		const objecten = this.kaartObjecten;
 		if (objecten) {
 			objecten.forEach((obj) => {
