@@ -4,7 +4,7 @@
 		this.resources = resources;
 		this.container = container;
 
-		console.log('Dialog data', resources);
+		console.debug('Dialog resource data', resources);
 
 		this.inner = new PIXI.Container();
 

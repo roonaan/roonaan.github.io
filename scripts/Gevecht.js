@@ -17,13 +17,13 @@ Gevecht.prototype.parse = function(text) {
 Gevecht.prototype.start = function() {
 	if (this.json.spelvariant === 'pixi') {
 		const node = this.node;
-		getModule('pages/demo/pixi', function(pixi) {
+		getModule('pixi/Pixi', function(pixi) {
 			const child = document.createElement('div');
 			child.setAttribute('data-pixi', node.getAttribute('data-gevecht'));
 			child.className = 'full-screen';
 			node.innerHTML = '';
 			node.appendChild(child);
-			new pixi(node);
+			new pixi(child);
 		});
 	} else {
 		this.node.innerHTML = 'Het gevecht gaat beginnen!!!';

@@ -83,8 +83,9 @@
 
 		this.areas = this.areas.filter(a => !a.merged);
 
-		console.log('Before', c, 'After', this.areas.length);
-
+		if (c != this.areas.length) {
+			console.debug('Before', c, 'After', this.areas.length);
+		}
 		if (iterations > 0) {
 			return this.merge(margin, iterations - 1);
 		}
