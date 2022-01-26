@@ -71,3 +71,7 @@
   margin: var(--v1);
   font-size: var(--font-size-regular);
 }
+
+.in-gevecht #bovenbalk { 
+  display: none;
+}

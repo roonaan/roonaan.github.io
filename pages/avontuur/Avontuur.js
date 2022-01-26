@@ -130,6 +130,7 @@ getModule('MissieVoortgang', function(Storage) {
             return;
         }
         if (item.gevecht) {
+            this.node.className = (this.node.className + ' in-gevecht').trim();
             this.avontuurNode.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'full-screen';
@@ -142,6 +143,7 @@ getModule('MissieVoortgang', function(Storage) {
                 console.log('We catched a gevecht-complete event. Back to rendering');
                 avontuur.completeStep(pagina, item.beloning);
                 avontuur.render(item.parent);
+                avontuur.node.className = avontuur.node.className.replace(' in-gevecht', '').trim();
             });
             enhance(this.avontuurNode);
             return;
