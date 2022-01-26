@@ -1,0 +1,36 @@
+{
+	"frames": {
+		"up": {
+			"frame": {"x":0,"y":0,"w":24,"h":24},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+			"sourceSize": {"w":24,"h":24}
+		},
+		"focus": {
+			"frame": {"x":0,"y":24,"w":24,"h":24},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+			"sourceSize": {"w":24,"h":24}
+		},
+		"down": {
+			"frame": {"x":0,"y":48,"w":24,"h":24},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+			"sourceSize": {"w":24,"h":24}
+		},
+		"disabled": {
+			"frame": {"x":0,"y":72,"w":24,"h":24},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+			"sourceSize": {"w":24,"h":24}
+		}
+	},
+	"meta": {
+		"image": "images/button_x.png",
+		"_size" : "24x96"
+	}
+}	

@@ -3,7 +3,8 @@ getModule('CanvasSize', function(CANVAS) {
 	const librariesToLoad = [
 		'libs/pixi.6.2.1.dev.js',
 		'libs/pixi-layers.min.js',
-		'scripts/pixi/pixi-dialog.js'
+		'scripts/pixi/pixi-dialog.js',
+		'scripts/pixi/pixi-gevecht.js'
 	];
 
 	function loadLibraries(callback) {
@@ -113,13 +114,14 @@ getModule('CanvasSize', function(CANVAS) {
 		const pixi = this;
 		let loader = new PIXI.Loader();
 		Object.keys(pixi.resources).forEach( function(key) {
-			console.debug('Extra grafics die geladen moeten worden', key);
+			console.debug('Extra graphics die geladen moeten worden', key);
 			loader = loader.add(key, pixi.resources[key]);
 		});
 		loader
 			.add('terrein', this.terrein)
 			.add('portals', 'assets/terrein/oga-explosion-effects-and-more/effect95.json')
 			.add('dialog', 'assets/ui/oga-lpc-pennomis-ui-elements/dialog.json')
+			.add('dialog_x', 'assets/ui/oga-lpc-pennomis-ui-elements/sluitknop.json')
 			.load((_, resources) => {
 				pixi.startPixi(resources);
 			});
@@ -186,7 +188,25 @@ getModule('CanvasSize', function(CANVAS) {
 				pixi.box.addChild(sprite);
 				pixi.registerEventArea(sprite, () => {
 					console.log('Een gevecht begint');
-					sprite.parent.removeChild(sprite);
+					pixi.dialog.open((evt, data) => {
+						if (evt === 'show') {
+							const gev = new PIXI.game.Gevecht(data.container, vijand, ['oertijd-greta'], (gewonnen) => {
+								if (gewonnen) {
+									sprite.parent.removeChild(sprite);
+								}
+								pixi.dialog.close();
+								pixi.box.visible = true;
+							});
+							pixi.box.visible = false;
+						} else if (evt === 'cancel') {
+							pixi.dialog.close();
+							pixi.box.visible = true;
+						} else if (evt === 'close') {
+							sprite.parent.removeChild(sprite);
+							pixi.box.visible = true;
+							pixi.dialog.close();
+						}
+					});
 				});
 			});
 		}
@@ -200,6 +220,9 @@ getModule('CanvasSize', function(CANVAS) {
 		// Als we klikken, dan moet de speler daarheen.
 		this.grond.interactive = true;
 		this.grond.on("pointerdown", (ev) => {
+			if (!pixi.box.renderable) {
+				return;
+			}
 			speler.meta.targetX = (ev.data.global.x - pixi.box.x) / pixi.box.scale.x;
 			speler.meta.targetY = (ev.data.global.y - pixi.box.y) / pixi.box.scale.y;
 			// const gfx = new PIXI.Graphics();
@@ -219,8 +242,8 @@ getModule('CanvasSize', function(CANVAS) {
 			this.eventMap.render();
 		}
 
-		this.dialog = new PIXI.game.Dialog(app.stage, resources.dialog);
-		this.dialog.hide();
+		this.dialog = new PIXI.game.Dialog(app.stage, resources);
+		this.dialog.close();
 
 		// Voor de zekerheid resizen we naar het scherm
 		CANVAS.onResize();

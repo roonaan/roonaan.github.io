@@ -1,8 +1,16 @@
 getModule('GameStorage', function(GameStorage) {
 
 	const karakterMapping = {};
+
+	const karakterData = {};
 	
 	function bereken(minMax, level) {
+		if (typeof minMax === 'number') {
+			return minMax;
+		}
+		if (minMax.length != 2) {
+			return minMax[0] || 0;
+		}
 		const min = minMax ? minMax[0] : 0;
 		const max = minMax ? minMax[1] : 0;
 		if (level >= 100) {
@@ -12,6 +20,23 @@ getModule('GameStorage', function(GameStorage) {
 			return min;
 		}
 		return Math.min(min + ((max-min) / 100) * level);
+	}
+
+	function karakterLevel(naam, level, experience, data) {
+		return {
+			id: naam,
+			level: level,
+			avatar: data.avatar,
+			experience: experience,
+			naam: data.naam || naam,
+			personage: data.personage || '',
+			leven: bereken(data.leven, level),
+			aanval: bereken(data.aanval, level),
+			snelheid: bereken(data.snelheid, level),
+			energiepunten: bereken(data.energiepunten),
+			skills: data.skills,
+			afbeeldingen: data.afbeeldingen
+		};
 	}
 
 	const KarakterLijst = function() {
@@ -42,6 +67,15 @@ getModule('GameStorage', function(GameStorage) {
 		this.storage.reset();
 	};
 
+	KarakterLijst.prototype.getVijand = function(naam, level, callback, error) {
+		const errorCallback = error || function() {};
+		if(!(naam in karakterMapping)) {
+			errorCallback();
+			return;
+		}
+		this.__vindKarakter(naam, level, 0, callback, errorCallback);
+	}
+
 	KarakterLijst.prototype.getKarakter = function(naam, callback, error) {
 		const errorCallback = error || function() {};
 		if(!(naam in karakterMapping)) {
@@ -51,22 +85,26 @@ getModule('GameStorage', function(GameStorage) {
 		const beschikbaar = this.getBeschikbareKarakters()[naam] || {};
 		const level = beschikbaar.level || 1;
 		const experience = beschikbaar.experience || 0;
+		this.__vindKarakter(naam, level, experience, callback, errorCallback);
+	};
+
+	KarakterLijst.prototype.__vindKarakter = function(naam, level, experience, callback, errorCallback) {
+		if ((typeof level) === 'undefined') {
+			throw new Error('level kan niet undefined zijn');
+		}
+		if ((typeof callback) !== 'function') {
+			throw new Error('callback moet een function zijn');
+		}
+		if ((typeof errorCallback) !== 'function') {
+			throw new Error('errorCallback moet een function zijn');
+		}
+		if (naam in karakterData) {
+			console.log('KarakterData from cache!', naam);
+			callback(karakterLevel(naam, level, experience || 0, karakterData[naam]));
+		}
 		http.get("karakters/" + karakterMapping[naam], function(text) {
-			const data = JSON.parse(text);
-			console.debug('We have all the data!', data);
-			callback({
-				id: naam,
-				level: level,
-				avatar: data.avatar,
-				experience: experience,
-				naam: data.naam || naam,
-				personage: data.personage || '',
-				leven: bereken(data.leven, level),
-				aanval: bereken(data.aanval, level),
-				snelheid: bereken(data.snelheid, level),
-				energiepunten: data.energiepunten,
-				skills: data.skills
-			});
+			karakterData[naam] = JSON.parse(text);
+			callback(karakterLevel(naam, level, experience || 0, karakterData[naam]));
 		}, errorCallback);
 	};
 

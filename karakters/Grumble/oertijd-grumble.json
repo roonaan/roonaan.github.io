@@ -2,7 +2,7 @@
 	"id": "oertijd-grumble",
 	"avatar": "karakters/Grumble/oertijd-grumble.png",
 	"personage": "grumble",
-	"leven": [10, 1000],
+	"leven": [200, 1000],
 	"aanval": [10, 100],
 	"snelheid": [4, 7],
 	"energiepunten": 10,

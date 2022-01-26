@@ -1,13 +1,11 @@
 (function() {
 	
 	function Dialog(container, resources) {
-		this.resources = resources;
+		const tx_dialog = resources.dialog.textures;
+		const tx_dialogx = resources.dialog_x.textures;
 		this.container = container;
 
-		console.debug('Dialog resource data', resources);
-
 		this.inner = new PIXI.Container();
-
 		this.frame = new PIXI.Container();
 
 		const margin = 10;
@@ -17,51 +15,62 @@
 		const y1 = margin;
 		const y2 = window.innerHeight - margin;
 
-		const topLeft = PIXI.Sprite.from(resources.textures.topLeft);
+		this.x = x1;
+		this.y = y1;
+		this.width = x2 - x1;
+		this.height = y2 - y1;
+
+		this.framePadding = 10;
+		this.inner.x = x1 + this.framePadding;
+		this.inner.y = y1 + this.framePadding;
+		this.innerWidth = x2 - x1 - 2 * this.framePadding;
+		this.innerHeight = y2 - y1 - 2 * this.framePadding;
+
+		const topLeft = PIXI.Sprite.from(tx_dialog.topLeft);
 		topLeft.x = x1;
 		topLeft.y = y1;
 
-		const topRight = PIXI.Sprite.from(resources.textures.topRight);
+		const topRight = PIXI.Sprite.from(tx_dialog.topRight);
 		topRight.x = x2 - 100;
 		topRight.y = y1;
 
-		const bottomLeft = PIXI.Sprite.from(resources.textures.bottomLeft);
+		const bottomLeft = PIXI.Sprite.from(tx_dialog.bottomLeft);
 		bottomLeft.x = x1;
 		bottomLeft.y = y2 - 40;
 
-		const bottomRight = PIXI.Sprite.from(resources.textures.bottomRight);
+		const bottomRight = PIXI.Sprite.from(tx_dialog.bottomRight);
 		bottomRight.x = x2 - 100;
 		bottomRight.y = y2 - 40;
 
-		const top = PIXI.TilingSprite.from(resources.textures.top, {
+		const top = PIXI.TilingSprite.from(tx_dialog.top, {
 			width: x2 - x1 - 200,
 			height: 40
 		});
 		top.x = x1 + 100;
 		top.y = margin;
 
-		const bottom = PIXI.TilingSprite.from(resources.textures.bottom, {
+		const bottom = PIXI.TilingSprite.from(tx_dialog.bottom, {
 			width: x2 - x1 - 200,
 			height: 40
 		});
 		bottom.x = x1 + 100;
 		bottom.y = y2 - 40;
 
-		const left = PIXI.TilingSprite.from(resources.textures.left, {
+		const left = PIXI.TilingSprite.from(tx_dialog.left, {
 			width: 100,
 			height: bottomLeft.y - topLeft.y - topLeft.height
 		});
 		left.x = topLeft.x;
 		left.y = topLeft.y + topLeft.height;
 
-		const right = PIXI.TilingSprite.from(resources.textures.right, {
+		const right = PIXI.TilingSprite.from(tx_dialog.right, {
 			width: 100,
 			height: bottomRight.y - topRight.y - topRight.height
 		});
 		right.x = x2 - 100;
 		right.y = y1 + 40;
 
-		const center = PIXI.TilingSprite.from(resources.textures.center, {
+		const center = PIXI.TilingSprite.from(tx_dialog.center, {
 			width: x2 - x1 - 200,
 			height: y2 - y1 - 80
 		});
@@ -70,20 +79,54 @@
 
 		this.frame.addChild(top, bottom, left, right, center, topLeft, topRight, bottomLeft, bottomRight);
 
+		const innerGfx = new PIXI.Graphics();
+		innerGfx.beginFill(0x006600, 0.2);
+		innerGfx.drawRect(0, 0, this.innerWidth, this.innerHeight);
+		innerGfx.endFill();
+		innerGfx.alpha = 0;
+		this.inner.addChild(innerGfx);
+
+		this.button = PIXI.Sprite.from(tx_dialogx.up);
+		this.button.x = x2 - 35;
+		this.button.y = y1 + 10;
+		this.button.interactive = true;
+		
+
 		container.addChild(
 			this.inner,
-			this.frame
+			this.frame,
+			this.button
 		);
 	}
 
-	Dialog.prototype.hide = function() {
-		this.inner.renderable = false;
-		this.frame.renderable = false;
+	Dialog.prototype.close = function() {
+		this.inner.visible = false;
+		this.frame.visible = false;
+		this.visible = false;
+		this.button.visible = false;
+		console.log(this.inner);
+		if (this.inner.children.length > 1) {
+			this.inner.removeChildren(1);
+		}
 	};
 
-	Dialog.prototype.show = function() {
-		this.inner.renderable = true;
-		this.frame.renderable = true;
+	Dialog.prototype.open = function(evtHandler) {
+		this.visible = true;
+		this.evtHandler = evtHandler;
+		this.inner.visible = true;
+		this.frame.visible = true;
+		this.button.visible = true;
+		this.evtHandler('show', {
+			container: this.inner,
+			height: this.width,
+			width: this.width
+		});
+		this.button.interactive = true;
+		this.button.on("pointerup", () => {
+			if (evtHandler) {
+				evtHandler("cancel");
+			}
+		});
 	};
 
 	PIXI.game = PIXI.game || {};

@@ -94,6 +94,9 @@
 		}
 	},
 	"animations": {
-		"links": ["links_1.png", "links_2.png", "links_3.png"]
+		"links": ["links_1.png", "links_2.png", "links_3.png"],
+		"rechts": ["rechts_1.png", "rechts_2.png", "rechts_3.png"],
+		"omlaag": ["omlaag_1.png", "omlaag_2.png", "omlaag_3.png"],
+		"omhoog": ["omhoog_1.png", "omhoog_2.png", "omhoog_3.png"]
 	}
 }
