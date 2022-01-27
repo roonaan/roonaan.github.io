@@ -1,7 +1,7 @@
 {
 	"id": "gevecht-1-1-4",
 	"spelvariant": "pixi",
-	"speler": "oertijd-greta",
+	"speler": "oertijd-grumble",
 	"titel": "Een boze veldmuis",
 	"kaart": {
 		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
@@ -60,8 +60,17 @@
 		]
 	},
 	"eind-punt": [8, 3],
-	"start-punt": [4, 2],
+	"start-punt": [0, 2],
 	"vijanden": [
+		{
+			"positie": [2, 5],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 1,
+					"experience": 10
+			}]
+		},
 		{
 			"positie": [2, 6],
 			"vijanden": [{
@@ -73,6 +82,15 @@
 		},
 		{
 			"positie": [3, 5],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 2,
+					"experience": 10
+			}]
+		},
+		{
+			"positie": [4, 5],
 			"vijanden": [{
 					"kans": 100,
 					"vijand": "veldmuis",

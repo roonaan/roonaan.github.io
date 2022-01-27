@@ -59,6 +59,37 @@
            ["muizenstaart", 1, 75]
         ]
       }
+    },
+    {
+      "id": "hoofdstuk-1-1-5",
+      "titel": "5. Grumble weet het beter 1",
+      "alleen-na": ["hoofdstuk-1-1-4"],
+      "gesprek": "gesprek-1-1-5",
+      "beloning": {
+        "eerste-keer": [
+           ["touw", 1, 100],
+           ["spirit", 50, 100]
+        ],
+        "altijd": [
+           ["visgraat", 1, 90],
+           ["worm", 1, 75]
+        ]
+      }
+    },
+    {
+      "id": "hoofdstuk-1-1-6",
+      "titel": "6. Grumble weet het beter 2",
+      "alleen-na": ["hoofdstuk-1-1-5"],
+      "gevecht": "gevecht-1-1-6",
+      "beloning": {
+        "eerste-keer": [
+           ["spirit", 50, 100]
+        ],
+        "altijd": [
+           ["muizenstaart", 1, 90],
+           ["muizenstaart", 1, 75]
+        ]
+      }
     }
   ]
 }

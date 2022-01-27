@@ -1,7 +1,8 @@
 {
 	"id": "oertijd-grumble",
-	"avatar": "karakters/Grumble/oertijd-grumble.png",
+	"avatar": "karakters/Grumble/oertijd-grumble-transparant.png",
 	"personage": "grumble",
+	"naam": "Oertijd Grumble",
 	"leven": [200, 1000],
 	"aanval": [10, 100],
 	"snelheid": [4, 7],
@@ -9,15 +10,18 @@
 	"skills": [
 		{
 			"id": "knots-mep",
-			"energiepunten": 3
+			"energiepunten": 3,
+			"schade": 10
 		},
 		{
 			"id": "boze-grumble",
-			"energiepunten": 10
+			"energiepunten": 7,
+			"schade": 20
 		},
 		{
 			"id": "aardschok",
-			"energiepunten": 7
+			"energiepunten": 10,
+			"schade": 30
 		}
 	]
 

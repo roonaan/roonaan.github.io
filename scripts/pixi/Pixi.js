@@ -42,13 +42,21 @@ getModule('CanvasSize', function(CANVAS) {
 		};
 	}
 
-	function Pixi(node) {
+	function Pixi(node, spelerId) {
 		const pixi = this;
 		this.node = node;
 		this.node.innerHTML = H_LAAD_ICON;
 		this.vijandDetails = {};
 		this.resources = {};
 		this.collisionMap = [];
+		if (spelerId) {
+			this.spelerId = spelerId;
+			getModule("KarakterLijst", (KL) => {
+				KL.getKarakter(spelerId, (s) => {
+					pixi.speler = s;
+				});
+			});
+		}
 		const gevecht = this.node.getAttribute('data-pixi') || 'gevecht-1-1-4';
 		if (!gevecht) {
 			this.node.innerHTML = 'Geen gevecht geselecteerd';
@@ -63,7 +71,7 @@ getModule('CanvasSize', function(CANVAS) {
 
 	Pixi.prototype.waitForGegevens = function() {
 		const pixi = this;
-		if (!this.terrein || !this.kaart || !this.tileSize || !CollissionMap) {
+		if (!this.terrein || !this.kaart || !this.speler || !this.tileSize || !CollissionMap) {
 			return setTimeout(() => pixi.waitForGegevens(), 100);
 		}
 		let klaar = true;
@@ -152,7 +160,7 @@ getModule('CanvasSize', function(CANVAS) {
 		this.grond = this.tekenDeGrond(this.box, resources);
 
 		// We laden onze speler
-		const speler = PIXI.Sprite.from("karakters/Greta/oertijd-greta.png");
+		const speler = PIXI.Sprite.from(this.speler.avatar);
 		//speler.anchor.set(0.5);
 		speler.height = 100;
 		speler.width = 100;
@@ -187,12 +195,18 @@ getModule('CanvasSize', function(CANVAS) {
 				sprite.play();
 				pixi.box.addChild(sprite);
 				pixi.registerEventArea(sprite, () => {
-					console.log('Een gevecht begint');
+					console.log('Een gevecht begint', vijand);
 					pixi.dialog.open((evt, data) => {
 						if (evt === 'show') {
-							const gev = new PIXI.game.Gevecht(data.container, vijand, ['oertijd-greta'], (gewonnen) => {
+							const gev = new PIXI.game.Gevecht(data.container, vijand, [pixi.speler.id], (gewonnen) => {
 								if (gewonnen) {
 									sprite.parent.removeChild(sprite);
+									if (vijand.experience) {
+										console.warn("We geven experience!", vijand.experience);	
+										getModule('KarakterLijst', (KL) => {
+											KL.geefExperience(pixi.speler.id, vijand.experience);
+										});
+									}
 								}
 								pixi.dialog.close();
 								pixi.box.visible = true;
@@ -263,6 +277,13 @@ getModule('CanvasSize', function(CANVAS) {
 			pixi.startPunt = json['start-punt'];
 			pixi.vijanden = json.vijanden;
 			pixi.terrein = kaart.terrein;
+			if (!pixi.spelerId && json.speler) {
+				getModule('KarakterLijst', (KL) => {
+					KL.getKarakter(json.speler, (s) => {
+						pixi.speler = s;
+					});
+				});
+			}
 			if (kaart.shared) {
 				kaart.shared.forEach( (sh) => {
 					pixi.resources[sh] = sharedSprites[sh];

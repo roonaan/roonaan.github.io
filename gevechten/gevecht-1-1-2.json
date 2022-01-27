@@ -2,6 +2,7 @@
 	"id": "gevecht-1-1-2",
 	"spelvariant": "pixi",
 	"titel": "Een boze veldmuis",
+	"speler": "oertijd-greta",
 	"kaart": {
 		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
 		"shared": [
@@ -47,7 +48,8 @@
 			"vijanden": [{
 					"kans": 100,
 					"vijand": "veldmuis",
-					"niveau": 1
+					"niveau": 1,
+					"experience": 10
 			}]
 		},
 		{
@@ -55,7 +57,8 @@
 			"vijanden": [{
 					"kans": 100,
 					"vijand": "veldmuis",
-					"niveau": 1
+					"niveau": 1,
+					"experience": 10
 			}]
 		},
 		{
@@ -63,7 +66,8 @@
 			"vijanden": [{
 					"kans": 100,
 					"vijand": "veldmuis",
-					"niveau": 1
+					"niveau": 1,
+					"experience": 10
 			}]
 		}
 	]

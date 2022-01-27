@@ -1,0 +1,10 @@
+Greta.kant=links
+Greta.class=greta
+Grumble.class=grumble
+Grumble.kant=rechts
+Verteller.praat=Ook na die lange zoektocht had Greta nog geen kat gevonden!
+Greta.praat=Oh, ik wordt helemaal gek van die muizen!
+Grumble.praat=Grumble, het zijn maar muizen joh!
+Greta.praat=Nou, ze knagen het leer van mijn muiltjes af!
+Grumble.praat=Ik zal je eens wat laten zien!
+Grumble.praat=Die paar muisjes, kom op zeg! 

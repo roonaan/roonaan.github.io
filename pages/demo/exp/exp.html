@@ -1,0 +1,48 @@
+<div class="full-screen rows" id="exp">
+    <div class="no-stretch" id="bovenbalk">
+        <h1>Statistieken</h1>
+    </div>
+    <style type="text/css">
+        #exp .level-0 { display: none};
+    </style>
+    <div data-widget="pages/demo/exp" style="overflow:auto; margin: 0 5%">
+        <script type="text/template">
+            <table style="width:100%; text-align:left">
+                <colgroup>
+                    <col width="100px"/>
+                </colgroup>
+                <thead>
+                    <tr valign="bottom">
+                        <th rowspan="2">Level</th>
+                        <th rowspan="2">Exp</th>
+                        {{#each karakters}}
+                        <th>
+                            {{#if avatar}}
+                                <div style="height:40px; width:40px;margin:2px; background:black; border: solid 1px gold; display: inline-block">
+                                    <img style="height:100%;width:100%;" src="{{ avatar }}"/>
+                                </div>
+                            {{/if}}
+                            {{ naam }}
+                        </th>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each karakters}}
+                            <th>HP / Aanval / Snelheid</th>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each levels}}
+                    <tr class="level-{{level}}">
+                        <th>{{ level }}</th>
+                        <th>{{ experience }}</th>
+                        {{#each karakters}}
+                        <td>{{ leven }} / {{ aanval }} / {{ snelheid }}</td>
+                        {{/each}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </script>
+    </div>
+</div>

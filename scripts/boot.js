@@ -1,4 +1,7 @@
 const H_LAAD_ICON = '<div class="lds-roller"> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> </div>';
+
+const NOOP = function() {};
+
 function start(rootNode) {
   const node = rootNode || document.getElementById('main');
   node.innerHTML = H_LAAD_ICON + 'Bezig met laden';
@@ -196,6 +199,18 @@ const http = {
       }
     }
     client.send();
+  },
+  getOnce: function(url, onload, onerror) {
+    if (!http.getOnce._cache) {
+      http.getOnce._cache = {};
+    }
+    if (!http.getOnce._cache[url]) {
+      http.getOnce._cache[url] = new Promise(function(resolve, reject) {
+        const finalUrl = url + (url.includes('?') ? '&' : '?') + new Date().getTime();
+        http.get(finalUrl, resolve, reject);
+      });
+    }
+    http.getOnce._cache[url].then(onload || NOOP, onerror || NOOP);    
   }
 }
 

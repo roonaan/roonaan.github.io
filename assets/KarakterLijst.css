@@ -47,6 +47,7 @@
 	height: calc(6 * var(--font-size-regular));
 	width: calc(6 * var(--font-size-regular));
 	border: solid 1px gold;
+	background: linear-gradient(135deg, #e6f0a3 0%,#d2e638 50%,#c3d825 51%,#dbf043 100%);
 }
 .karakter-details .karakter-naam {
 	position: absolute;
