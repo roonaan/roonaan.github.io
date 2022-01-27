@@ -14,15 +14,17 @@
 	"skills": [
 		{
 			"id": "bijten",
+			"naam": "Bijten!",
 			"energiepunten": 1,
-			"snelheid": "hoog",
+			"extra-snelheid": 3,
 			"schade": 5
 		},
 		{
 			"id": "keutel",
+			"naam": "Keutel aanval!!",
 			"energiepunten": 6,
-			"snelheid": "super-traag",
-			"schade": 15
+			"schade": 15,
+			"nevenschade": 5
 		}
 	]
 }

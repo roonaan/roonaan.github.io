@@ -10,9 +10,13 @@
 	"skills": [
 		{
 			"id": "ontwijken",
+			"naam": "Ontwijken",
 			"omschrijving": "Haha, pak me dan als je kan! Je kan me toch niet krijgen!",
 			"energiepunten": 1,
-			"schade": 0
+			"schade": 0,
+			"effecten": [
+				{"doel": "zelf", "eigenschap": "snelheid", "tijdsduur": 10, "waarde": 5 }
+			]
 		},
 		{
 			"id": "supertrap",
@@ -24,7 +28,9 @@
 			"id": "megaworp",
 			"omschrijving": "Wat denk je? Kan je vliegen?",
 			"energiepunten": 13,
-			"schade": 30
+			"schade": 30,
+			"nevenschade": 10,
+			"extra-snelheid": 5
 		}
 	]
 

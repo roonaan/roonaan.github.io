@@ -10,18 +10,24 @@
 	"skills": [
 		{
 			"id": "knots-mep",
+			"naam": "Knots mep",
 			"energiepunten": 3,
-			"schade": 10
+			"schade": 10,
+			"extra-snelheid": 5
 		},
 		{
 			"id": "boze-grumble",
+			"naam": "Boze Grumble",
 			"energiepunten": 7,
-			"schade": 20
+			"schade": 20,
+			"nevenschade": 5
 		},
 		{
 			"id": "aardschok",
+			"naam": "Aardschok",
 			"energiepunten": 10,
-			"schade": 30
+			"schade": 30,
+			"nevenschade": 20
 		}
 	]
 

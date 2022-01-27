@@ -21,12 +21,50 @@
         }
         console.log("aanval van " + aanvaller.naam + " op " + verdediger.naam, skill);
         
+        const schade = skill.schade;
+        const nevenschade = skill.nevenschade || 0;
+
+        const aanvallerSnelheid = aanvaller.baseData.snelheid + (skill['extra-snelheid'] || 0);
+        const verdedigerSnelheid = verdediger.baseData.snelheid;
+
+        // Valt het kwartje in het vak van de aanvaller, of de verdediger
+        const random = Math.random() * (verdedigerSnelheid + aanvallerSnelheid);
+        // Als er nevenschade is dan hebben we een herkansing.
+        const randomNeven = Math.random() * (verdedigerSnelheid + aanvallerSnelheid * 3);
+
+        let animatieTekst = skill.naam || skill.id;
+        let fontSize = 50;
+        let effecten = true;
+
+        if (schade === 0) {
+            // Verdedigende skill
+        } else if (random > verdedigerSnelheid) {
+            verdediger.geraakt(schade);
+        } else if (nevenschade > 0 && randomNeven > verdedigerSnelheid) {
+            verdediger.geraakt(nevenschade);
+            fontSize = 30;
+        } else {
+            animatieTekst = "Mis!";
+            effecten = false;
+            if (verdediger.isVijand) {
+                console.log("Mis", { aanvallerSnelheid, verdedigerSnelheid, random, randomNeven});
+            }
+        }
+
+        if (effecten && skill.effecten && skill.effecten.length > 0) {
+            skill.effecten.forEach( (e) => {
+                const doel = e.doel === 'zelf' ? aanvaller : verdediger;
+                doel.effect(e.eigenschap, e.waarde, e.tijdsduur);
+            });
+        }
+
+        // #region Aanvals animatie
         let counter = skill.energiepunten * 300;
         const max = counter;
         const ticker = new PIXI.Ticker();
-        const text = new PIXI.Text(skill.naam || skill.id, {
+        const text = new PIXI.Text(animatieTekst, {
             fontFamily: "Arial",
-            fontSize: 50,
+            fontSize,
             fill: aanvaller.isVijand ? 0xFF0000 : 0x00FF00
         });
         text.pivot.set(text.width/2, text.height/2);
@@ -65,9 +103,7 @@
             }
         });
         ticker.start();
-
-        const schade = skill.schade;
-        verdediger.geraakt(schade);
+        // #endregion
     }
 
     Karakter.prototype.isReady = function() {
@@ -75,7 +111,6 @@
     }
 
     Karakter.prototype.init = function (details) {
-       console.log('Karakter data', details);
        this.baseData = details;
        this.leven = details.leven;
        this.energiepunten = details.energiepunten || 0;
@@ -86,6 +121,61 @@
     Karakter.prototype.geraakt = function (schade) {
         this.leven = Math.max(0, this.leven - schade);
         this.refresh();
+
+        const text = new PIXI.Text("-" + schade, {
+            fontFamily: "Arial", fontSize: 14, fill: 0xFF0000
+        });
+
+        text.y = 10;
+        text.x = 300;
+
+        const ticker = new PIXI.Ticker();
+        ticker.add(function(delta) {
+            text.y -= delta;
+        });
+        ticker.start();
+        this.sContainer.addChild(text);
+        setTimeout(function() {
+            text.parent.removeChild(text);
+            text.destroy();
+            ticker.destroy();
+        }, 1000);
+    }
+
+    Karakter.prototype.effect = function (prop, tijdsduur, waarde) {
+        const baseData = this.baseData;
+        if (prop in this.baseData) {
+            baseData[prop] += waarde;
+        } else {
+            console('Deze eigenschap bestaat niet', prop);
+            return;
+        }
+
+        const text = new PIXI.Text(prop + (waarde > 0 ? " + " + waarde : waarde), {
+            fontFamily: "Arial",
+            fontSize: 20,
+            fontWeight: "bold",
+            fill: waarde > 0 ? 0x00FF00 : 0xFF0000
+        });
+
+        text.y = 80;
+        text.x = 20;
+
+        const ticker = new PIXI.Ticker();
+        ticker.add(function(delta) {
+            text.y -= delta;
+        });
+        ticker.start();
+        this.sContainer.addChild(text);
+        setTimeout(function() {
+            text.parent.removeChild(text);
+            text.destroy();
+            ticker.destroy();
+        }, 1000);
+
+        setTimeout(function() {
+            baseData[prop] -= waarde;
+        }, tijdsduur * 1000);
     }
 
     Karakter.prototype.energie = function (energie) {
@@ -118,7 +208,6 @@
             if (skill.energiepunten > this.energiepunten) {
                 continue;
             }
-            console.log("We doen de mega aanval", skill);
             this.energie(-skill.energiepunten);
 
             const opties = Object.values(alleKarakters).filter(k => k.leven > 0 && k !== this);
@@ -128,7 +217,6 @@
             if (!gekozen) {
                 return;
             }
-            console.log("We vallen " + gekozen.naam + " aan");
 
             doeAanval(this, gekozen, skill);
 
