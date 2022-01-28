@@ -16,14 +16,13 @@
 			"id": "bijten",
 			"naam": "Bijten!",
 			"energiepunten": 1,
-			"extra-snelheid": 3,
 			"schade": 5
 		},
 		{
 			"id": "keutel",
 			"naam": "Keutel aanval!!",
 			"energiepunten": 6,
-			"schade": 15,
+			"schade": 10,
 			"nevenschade": 5
 		}
 	]
