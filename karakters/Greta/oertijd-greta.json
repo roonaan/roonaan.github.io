@@ -20,12 +20,14 @@
 		},
 		{
 			"id": "supertrap",
+			"naam": "Super trap!",
 			"omschrijving": "He, kijk eens omhoog. Haha! Wat lig je daar nou?",
 			"energiepunten": 7,
 			"schade": 10
 		},
 		{
 			"id": "megaworp",
+			"naam": "Mega worp!",
 			"omschrijving": "Wat denk je? Kan je vliegen?",
 			"energiepunten": 13,
 			"schade": 30,
