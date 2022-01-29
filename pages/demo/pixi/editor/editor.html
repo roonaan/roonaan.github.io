@@ -1,0 +1,54 @@
+<div class="full-screen rows" id="editor">
+    <style>
+        #editor {
+            font-size: 14px;
+        }
+        #editor input,
+        #editor button {
+            margin: 0;
+            height: 28px;
+            padding: 3px;
+            font-size: 14px;
+            box-sizing: border-box;
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+    </style>
+    <div class="full-screen columns" data-widget="pages/demo/pixi/Editor">
+        <div data-preview style="position:relative">
+            The editor is loading, one moment please.
+        </div>
+        <div style="width:250px" class="rows no-stretch">
+            <div class="no-stretch">
+                <button data-export>Export</button>
+            </div>
+            <div style="height:300px" class="no-stretch" data-editor>
+            </div>     
+            <div data-sprites style="overflow-y: auto; height:100%; width:250px"></div>
+        </div>
+
+        <script type="text/template" id="editor-tpl">
+            <div>
+                {{#unless tegel}}Selecteer een tegel{{/unless}}
+                {{#if tegel}}
+                    <div>Rij: {{ tegel.row }}<div>
+                    <div>Col: {{ tegel.col }}</div>
+                    <fieldset>
+                        <legend>Lagen</legend>
+                        {{#each tegel.sprites}}
+                            <div data-tile="{{ index }}">
+                                <input data-action="select" value="{{tile}}" style="width:150px" />
+                                <button type="button" data-action="delete">delete</button>
+                            </div>
+                        {{/each}}
+                        <div>
+                            <div data-tile="nieuw">
+                                <input data-action="select" value="" style="width:150px" placeholder="Nieuw" />
+                            </div>
+                        </div>
+                    </fieldset>
+                {{/if}}
+            </div>
+        </script>
+    </div>
+</div>

@@ -93,7 +93,7 @@
     },
     {
       "id": "hoofdstuk-1-1-7",
-      "titel": "7. Er moet nog een titel",
+      "titel": "7. Muizenissige muizenverhalen",
       "alleen-na": ["hoofdstuk-1-1-6"],
       "gesprek": "gesprek-1-1-7",
       "beloning": {
@@ -103,6 +103,22 @@
         "altijd": [
            ["visgraat", 1, 90],
            ["worm", 1, 75]
+        ]
+      }
+    },
+    {
+      "id": "hoofdstuk-1-1-8",
+      "titel": "8. Een lange zoektocht",
+      "alleen-na": ["hoofdstuk-1-1-7"],
+      "gevecht": "gevecht-1-1-8",
+      "beloning": {
+        "eerste-keer": [
+           ["spirit", 50, 100],
+           ["vishengel", 1, 100]
+        ],
+        "altijd": [
+           ["muizenstaart", 1, 90],
+           ["muizenstaart", 1, 75]
         ]
       }
     }

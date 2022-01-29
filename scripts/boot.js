@@ -81,6 +81,26 @@ function getModule(module, callback, isTimeout) {
   }, 100);
 }
 
+function getModules() {
+    const args = [...arguments];
+    const callback = args.pop();
+    const toLoad = args.length - 1;
+    const libraries = {};
+    args.forEach( (item) => {
+      	getModule(item, (loadedItem) => {
+          libraries[item] = loadedItem;
+        });
+    });
+    const loadingWaiting = setInterval(() => {
+      if (args.some(a => !(a in libraries))) {
+        console.log("Still waiting for libraries");
+        return;
+      }
+      clearInterval(loadingWaiting);
+      callback.apply(null, args.map(lib => libraries[lib]));
+    }, 100);
+}
+
 function dataIf(node, expression) {
   node.style.visibility = 'hidden';
   
