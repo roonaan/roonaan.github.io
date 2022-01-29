@@ -12,6 +12,7 @@
 		{
 			"id": "knots-mep",
 			"naam": "Knots mep",
+			"omschrijving": "Basis aanval. Pas op voor die knuppel!",
 			"energiepunten": 3,
 			"kracht": 2,
 			"extra-snelheid": 5
@@ -19,6 +20,7 @@
 		{
 			"id": "boze-grumble",
 			"naam": "Boze Grumble",
+			"omschrijving": "Medium aanval. Grrrrr. Ik kan je niet uitstaan!",
 			"energiepunten": 7,
 			"kracht": 5,
 			"nevenschade": true
@@ -26,6 +28,7 @@
 		{
 			"id": "aardschok",
 			"naam": "Aardschok",
+			"omschrijving": "Zware aanval. Ontwijk dit maar eens!",
 			"energiepunten": 10,
 			"kracht": 7,
 			"nevenschade": true

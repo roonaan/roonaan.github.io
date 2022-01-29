@@ -63,7 +63,7 @@ getModule('KarakterLijst', function(KarakterLijst) {
 			node.innerHTML = '<div class="karakter-plaatje"></div><div class="karakter-naam"></div><div class="karakter-level"></div>';
 
 			node.querySelector('.karakter-naam').appendChild(document.createTextNode(karakter.naam || karakter.id));
-			node.querySelector('.karakter-level').appendChild(document.createTextNode(karakter.level || 1));
+			node.querySelector('.karakter-level').appendChild(document.createTextNode('Level: ' + (karakter.level || 1)));
 			nodes.appendChild(node);
 			if (karakter.avatar) {
 				const img = document.createElement('img');
@@ -117,11 +117,11 @@ getModule('KarakterLijst', function(KarakterLijst) {
 		KarakterLijst.getKarakter(karakter.id, function(k) {
 			setNodeText(karakterLijst, '.karakter-naam', k.naam);
 			setNodeText(karakterLijst, '.karakter-personage', k.personage);
-			setNodeText(karakterLijst, '.karakter-level', k.level);
+			setNodeText(karakterLijst, '.karakter-level', 'Level ' + k.level);
 			setNodeText(karakterLijst, '.karakter-snelheid', k.snelheid);
 			setNodeText(karakterLijst, '.karakter-leven', k.leven);
 			setNodeText(karakterLijst, '.karakter-aanval', k.aanval);
-			setNodeText(karakterLijst, '.karakter-energiepunten', k.energiepunten);
+			setNodeText(karakterLijst, '.karakter-energiepunten', 'Energiepunten ' + k.energiepunten);
 			setNodeImage(karakterLijst, '.karakter-logo', k.avatar);
 			if (k.skills) {
 				setSkillDetails(karakterLijst.querySelector('.skill:nth-child(1)'), k.skills[0]);

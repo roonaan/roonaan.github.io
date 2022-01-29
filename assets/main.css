@@ -178,23 +178,23 @@ button {
 
 #bovenbalk .terug-knop {
   position: absolute;
-  top: 3vw;
-  font-size: 3vw;
-  padding: 1vw;
-  left: 1vw;
+  top: var(--margin);
+  font-size: var(--font-size);
+  padding: var(--padding-small);
+  left: var(--margin);
   background: maroon;
   color: white;
-  border-top-right-radius: 2vw;
-  border-bottom-right-radius: 2vw;
+  border-top-right-radius: var(--padding);
+  border-bottom-right-radius: var(--padding);
 }
 h1 {
-  margin: 1vw 5vw;
+  margin: var(--margin-small) var(--margin-large);
   border-top: solid 2px white;
   border-bottom: solid 2px white;
   color: white;
   font-weight: normal;
   font-size: var(--font-size-large);
-  padding: 1vw 0;
+  padding: var(--padding-small) 0;
   text-align: center;
 }
 

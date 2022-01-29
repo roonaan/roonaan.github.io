@@ -12,17 +12,17 @@
 .karakter-lijst .karakter {
 	display: block;
 	border-radius: var(--padding);
-	border: solid 1px maroon;
+	border: solid 1px #92512e;
 	margin: var(--margin-large) var(--margin);
 	padding: var(--padding);	
-	background: navajowhite;
+	background: #db9f6899;
 	position: relative;
 	text-align: center;
+	color: #991218;
 }
 .karakter-lijst .karakter-plaatje {
 	float: left;
-	border: solid 1px maroon;
-	border-radius: var(--padding-small);
+	border: none;
 	margin-right: var(--margin);
 }
 .karakter-lijst .karakter-plaatje img {
@@ -48,34 +48,41 @@
 	position: relative;
 }
 .karakter-details .karakter-logo {
-	height: calc(6 * var(--font-size-regular));
-	width: calc(6 * var(--font-size-regular));
-	border: solid 1px gold;
+	height: var(--v25);
+	width: var(--v25);
+	border: solid 1px #92512e;
 	background: linear-gradient(135deg, #e6f0a3 0%,#d2e638 50%,#c3d825 51%,#dbf043 100%);
 }
-.karakter-details .karakter-naam {
+
+.karakter-details .karakter-naam,
+.karakter-details .karakter-level,
+.karakter-details .karakter-personage,
+.karakter-details .karakter-energiepunten {
 	position: absolute;
-	left:  calc(6 * var(--font-size-regular));
+	display: block;
+	color: #991218;
+	background: #db9f6899;
+	border:  solid 1px #92512e;
+	border-radius: var(--padding-small);
+	left: calc(var(--padding) + (6 * var(--font-size-regular)));
+	width: calc(50% - var(--padding) - (7 * var(--font-size-regular)));
+}
+
+.karakter-details .karakter-naam {
 	padding-left:  var(--padding);
 	top:  calc(0 * var(--font-size-regular));
 }
 .karakter-details .karakter-personage {
-	position: absolute;
-	left:  calc(6 * var(--font-size-regular));
 	padding-left:  var(--padding);
-	top:  calc(1 * var(--font-size-regular));
+	top:  calc(1.5 * var(--font-size-regular));
 }
 .karakter-details .karakter-level {
-	position: absolute;
-	left:  calc(6 * var(--font-size-regular));
-	padding-left:  var(--padding);
-	top:  calc(2 * var(--font-size-regular));
-}
-.karakter-details .karakter-energiepunten {
-	position: absolute;
-	left:  calc(6 * var(--font-size-regular));
 	padding-left:  var(--padding);
 	top:  calc(3 * var(--font-size-regular));
+}
+.karakter-details .karakter-energiepunten {
+	padding-left:  var(--padding);
+	top:  calc(4.5 * var(--font-size-regular));
 }
 .karakter-details .karakter-stats {
 	position: absolute;
@@ -83,18 +90,22 @@
 	width: 50%;
 	top: 0;
 	font-size: var(--font-size-regular);
+	color: #991218;
+	background: #db9f6899;
+	border:  solid 1px #92512e;
+	border-radius: var(--padding-small);
 }
 .karakter-details .karakter-stats td {
 	padding: 0 var(--padding-small) 0 0;
 	text-align: left;
-	color:  gold;
+	color: #991218;
 	font-weight:  bold;
 	font-size:  var(--font-size-regular);
 }
 .karakter-details .karakter-stats th {
 	padding: 0 var(--padding-small) 0 0;
 	text-align: right;
-	color:  gold;
+	color: #991218;
 	font-weight:  normal;
 	font-size:  var(--font-size-small);
 }
@@ -106,9 +117,9 @@
 	display: block;
 	font-size: var(--font-size-small);
 	margin-bottom:  var(--margin-large);
-	border:  solid 1px gold;
-	color: gold;
-	background: dimgrey;
+	border:  solid 1px #92512e;
+	color: maroon;
+	background: #db9f6899;
 	border-radius: var(--padding-small);
 	padding:  var(--padding-small);
 	position: relative;
@@ -117,12 +128,14 @@
 	position: absolute;
 	top: var(--padding-small);
 	right: var(--padding-small);
-	font-size: var(--font-size-small);
-	color: gold;
+	font-size: var(--font-size-regular);
+	color: #991218;
+}
+.karakter-details .skill-naam {
+	font-weight: bold;
 }
 .karakter-details .skill-omschrijving {
-	font-size: var(--font-size-tiny);
-	font-style: italic;
+	font-size: var(--font-size-small);
 }
 .karakter-details .karakter-logo img {
 	height:  100%;

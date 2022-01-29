@@ -75,7 +75,7 @@ getModule('MissieVoortgang', function(Storage) {
             if (item.id) {
                 item.parent = pagina;
                 avontuurCache[item.id] = item;
-                flexBox.appendChild(button(this, item.id, item.title, item['alleen-na']));
+                flexBox.appendChild(button(this, item.id, item.titel, item['alleen-na']));
             }
         });
     }
@@ -101,7 +101,7 @@ getModule('MissieVoortgang', function(Storage) {
                 if (item.id) {
                     item.parent = pagina;
                     itemCache[item.id] = item;
-                    flexBox.appendChild(button(avontuur, item.id, item.title, item['alleen-na']));
+                    flexBox.appendChild(button(avontuur, item.id, item.titel, item['alleen-na']));
                 }
             });
         } else {
