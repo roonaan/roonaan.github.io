@@ -83,18 +83,25 @@
 		innerGfx.beginFill(0x006600, 0.2);
 		innerGfx.drawRect(0, 0, this.innerWidth, this.innerHeight);
 		innerGfx.endFill();
-		innerGfx.alpha = 0;
 		this.inner.addChild(innerGfx);
 
 		this.button = PIXI.Sprite.from(tx_dialogx.up);
 		this.button.x = x2 - 35;
 		this.button.y = y1 + 10;
 		this.button.interactive = true;
-		
 
+		this.background = new PIXI.Container();
+		this.background.mask = new PIXI.Graphics();
+		this.background.mask.beginFill(0xFFFFFF, 1);
+		const m = 5;
+		const m2 = m * 2;
+		this.background.mask.drawRect(this.x + m, this.y + m, this.width - m2, this.height - m2);
+		this.background.mask.endFill();
+		
 		container.addChild(
-			this.inner,
 			this.frame,
+			this.background,
+			this.inner,
 			this.button
 		);
 	}
@@ -104,6 +111,7 @@
 		this.frame.visible = false;
 		this.visible = false;
 		this.button.visible = false;
+		this.background.visible = false;
 		console.log(this.inner);
 		if (this.inner.children.length > 1) {
 			this.inner.removeChildren(1);
@@ -116,6 +124,7 @@
 		this.inner.visible = true;
 		this.frame.visible = true;
 		this.button.visible = true;
+		this.background.visible = true;
 		this.evtHandler('show', {
 			container: this.inner,
 			height: this.width,
@@ -128,6 +137,20 @@
 			}
 		});
 	};
+
+	Dialog.prototype.setAchtergrond = function(asset) {
+		this.background.removeChildren();
+		if (asset) {
+			const bg = new PIXI.Sprite(asset.texture);
+			const margin = 5;
+			this.background.addChild(bg);
+			const factor = Math.max(this.height / bg.height, this.width / bg.width);
+			bg.height = this.height / factor;
+			bg.width = this.width / factor;
+			bg.x = (this.width - bg.width) / 2;
+			bg.y = (this.height - bg.height) / 2;
+		}
+	}
 
 	PIXI.game = PIXI.game || {};
 	PIXI.game.Dialog = Dialog;

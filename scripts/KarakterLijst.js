@@ -37,6 +37,7 @@ getModule('GameStorage', function(GameStorage) {
 			personage: data.personage || '',
 			leven: bereken(data.leven, level),
 			aanval: bereken(data.aanval, level),
+			verdediging: bereken(data.verdediging, level),
 			snelheid: bereken(data.snelheid, level, 1),
 			energiepunten: bereken(data.energiepunten),
 			skills: data.skills,

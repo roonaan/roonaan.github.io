@@ -7,8 +7,9 @@
 		"width": 32,
 		"animationSpeed": 0.1
 	},
-	"leven": [50, 200],
-	"aanval": [1, 10],
+	"leven": [50, 300],
+	"aanval": [5, 255],
+	"verdediging": [5, 255],
 	"snelheid": [6, 10],
 	"energiepunten": [10],
 	"skills": [
@@ -16,14 +17,14 @@
 			"id": "bijten",
 			"naam": "Bijten!",
 			"energiepunten": 1,
-			"schade": 5
+			"kracht": 3
 		},
 		{
 			"id": "keutel",
 			"naam": "Keutel aanval!!",
 			"energiepunten": 6,
-			"schade": 10,
-			"nevenschade": 5
+			"kracht": 10,
+			"nevenschade": true
 		}
 	]
 }

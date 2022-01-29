@@ -6,6 +6,7 @@
     --font-size-tiny: 2vw;
     --padding: 4vw;
     --v1: 1vw;
+    --avatar-large: 10vw;
   }
 }
 
@@ -17,6 +18,7 @@
     --font-size-tiny: 2vh;
     --padding: 4vh;
     --v1: 1vh;
+    --avatar-large: 10vh;
   }
 }
 :root {

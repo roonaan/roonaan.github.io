@@ -81,7 +81,7 @@ getModule('CanvasSize', function(CANVAS) {
 					const spec = vijand.vijand;
 					if (!(spec in VijandDetails)) {
 						VijandDetails[spec] = { geladen: false };
-						http.get('karakters/Vijanden/' + spec + '.json?' + new Date().getTime(), function(text) {
+						http.getOnce('karakters/Vijanden/' + spec + '.json', function(text) {
 							VijandDetails[spec] = JSON.parse(text);
 							VijandDetails[spec].geladen = true;
 						})
@@ -196,6 +196,7 @@ getModule('CanvasSize', function(CANVAS) {
 				pixi.box.addChild(sprite);
 				pixi.registerEventArea(sprite, () => {
 					console.log('Een gevecht begint', vijand);
+					pixi.dialog.setAchtergrond(resources.achtergrond);
 					pixi.dialog.open((evt, data) => {
 						if (evt === 'show') {
 							const gev = new PIXI.game.Gevecht(data.container, vijand, [pixi.speler.id], (gewonnen) => {
@@ -271,7 +272,7 @@ getModule('CanvasSize', function(CANVAS) {
 
 	Pixi.prototype.laadGevechtsGegevens = function(naam) {
 		const pixi = this;
-		http.get('gevechten/' + naam + '.json?' + new Date().getTime(), function(text) {
+		http.getOnce('gevechten/' + naam + '.json', function(text) {
 			const json = JSON.parse(text);
 			const kaart = json.kaart;
 			pixi.startPunt = json['start-punt'];
@@ -291,6 +292,10 @@ getModule('CanvasSize', function(CANVAS) {
 			}
 			pixi.tileSize = kaart.tileSize;
 			pixi.eindPunt = json['eind-punt'];
+			if (json.achtergrond) {
+				pixi.resources.achtergrond = json.achtergrond;
+				pixi.achtergrond = json.achtergrond;
+			}
 			const map = kaart.tegels.map(function(regel) {
 				return regel.map(function(cel) {
 					const parts = cel.split(',');
@@ -317,7 +322,7 @@ getModule('CanvasSize', function(CANVAS) {
 		const collision = this.collissionMap;
 
 		const kaart = this.kaart;
-		const bg = 'Tile_5.png';
+		const bg = kaart.achtergrond || 'Tile_5.png';
 
 		kaart.forEach((row, rowIndex) => {
 			const top = rowIndex * this.tileSize;
@@ -517,7 +522,7 @@ getModule('CanvasSize', function(CANVAS) {
 						alpha -= delta;
 						if (alpha <= -50) {
 							ticker.destroy();
-							console.log('We zijn hier klaar. Het gevecht is over');
+							console.log('We zijn hier klaar. Het avontuur is over');
 							this.node.dispatchEvent(new CustomEvent('gevecht-complete', { bubbles: true}));							
 						}
 					});

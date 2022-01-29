@@ -1,5 +1,7 @@
 getModule('KarakterLijst', function(KarakterLijst) {
 
+	const details = {};
+
 	function Pages_Karakters(node) {
 		this.node = node;
 		this.listNode = node.querySelector('[data-karakters]');
@@ -18,8 +20,10 @@ getModule('KarakterLijst', function(KarakterLijst) {
 
 	Pages_Karakters.prototype.setPaginaDetails = function(title, label) {
 		this.node.querySelector('#bovenbalk h1').innerHTML = label || title;
-		if (title == 'Karakters') {		this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'binnenstad');
-		} else {	this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'karakters');
+		if (title == 'Karakters') {
+			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'binnenstad');
+		} else {
+			this.node.querySelector('#bovenbalk .terug-knop').setAttribute('data-page', 'karakters');
 		}
 	}
 
@@ -42,6 +46,18 @@ getModule('KarakterLijst', function(KarakterLijst) {
 		nodes.className = 'karakter-lijst full-screen';
 		for (var i = 0, c = karakters.length; i < c; i++) {
 			const karakter = karakters[i];
+			const id = karakter.id;
+			if (!(id in details)) {
+				details[id] = {};
+				KarakterLijst.getKarakter(id, (d) => {
+					details[id] = d;
+					this.toonOverzicht();
+				});
+			} else {
+				karakter.naam = details[id].naam || karakter.naam;
+				karakter.avatar = details[id].avatar || karakter.avatar;
+				karakter.leven = details[id].leven || 0;
+			}
 			const node = document.createElement('div');
 			node.className = 'karakter';
 			node.innerHTML = '<div class="karakter-plaatje"></div><div class="karakter-naam"></div><div class="karakter-level"></div>';
@@ -49,6 +65,11 @@ getModule('KarakterLijst', function(KarakterLijst) {
 			node.querySelector('.karakter-naam').appendChild(document.createTextNode(karakter.naam || karakter.id));
 			node.querySelector('.karakter-level').appendChild(document.createTextNode(karakter.level || 1));
 			nodes.appendChild(node);
+			if (karakter.avatar) {
+				const img = document.createElement('img');
+				img.src = karakter.avatar;
+				node.querySelector('.karakter-plaatje').appendChild(img);
+			}
 			node.addEventListener('click', function() {
 				karakterLijst.toonKarakter(karakter);
 			});

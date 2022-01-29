@@ -3,6 +3,7 @@
 	"spelvariant": "pixi",
 	"titel": "Een boze veldmuis",
 	"speler": "oertijd-greta",
+	"achtergrond": "assets/images/deviantart/desert_by_marcopellino_dajcy9x-fullview.jpg",
 	"kaart": {
 		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
 		"shared": [

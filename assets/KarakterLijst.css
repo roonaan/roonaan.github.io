@@ -2,32 +2,36 @@
 	overflow: auto;
 }
 
-.karakter-lijst:after {
+.karakter-lijst .karakter:after {
 	clear: both;
 	content: ' ';
 	display: block;
 	width: 100%;
 	height: 1px;
 }
-
 .karakter-lijst .karakter {
 	display: block;
-	border-radius: 2vw;
+	border-radius: var(--padding);
 	border: solid 1px maroon;
-	margin: 2vw 1vw;
-	padding: 2vw;	
+	margin: var(--margin-large) var(--margin);
+	padding: var(--padding);	
 	background: navajowhite;
 	position: relative;
+	text-align: center;
 }
 .karakter-lijst .karakter-plaatje {
-	width: 25%;
 	float: left;
 	border: solid 1px maroon;
-	border-radius: 2vw;
-	margin-right: 5%;
+	border-radius: var(--padding-small);
+	margin-right: var(--margin);
+}
+.karakter-lijst .karakter-plaatje img {
+	max-height: var(--avatar-large, 5vw);
+	margin: var(--margin-small);
 }
 .karakter-lijst .karakter-naam {
-	font-size: 4vw;
+	font-size: var(--font-size-large);
+	text-align: left;
 }
 .karakter-lijst .karakter-level {
 	position: absolute;
