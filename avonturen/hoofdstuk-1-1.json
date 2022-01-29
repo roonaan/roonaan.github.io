@@ -83,11 +83,26 @@
       "gevecht": "gevecht-1-1-6",
       "beloning": {
         "eerste-keer": [
-           ["spirit", 50, 100]
+           ["spirit", 10, 100]
         ],
         "altijd": [
            ["muizenstaart", 1, 90],
            ["muizenstaart", 1, 75]
+        ]
+      }
+    },
+    {
+      "id": "hoofdstuk-1-1-7",
+      "titel": "7. Er moet nog een titel",
+      "alleen-na": ["hoofdstuk-1-1-6"],
+      "gesprek": "gesprek-1-1-7",
+      "beloning": {
+        "eerste-keer": [
+           ["spirit", 10, 100]
+        ],
+        "altijd": [
+           ["visgraat", 1, 90],
+           ["worm", 1, 75]
         ]
       }
     }

@@ -134,9 +134,8 @@ button {
   background: #00A300;
 }
 .start-knop.voltooid {
-  text-decoration: line-through;
   margin: 1% 25%;
-  background: yellow-green;
+  background: yellowgreen;
   font-size: var(--font-size-small);
 }
 .menu-knop {

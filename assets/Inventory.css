@@ -33,7 +33,7 @@
   left: 5%;
   right: 5%;
   bottom: 0;
-  background: maroon;
+  background: rgba(128,0,0,0.9);
   color: white;
   padding: var(--padding-small);
   font-size: var(--font-size-small);
@@ -49,8 +49,8 @@
   top: 2px;
   right: 2px;
   border-radius: 100px;
-  background: maroon;
+  background: rgba(128,0,0,0.9);
   color: white;
-  padding: var(--padding-small);  
-  font-size: var(--font-size-tiny);
+  padding: 1px 5px;  
+  font-size: var(--font-size-small);
 }

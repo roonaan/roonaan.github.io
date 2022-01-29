@@ -1,0 +1,16 @@
+Greta.kant=links
+Greta.class=greta
+Grumble.class=grumble
+Grumble.kant=rechts
+Verteller.praat=Grumble kwam terug van zijn bijdehante missie.
+Verteller.praat=Hij wist niet dat Greta achter de grot een nieuwe knots voor Grumble aan het maken was.
+Verteller.praat=Want de oude is versleten door het jagen en muizen meppen.
+Verteller.praat=Dus Grumble kwam terug, en wou achter de grot een dutje in zijn hangmat doen.
+Grumble.praat=Nou, Greta had dus toch gelijk over die muizen!
+Grumble.praat=Ze waren behoorlijk snel, en ik sloeg vaak mis!
+Greta.praat=Oh, hoi Grumble. jij bent snel terug!
+Greta.praat=Waren de muizen te snel voor je? hihi!
+Grumble.praat=Ach, houd je mond! Vroeg of laat plet ik die rotbeesten!!!
+Greta.praat=Zo hee! jij hebt grof taalgebruik, zeg!
+Grumble.praat=Grumble
+Koe.praat=Moooooeeeee!

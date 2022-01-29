@@ -1,0 +1,112 @@
+{
+	"id": "gevecht-1-1-4",
+	"spelvariant": "pixi",
+	"speler": "oertijd-greta",
+	"titel": "Een bozere veldmuis",
+	"achtergrond": "assets/images/deviantart/desert_by_marcopellino_dajcy9x-fullview.jpg",
+	"kaart": {
+		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
+		"shared": [
+			"kampvuur"
+		],
+		"tileSize": 250,
+		"achtergrond": "Tile_5",
+		"tegels": [
+			["Tile_5,Object_5", "Tile_10", "Tile_8", "Tile_8", "Tile_8", "Tile_8", "Tile_8", "Tile_8", "Tile_8"],
+			["Tile_5", "Tile_6",  "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5"],
+			["Tile_5", "Tile_15", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_1", "Tile_2","Tile_2"],
+			["Tile_5", "Tile_6",  "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_14", "Tile_5", "Tile_5"],
+			["Tile_5", "Tile_15", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_7", "Tile_8","Tile_8"],
+			["Tile_5", "Tile_6",  "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5", "Tile_5"],
+			["Tile_5", "Tile_12", "Tile_2", "Tile_2", "Tile_2", "Tile_2", "Tile_2", "Tile_2", "Tile_2"]
+		],
+		"objecten": [
+			{
+				"tegel": "Object_7.png",
+				"x": 8,
+				"y": 6,
+				"beloning": {
+					"eenmalig": [
+						["spirit", 50, 100]
+					]
+				}
+			},
+			{
+				"tegel": "Object_7.png",
+				"x": 7,
+				"y": 3,
+				"beloning": {
+					"eenmalig": [
+						["spirit", 50, 100]
+					]
+				}
+			},
+			{
+				"tegel": "Object_17.png",
+				"x": 1,
+				"y": 0
+			},
+			{
+				"tegel": "Object_18.png",
+				"x": 5,
+				"y": 4
+			},
+			{
+				"animatie": "kampvuur#main",
+				"snelheid": 0.1,
+				"x": 8.1,
+				"y": 2.2,
+				"scale": 3
+			}
+		]
+	},
+	"eind-punt": [8, 3],
+	"start-punt": [4, 2],
+	"vijanden": [
+		{
+			"positie": [2, 5],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 10,
+					"experience": 10
+			}]
+		},
+		{
+			"positie": [2, 6],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 10,
+					"experience": 10
+			}]
+		},
+		{
+			"positie": [3, 5],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 12,
+					"experience": 10
+			}]
+		},
+		{
+			"positie": [4, 5],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 10,
+					"experience": 10
+			}]
+		},
+		{
+			"positie": [4, 6],
+			"vijanden": [{
+					"kans": 100,
+					"vijand": "veldmuis",
+					"niveau": 10,
+					"experience": 10
+			}]
+		}
+	]
+}

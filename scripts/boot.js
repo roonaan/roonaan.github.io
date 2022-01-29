@@ -17,7 +17,6 @@ function start(rootNode) {
 }
 
 function enhance(rootNode) {
-  rootNode.style.border = "solid 1px green";
   onEvent(rootNode.querySelectorAll('[data-page]'), 'click', onPageChange);
   applyAll(rootNode, 'data-widget', widget);
   applyAll(rootNode, 'data-if', dataIf);
