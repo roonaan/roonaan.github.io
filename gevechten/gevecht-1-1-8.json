@@ -4,14 +4,17 @@
 	"speler": "oertijd-greta",
 	"titel": "Een bozere veldmuis",
 	"achtergrond": "assets/images/deviantart/desert_by_marcopellino_dajcy9x-fullview.jpg",
+
+	
 	"kaart": {
+		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
 		"shared": [
-			"kampvuur"
+		  "kampvuur"
 		],
 		"tileSize": 250,
 		"achtergrond": "Tile_5",
 		"tegels": [
-			[
+		  [
 			"Tile_5,Tile_4",
 			"Tile_5",
 			"Tile_5",
@@ -20,7 +23,7 @@
 			"Tile_5,Tile_8",
 			"Tile_8",
 			"Tile_8,Tile_11",
-			"Tile_11,Tile_10,Tile_5,Object_7",
+			"Tile_5",
 			"Tile_10",
 			"Tile_8",
 			"Tile_8",
@@ -36,8 +39,8 @@
 			"Tile_8",
 			"Tile_8",
 			"Tile_11"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_7",
 			"Tile_8",
 			"Tile_11",
@@ -62,8 +65,8 @@
 			"Tile_2",
 			"Tile_3",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_5",
 			"Tile_5",
 			"Tile_5,Tile_7",
@@ -88,10 +91,10 @@
 			"Tile_11",
 			"Tile_6",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_1",
-			"Tile_5,Tile_17",
+			"Tile_17",
 			"Tile_5,Tile_2",
 			"Tile_5,Tile_2",
 			"Tile_5,Tile_3",
@@ -108,14 +111,14 @@
 			"Tile_2",
 			"Tile_3",
 			"Tile_4",
-			"Tile_6,Tile_15",
+			"Tile_15",
 			"Tile_5",
 			"Tile_5",
 			"Tile_4",
 			"Tile_6",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_4",
 			"Tile_5",
 			"Tile_5",
@@ -140,8 +143,8 @@
 			"Tile_13",
 			"Tile_6",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_7",
 			"Tile_5,Tile_8",
 			"Tile_5,Tile_8",
@@ -166,8 +169,8 @@
 			"Tile_8,Tile_11",
 			"Tile_12",
 			"Tile_13"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_1",
 			"Tile_3",
 			"Tile_1",
@@ -192,8 +195,8 @@
 			"Tile_13",
 			"Tile_5,Tile_10",
 			"Tile_5,Tile_11"
-			],
-			[
+		  ],
+		  [
 			"Tile_4",
 			"Tile_6",
 			"Tile_4",
@@ -218,8 +221,8 @@
 			"Tile_8",
 			"Tile_9",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_13",
 			"Tile_15",
 			"Tile_7",
@@ -244,8 +247,8 @@
 			"Tile_1",
 			"Tile_3",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_12,Tile_11",
 			"Tile_12",
 			"Tile_3",
@@ -270,8 +273,8 @@
 			"Tile_13",
 			"Tile_6",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_4",
 			"Tile_10",
 			"Tile_9",
@@ -296,8 +299,8 @@
 			"Tile_16",
 			"Tile_9",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_4",
 			"Tile_12",
 			"Tile_2",
@@ -322,8 +325,8 @@
 			"Tile_5",
 			"Tile_5",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_7,Tile_4",
 			"Tile_8,Tile_10",
 			"Tile_8",
@@ -348,8 +351,8 @@
 			"Tile_2",
 			"Tile_17",
 			"Tile_13,Object_2"
-			],
-			[
+		  ],
+		  [
 			"Tile_7",
 			"Tile_9",
 			"Tile_1",
@@ -374,8 +377,8 @@
 			"Tile_6,Tile_10",
 			"Tile_5,Tile_8",
 			"Tile_4,Tile_11,Object_2"
-			],
-			[
+		  ],
+		  [
 			"Tile_3",
 			"Tile_1",
 			"Tile_13",
@@ -398,13 +401,13 @@
 			"Tile_5",
 			"Tile_4",
 			"Tile_6",
-			"Tile_5,Object_7",
+			"Tile_5",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_6",
 			"Tile_5,Tile_7",
-			"Tile_5,Tile_16",
+			"Tile_16",
 			"Tile_5,Tile_11",
 			"Tile_6",
 			"Tile_5",
@@ -426,8 +429,8 @@
 			"Tile_5,Tile_12",
 			"Tile_3",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_5,Tile_6",
 			"Tile_5",
 			"Tile_5",
@@ -452,8 +455,8 @@
 			"Tile_5",
 			"Tile_3,Tile_6",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_12",
 			"Tile_2",
 			"Tile_2",
@@ -478,15 +481,15 @@
 			"Tile_8",
 			"Tile_9",
 			"Tile_4"
-			],
-			[
+		  ],
+		  [
 			"Tile_8",
 			"Tile_8",
 			"Tile_8",
 			"Tile_8",
 			"Tile_8",
 			"Tile_9",
-			"Tile_8,Tile_5,Object_7",
+			"Tile_5",
 			"Tile_7",
 			"Tile_8",
 			"Tile_8",
@@ -504,8 +507,8 @@
 			"Tile_2",
 			"Tile_2",
 			"Tile_13"
-			],
-			[
+		  ],
+		  [
 			"Tile_2",
 			"Tile_2",
 			"Tile_2",
@@ -527,12 +530,112 @@
 			"Tile_2",
 			"Tile_2",
 			"Tile_13"
-			]
+		  ]
 		],
-		"terrein": "assets/terrein/opa-free-desert/opa-free-desert.json",
 		"objecten": [
+		  {
+			"x": 7.5,
+			"y": 2,
+			"tegel": "Object_16.png"
+		  },
+		  {
+			"x": 8,
+			"y": 0,
+			"tegel": "Object_7.png",
+			"beloning": {
+			  "eenmalig": [
+				[
+				  "touw",
+				  "5"
+				],
+				[
+				  "basalt"
+				]
+			  ],
+			  "altijd": [
+				[
+				  "basal1",
+				  null,
+				  "25"
+				],
+				[
+				  "visgraat",
+				  null,
+				  "50"
+				],
+				[
+				  "visgraat",
+				  "3",
+				  "25"
+				],
+				[
+				  "basalt",
+				  null,
+				  "25"
+				]
+			  ]
+			}
+		  },
+		  {
+			"tegel": "Object_7.png",
+			"x": 6,
+			"y": 18,
+			"beloning": {
+			  "eenmalig": [
+				[
+				  "touw"
+				],
+				[
+				  "basalt"
+				]
+			  ],
+			  "altijd": [
+				[
+				  "basal1",
+				  null,
+				  "25"
+				]
+			  ]
+			}
+		  },
+		  {
+			"tegel": "Object_7.png",
+			"x": 22,
+			"y": 14,
+			"beloning": {
+			  "eenmalig": [
+				[
+				  "touw",
+				  "5"
+				],
+				[
+				  "basalt"
+				]
+			  ],
+			  "altijd": [
+				[
+				  "basal1",
+				  null,
+				  "25"
+				]
+			  ]
+			}
+		  },
+		  {
+			"tegel": "Object_20.png",
+			"x": 3.5,
+			"y": 2.4
+		  },
+		  {
+			"x": 1.7,
+			"y": 3.1,
+			"tegel": "Object_8.png"
+		  }
 		]
-	},
+	  },
+	  "vijanden": []
+	,
+
 	"eind-punt": [17, 16],
 	"start-punt": [0, 2.7],
 	"x-vijanden": [
