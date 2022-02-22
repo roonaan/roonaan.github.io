@@ -40,6 +40,13 @@ getModules('GameStorage', 'pixi/Engine', function(GameStorage) {
             });
             editor.onLaagChange(true);
 
+            node.querySelector('[data-reset]').addEventListener('click', () => {
+                if (window.confirm('Weet je zeker dat je alle wijzigingen wil weghalen?')) {
+                    STORE.removeItem('model');
+                    document.location.reload();
+                }
+            })
+
             node.querySelector('[data-export]').addEventListener('click', () => {
                 document.addEventListener('copy', function(e) {
                     const tegels = editor.getTegels();
