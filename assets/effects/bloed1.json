@@ -1,0 +1,69 @@
+{
+  "lifetime": { "min": 0.6, "max": 1 },
+  "frequency": 0.08,
+  "emitterLifetime": 1,
+  "maxParticles": 100,
+  "addAtBack": false,
+  "pos": { "x": 0, "y": 0 },
+  "behaviors": [
+    {
+      "type": "alpha",
+      "config": {
+        "alpha": {
+          "list": [
+            { "time": 0, "value": 1 },
+            { "time": 1, "value": 0.6 }
+          ]
+        }
+      }
+    },
+    {
+      "type": "moveAcceleration",
+      "config": {
+        "accel": { "x": 0, "y": -50 },
+        "minStart": 101.49999999999999,
+        "maxStart": 50,
+        "rotate": false,
+        "maxSpeed": 500
+      }
+    },
+    { "type": "scaleStatic", "config": { "min": 1, "max": 1 } },
+    {
+      "type": "color",
+      "config": {
+        "color": {
+          "list": [
+            { "time": 0, "value": "#7a141a" },
+            { "time": 1, "value": "#9e1313" }
+          ]
+        }
+      }
+    },
+    { "type": "rotationStatic", "config": { "min": -100, "max": -80 } },
+    { "type": "noRotation", "config": {} },
+    { "type": "blendMode", "config": { "blendMode": "multiply" } },
+    {
+      "type": "textureRandom",
+      "config": {
+        "textures": [
+          "assets/effects/particles/Basic/ding_blood/dingbats-404.png",
+          "assets/effects/particles/Basic/ding_blood/dingbats-415.png",
+          "assets/effects/particles/Basic/ding_blood/dingbats-418.png"
+        ]
+      }
+    },
+    {
+      "type": "spawnShape",
+      "config": {
+        "type": "torus",
+        "data": {
+          "x": 0,
+          "y": 0,
+          "radius": 25,
+          "innerRadius": 0,
+          "affectRotation": false
+        }
+      }
+    }
+  ]
+}

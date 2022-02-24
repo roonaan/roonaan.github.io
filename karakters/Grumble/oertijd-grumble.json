@@ -23,7 +23,8 @@
 			"omschrijving": "Medium aanval. Grrrrr. Ik kan je niet uitstaan!",
 			"energiepunten": 7,
 			"kracht": 5,
-			"nevenschade": true
+			"nevenschade": true,
+			"animatie": "klappen1"
 		},
 		{
 			"id": "aardschok",

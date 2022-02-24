@@ -1,0 +1,71 @@
+{
+  "lifetime": { "min": 0.6, "max": 1 },
+  "frequency": 0.08,
+  "emitterLifetime": 1,
+  "maxParticles": 100,
+  "addAtBack": false,
+  "pos": { "x": 0, "y": 0 },
+  "behaviors": [
+    {
+      "type": "alpha",
+      "config": {
+        "alpha": {
+          "list": [
+            { "time": 0, "value": 1 },
+            { "time": 1, "value": 0.6 }
+          ]
+        }
+      }
+    },
+    {
+      "type": "moveAcceleration",
+      "config": {
+        "accel": { "x": 0, "y": -50 },
+        "minStart": 101.49999999999999,
+        "maxStart": 50,
+        "rotate": false,
+        "maxSpeed": 500
+      }
+    },
+    {
+      "type": "scale",
+      "config": {
+        "scale": {
+          "list": [
+            { "time": 0, "value": 0.03 },
+            { "time": 1, "value": 0.01 }
+          ]
+        },
+        "minMult": 1
+      }
+    },
+    {
+      "type": "color",
+      "config": {
+        "color": {
+          "list": [
+            { "time": 0, "value": "#ff0011" },
+            { "time": 1, "value": "#ff00a2" }
+          ]
+        }
+      }
+    },
+    { "type": "rotationStatic", "config": { "min": -100, "max": -80 } },
+    { "type": "noRotation", "config": {} },
+    { "type": "blendMode", "config": { "blendMode": "add" } },
+    { "type": "textureSingle", "config": { "texture": "assets/effects/particles/Basic/ding_shapes/dingbats-490.png" } },
+    {
+      "type": "spawnShape",
+      "config": {
+        "type": "torus",
+        "data": {
+          "x": 0,
+          "y": 0,
+          "radius": 25,
+          "innerRadius": 0,
+          "affectRotation": false
+        }
+      }
+    }
+  ]
+}
