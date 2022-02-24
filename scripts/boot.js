@@ -197,13 +197,21 @@ function loadPage(node, pagina) {
 
 const http = {
   requestLimit: 50,
+  fixUrl: function(url) {
+      if (document.location.origin === 'file://') {
+        const base = document.location.pathname.replace(/\/[^/]+$/, '');
+        console.warn('We have to adjust the file base to get proper loading', base, url);
+        return base + (url.startsWith('/') ? url : ('/' + url));
+      }
+      return url;
+  },
   get: function(url, onload, onerror) {
     if (http.requestLimit-- < 0) {
       console.log('We reached the request limit');
       return;
     }
     var client = new XMLHttpRequest();
-    client.open('GET', url);
+    client.open('GET', http.fixUrl(url));
     client.onreadystatechange = function() {
       if(client.readyState === XMLHttpRequest.DONE) {
         var status = client.status;

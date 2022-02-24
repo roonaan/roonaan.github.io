@@ -1,0 +1,105 @@
+{
+  "lifetime": {
+    "min": 0.1,
+    "max": 4
+  },
+  "frequency": 0.016,
+  "emitterLifetime": 1,
+  "maxParticles": 500,
+  "addAtBack": false,
+  "pos": {
+    "x": 0,
+    "y": 0
+  },
+  "behaviors": [
+    {
+      "type": "alpha",
+      "config": {
+        "alpha": {
+          "list": [
+            {
+              "time": 0,
+              "value": 1
+            },
+            {
+              "time": 1,
+              "value": 0.22
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "moveSpeed",
+      "config": {
+        "speed": {
+          "list": [
+            {
+              "time": 0,
+              "value": 200
+            },
+            {
+              "time": 1,
+              "value": 180
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "scale",
+      "config": {
+        "scale": {
+          "list": [
+            {
+              "time": 0,
+              "value": 0.25
+            },
+            {
+              "time": 1,
+              "value": 0.75
+            }
+          ]
+        },
+        "minMult": 0.5
+      }
+    },
+    {
+      "type": "color",
+      "config": {
+        "color": {
+          "list": [
+            {
+              "time": 0,
+              "value": "fb1010"
+            },
+            {
+              "time": 1,
+              "value": "f5b830"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "rotation",
+      "config": {
+        "accel": 0,
+        "minSpeed": 0,
+        "maxSpeed": 100,
+        "minStart": 0,
+        "maxStart": 360
+      }
+    },
+    {
+      "type": "textureRandom",
+      "config": {
+        "textures": ["assets/effects/particles/Basic/star/shape_star_20.png"]
+      }
+    },
+    {
+      "type": "spawnPoint",
+      "config": {}
+    }
+  ]
+}

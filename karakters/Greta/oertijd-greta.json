@@ -24,7 +24,8 @@
 			"naam": "Super trap!",
 			"omschrijving": "Medium aanval. He, kijk eens omhoog. Haha! Wat lig je daar nou?",
 			"energiepunten": 4,
-			"kracht": 4
+			"kracht": 4,
+			"animatie": "ontploffing1"
 		},
 		{
 			"id": "megaworp",
@@ -33,7 +34,8 @@
 			"energiepunten": 13,
 			"kracht": 8,
 			"nevenschade": true,
-			"extra-snelheid": 5
+			"extra-snelheid": 5,
+			"animatie": "ontploffing1"
 		}
 	]
 

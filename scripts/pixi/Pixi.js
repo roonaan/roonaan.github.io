@@ -4,7 +4,8 @@ getModule('CanvasSize', function(CANVAS) {
 		'libs/pixi.6.2.1.dev.js',
 		'libs/pixi-layers.min.js',
 		'scripts/pixi/pixi-dialog.js',
-		'scripts/pixi/pixi-gevecht.js'
+		'scripts/pixi/pixi-gevecht.js',
+		'libs/pixi-particles.js'
 	];
 
 	function loadLibraries(callback) {

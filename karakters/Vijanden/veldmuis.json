@@ -17,14 +17,16 @@
 			"id": "bijten",
 			"naam": "Bijten!",
 			"energiepunten": 1,
-			"kracht": 3
+			"kracht": 3,
+			"animatie": "ontploffing1"
 		},
 		{
 			"id": "keutel",
 			"naam": "Keutel aanval!!",
 			"energiepunten": 6,
 			"kracht": 10,
-			"nevenschade": true
+			"nevenschade": true,
+			"animatie": "ontploffing1"
 		}
 	]
 }
