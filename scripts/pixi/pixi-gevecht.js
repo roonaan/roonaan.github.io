@@ -84,7 +84,6 @@ getModule('gevecht/Vechter', function(Vechter) {
             const animatieTekst = mis ? "Mis!" : (skill.naam || skill.id)
             let counter = skill.energiepunten * 300;
             const max = counter;
-            const ticker = new PIXI.Ticker();
             const text = new PIXI.Text(animatieTekst, {
                 fontFamily: "Arial",
                 fontSize,
@@ -95,37 +94,63 @@ getModule('gevecht/Vechter', function(Vechter) {
             text.y = window.innerHeight / 2;
             this.parent.addChild(text);
 
-            const directionX = -10 + Math.random() * 20;
-            const directionY = -10 + Math.random() * 20;
+            if (skill.animatie && !mis) {
+                // Gekke animations
+                http.getOnce('assets/effects/' + skill.animatie + ".json", (configText) => {
+                    const config = JSON.parse(configText);
+                    const emitContainer = new PIXI.Container();     
+                    emitContainer.x = text.x;
+                    emitContainer.y = text.y;
+                    this.parent.addChild(emitContainer);
+                    config.autoUpdate = true;
+                    config.destroyWhenComplete = true;
+                    var emitter = new PIXI.particles.Emitter(
+                        emitContainer,
+                        config
+                    );
+                    setTimeout(() => {
+                        text.parent.removeChild(text);
+                        text.destroy();
+                        emitContainer.parent.removeChild(emitContainer);
+                        emitContainer.destroy();
+                        emitter.autoUpdate = false;
+                        emitter.emit = false;
+                        emitter.destroy();
+                    }, (1 + config.emitterLifetime * 1000));
+                })
+            } else {
+                const directionX = -10 + Math.random() * 20;
+                const directionY = -10 + Math.random() * 20;
+                const ticker = new PIXI.Ticker();
+                ticker.add((delta) => {
+                    const factor = max === counter ? 1 : Math.sqrt(max - counter) ;
+                    counter = Math.max(0, counter - delta * factor/50);
 
-            ticker.add((delta) => {
-                const factor = max === counter ? 1 : Math.sqrt(max - counter) ;
-                counter = Math.max(0, counter - delta * factor/50);
+                    text.x += directionX * delta / 5;
+                    text.y += directionY * delta / 5;
 
-                text.x += directionX * delta / 5;
-                text.y += directionY * delta / 5;
+                    if (text.y < -500 || text.y > window.innerHeight + 500) {
+                        counter = 0;
+                    }
 
-                if (text.y < -500 || text.y > window.innerHeight + 500) {
-                    counter = 0;
-                }
+                    if (text.x < -500 || text.x > window.innerWidth + 500) {
+                        counter = 0;
+                    }
 
-                if (text.x < -500 || text.x > window.innerWidth + 500) {
-                    counter = 0;
-                }
-
-                if (this.isVijand) {
-                    text.angle += factor;
-                } else {
-                    text.angle -= factor;
-                }
-                text.alpha = 1 / max * counter;
-                if (counter === 0) {
-                    text.parent.removeChild(text);
-                    text.destroy();
-                    ticker.destroy();
-                }
-            });
-            ticker.start();
+                    if (this.isVijand) {
+                        text.angle += factor;
+                    } else {
+                        text.angle -= factor;
+                    }
+                    text.alpha = 1 / max * counter;
+                    if (counter === 0) {
+                        text.parent.removeChild(text);
+                        text.destroy();
+                        ticker.destroy();
+                    }
+                });
+                ticker.start();
+            }
         }
         
         render(parent, resources, x, y) {
